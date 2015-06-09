@@ -1,0 +1,4 @@
+cron:
+- description: Removing the data of candidates who doesn't confirm within 3 days
+  url: /crons/check
+  schedule: every 1 hours

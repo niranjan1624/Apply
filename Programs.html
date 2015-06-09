@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link type="text/css" rel="stylesheet" href="/style.css">
+<title>Programs & Majors</title>
+</head>
+    <body border=\"1\" style=\"width:100%\">
+	</br>
+	</br>
+	<div class="container">
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-1"></div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-10">
+		<form id="myForm" class="form-horizontal" name="myForm" action="javascript:void(0);">
+		<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Program/Major</h4>
+			<select class="form-control" id="type">
+				  <option>Select</option>
+				  <option value="Programs">Program</option>
+				  <option value="Majors">Major</option>
+			</select>
+		<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title</h4>
+		<textarea rows="2" cols="46" id="title"></textarea>
+		<div class="form-group">
+			<label for="ec1" class="control-label col-xs-4"></label>
+			<div class="col-xs-8">
+				<input id="submit" type="submit" value="Submit" class="btn btn-primary">
+			</div>
+		</div>
+		</form>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-1"></div>
+		</div>
+   </body>
+<script>
+	 $('form#myForm').submit(function() {
+	 console.log("myfirm");
+	 values = {}
+		$("form#myForm :input").each(function(){
+			var input = $(this);
+			var str = input.val();
+			var id = input.attr("id");
+			if(id != "submit") {
+				values[id] = str
+			}
+			console.log(id+" "+str)
+	 });
+	 $.post( "/meta/saveprogmaj",values, function( data ) {
+				console.log(data);
+			});
+	 });
+
+</script>
+</html>

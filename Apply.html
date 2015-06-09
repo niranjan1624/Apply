@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link type="text/css" rel="stylesheet" href="/style.css">
+<link type="text/css" rel="stylesheet" href="/intlTelInput.css">
+<link type="text/css" href="/bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
+<script src="intlTelInput.js"></script>
+<script src="bootstrap-formhelpers.min.js"></script>
+
+<title>Apply</title>
+</head>
+<body>
+
+		<div class="container">
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1"></div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-10 well well-lg">
+			<center><h3><b>Application for Admission</b></h3></center>
+			<br/>
+			<p id="info" name="info"></p>
+				<form id="studentForm" class="form-horizontal" name="studentForm" action="javascript:void(0);">
+					<div class="form-group">
+						<label for="programs" class="control-label col-xs-4">Program</label>
+						<div class="col-xs-8">
+							<select class="form-control" id="programs">
+								<option>Select</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="fname" class="control-label col-xs-4">First Name &nbsp;<span style="color:red;">*</span><br/></label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="fname"
+								placeholder="First Name" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="mname" class="control-label col-xs-4">Middle Name</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="mname"
+								placeholder="Middle Name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="lname" class="control-label col-xs-4">Last Name &nbsp;<span style="color:red;">*</span><br/></label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="lname"
+								placeholder="Last Name" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="dob" class="control-label col-xs-4"> Date of Birth &nbsp;<span style="color:red;">*</span><br/></label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="dob"
+								placeholder="DD-MM-YYYY" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email" class="control-label col-xs-4">Email &nbsp;<span style="color:red;">*</span><br/></label>
+						<div class="col-xs-8">
+							<input type="email" class="form-control" id="email"
+								placeholder="ex@example.com" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="mob" class="control-label col-xs-4">Mobile No &nbsp;<span style="color:red;">*</span><br/></label>
+						<div class="col-xs-8">
+						    <input type="tell" class="form-control" id="mob"
+								value="+91" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="amob" class="control-label col-xs-4">Alternate Mob No<br/></label>
+						<div class="col-xs-8">
+							<input type="tell" class="form-control" id="amob"
+								value="+91">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="ssc" class="control-label col-xs-4">SSC Marks &nbsp;<span style="color:red;">*</span><br/></label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="ssc"
+								placeholder="500" required >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="pu" class="control-label col-xs-4">12th GPA &nbsp;<span style="color:red;">*</span><br/></label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="pu"
+								placeholder="8.5" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="ec" class="control-label col-xs-4">Engineering GPA </label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="ec"
+								placeholder="8.2" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="ec" class="control-label col-xs-4">Graduate GPA </label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="gg"
+								placeholder="8.2" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="em" class="control-label col-xs-4">Engineering Major &nbsp;<span style="color:red;">*</span><br/><br/></label>
+						<div class="col-xs-8">
+							<select class="form-control" id="majors">
+								<option>Select</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="skype" class="control-label col-xs-4">Skype Id<br/> </label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="skype">
+						</div>
+					</div>
+					<br>
+					<h4> Address &nbsp;<span style="color:red;">*</span><br/> </h4>
+					<div class="form-group">
+						<label for="Address 1" class="control-label col-xs-4">Address line 1</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="address1"
+						placeholder="Address 1" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Address 2" class="control-label col-xs-4">Address line 2</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="address2"
+								placeholder="Address 2">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="country" class="control-label col-xs-4">Country</label>
+						
+						<div class="col-xs-8">
+							<select id="country" class="form-control bfh-countries" data-country="India"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="state" class="control-label col-xs-4">State</label>
+						<div class="col-xs-8">
+							<select id="state" class="form-control bfh-states" data-country="IN"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="city" class="control-label col-xs-4">City</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="city"
+								placeholder="City" required>
+						</div>
+					</div>
+										
+					<div class="form-group">
+						<label for="zipcode" class="control-label col-xs-4">Zip/Postal code</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="zipcode"
+								placeholder="Zip" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="ec1" class="control-label col-xs-4"></label>
+						<div class="col-xs-8">
+							<input id="preview" type="submit" value="Preview" class="btn btn-primary">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1"></div>
+		</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Please verify the details below</h4>
+      </div>
+      <div class="modal-body">
+        <table id="details"></table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
+        <button type="button" class="btn btn-primary" id="save">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script>
+$(document).ready(function() {
+	$("#mob").intlTelInput();
+	$("#amob").intlTelInput();
+	$.get( "/meta/getprogmaj", function( data ) {
+		//data = JSON.parse(data)
+		if (!document.documentMode) {
+			data =  jQuery.parseJSON(data);
+		}
+		html = "<option>Select</option>"
+		console.log("data programs: ");
+		for(var i = 0;i<data.Programs.length;i++) {
+			html = html + "<option value=\"" + data.Programs[i] + "\">" + data.Programs[i] + "</option>"
+			console.log(data.Programs[i]);
+		}
+	    $("#programs").html(html);
+		html = "<option>Select</option>"
+		console.log("data majors:  ");
+		for(var i = 0;i<data.Majors.length;i++) {
+			html = html + "<option value=\"" + data.Majors[i] + "\">" + data.Majors[i] + "</option>"
+			console.log(data.Majors[i]);
+		}
+		$("#majors").html(html);
+	});
+	
+});
+	
+$(function() {
+    $("#dob").datepicker({
+		changeYear: true,
+		changeMonth: true,
+		yearRange: '1980:2015',
+		dateFormat: 'dd-mm-yy' 
+	});
+  });
+ function message(msg) {
+	$("#info").show();
+	$("#info").html(msg);
+	$("#info").css({ 'color': 'red', 'font-size': '110%' });
+ }
+  $('form#studentForm').submit(function() {
+    // get all the inputs into an array.
+	//console.log("studentform");
+	  var values = {};
+	  var pass = true;
+	  var msg = ""
+	  count1 = 0;
+	  count2 = 0;
+	$("form#studentForm :input").each(function(){
+		var input = $(this);
+		var str = input.val();
+		var id = input.attr("id");
+		//console.log(input.attr("id") + "  " + input.val());
+		if(input.attr("id") != "preview" && id != "mcc") {
+			values[input.attr("id")] = str;
+				if (id == "programs") {
+					if(str == "" || str == "Select") {
+						msg = msg + "Select Program<br/>"
+						console.log(msg)
+						pass = false
+					}
+				}
+				//if (id == "majors") {
+				//	if(str == "" || str == "Select") {
+				//		msg = msg + "Please select Major <br/>"
+				//		pass = false
+				//	}
+				//}
+				 if( str != "" && (id == "fname" || id == "mname" || id == "lname" || id=="city")) {
+					var regx = /^[A-Za-z]+$/;
+					var len = 2;
+					if(id == "mname") {
+						len = 0;
+					}
+					if (!regx.test(str) || str.length < len) {
+						if(count1 == 0) {
+							msg = msg + "Only alphabates allowed for First, Middle, Last Names <br"
+							count1 = count1 + 1;
+						}
+						//$("#"+id).addClass("focus");
+						$("#"+id).focus();
+						pass = false;
+					}
+				}
+				if(id == "mob") {
+					var regx =   /^[0-9+]+$/;  
+					var len  = 13;
+					var msgg = " Enter valid mobile number <br/>"
+					//console.log(str + "   " +str.length);
+					if(str.length != 0) {
+						if(!str.match(regx) || str.length != len) {
+							msg = msg + msgg
+							$("#"+id).focus();
+							pass = false;
+						}
+					}
+				}
+				if(id == "ssc" || id == "pu" || id == "ec")  {
+					var regx =   /^[0-9.]+$/;
+					var strr = "GPA"
+					var marks = 10;
+						if(id == "ssc") {
+							regx =   /^[0-9]+$/;
+							marks = 600;
+							strr = "Marks"
+						}
+						//console.log(str*2);
+						if(!str.match(regx) || str > marks) {
+							msg = msg + " Enter valid "+strr+" <br/>";
+							console.log(id);
+							$("#"+id).focus();
+							pass = false;
+						}
+				}
+				if(id == "dob") {
+					console.log(!validateformat(str));
+					if(!validateformat(str)) {
+						msg = msg +" Enter valid Date Of Birth <br/>";
+						pass = false
+					}
+				}
+		}
+			
+	});
+//console.log($('#fname').val());
+	if(pass) {
+		$("#info").hide();
+		console.log(values);
+		"<b>First Name:</b>    "+values["fname"] +"<br/>"+"<b></b>    "+values["mname"] +"<br/>"+
+		"<b>:</b>    "+values["lname"] +"<br/>"+"<b>:</b>    "+values["dob"] +"<br/>"+"<b>:</b>    "+values["email"] +"<br/>"+
+		"<b>:</b>    "+values["mob"] +"<br/>"+"<b>:</b>    "+values["amob"] +"<br/>"+"<b>:</b>    "+values["ssc"] +"<br/>"+
+		"<b>:</b>    "+values["pu"] +"<br/>"+"<b>Engineering GPA:</b>    "+values["ec"] +"<br/>"+"<b>Engineering Major:</b>    "+values["majors"] +"<br/>"+
+		"<b>Address 1:</b>    "+values["address1"] +"<br/>"+"<b>Address 2:</b>    "+values["address2"] +"<br/>"+"<b>City:</b>    "+values["city"] +"<br/>"+
+		"<b>Zip Code:</b>    "+values["zipcode"]
+		var html = "<tr><td><b>First Name </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["fname"] + "</td></tr>"
+					+ "<tr><td><b>Middle Name: </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["mname"] + "</td></tr>"
+					+ "<tr><td><b>Last Name </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["lname"] + "</td></tr>"
+					+ "<tr><td><b>Date Of Birth </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["dob"] + "</td></tr>"
+					+ "<tr><td><b>Email </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["email"] + "</td></tr>"
+					+ "<tr><td><b>Mobile No </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["mob"] + "</td></tr>"
+					+ "<tr><td><b>Alternate Mob No </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["amob"] + "</td></tr>"
+					+ "<tr><td><b>SSC Marks </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["ssc"] + "</td></tr>"
+					+ "<tr><td><b>12th GPA </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["pu"] + "</td></tr>"
+					+ "<tr><td><b>Engineering GPA </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["ec"] + "</td></tr>"
+					+ "<tr><td><b>Graduation GPA </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["gg"] + "</td></tr>"
+					+ "<tr><td><b>Engineering Major </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["majors"] + "</td></tr>"
+					+ "<tr><td><b>Address 1 </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["address1"] + "</td></tr>"
+					+ "<tr><td><b>Address 2 </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["address2"] + "</td></tr>"
+					+ "<tr><td><b>City </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["city"] + "</td></tr>"
+					+ "<tr><td><b>State </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["state"] + "</td></tr>"
+					+ "<tr><td><b>Country </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["country"] + "</td></tr>"
+					+ "<tr><td><b>ZipCode </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["zipcode"] + "</td></tr>"
+					+ "<tr><td><b>Program </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["programs"] + "</td></tr>"
+					+ "<tr><td><b>Skype Id </b></td><td> &nbsp;&nbsp;&nbsp;&nbsp;: "+values["skype"] + "</td></tr>"
+					
+		$("#details").html(html);
+		$('#myModal').modal('show');
+		
+		//$.post( "/meta/saveDetails",values, function( data ) {
+		//		console.log(data);
+		//	});
+		$("#save").click(function(){
+			$('#myModal').modal('hide');
+			console.log(values);
+			$.post( "/meta/apply",values, function( data ) {
+				console.log(data);
+				if(data=="success") {
+					alert("Please click on the link in the email you receive within 1 hour to validate your email address.");
+					$(location).attr('href','https://niranjan-app.appspot.com');
+				} else {
+					alert(data);
+				}
+			});
+			// post the values here
+		});
+	} else {
+		message(msg);
+	}
+		
+});
+
+function checkAlphabates(str) {
+	 if( str != "" ) {
+      var regx = /^[A-Za-z]+$/;
+      if (!regx.test(str)) {
+		alert("Only alphabates allowed!");
+      }
+    }
+}
+//$("#fname").keypress(function(e){     
+//    var str = $.trim( $(this).val() );
+//   checkAlphabates(str);
+//});
+//$("#lname").keypress(function(e){     
+//    var str = $.trim( $(this).val() );
+//   checkAlphabates(str);
+//});
+
+function validateformat(date) {
+
+var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+           var Val_date=date
+		   var pass = true
+               if(Val_date.match(dateformat)){
+              var seperator1 = Val_date.split('/');
+              var seperator2 = Val_date.split('-');
+
+              if (seperator1.length>1)
+              {
+                  var splitdate = Val_date.split('/');
+              }
+              else if (seperator2.length>1)
+              {
+                  var splitdate = Val_date.split('-');
+              }
+              var dd = parseInt(splitdate[0]);
+              var mm  = parseInt(splitdate[1]);
+              var yy = parseInt(splitdate[2]);
+              var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+              if (mm==1 || mm>2)
+              {
+                  if (dd>ListofDays[mm-1])
+                  {
+                      //alert('Invalid date format!');
+                      pass = false;
+					  return false
+                  }
+              }
+              if (mm==2)
+              {
+                  var lyear = false;
+                  if ( (!(yy % 4) && yy % 100) || !(yy % 400))
+                  {
+                      lyear = true;
+                  }
+                  if ((lyear==false) && (dd>=29))
+                  {
+                      alert('Invalid date format!');
+					  pass = false
+                      return false;
+                  }
+                  if ((lyear==true) && (dd>29))
+                  {
+                      pass = false
+                      return false;
+                  }
+              }
+          }
+          else
+          {
+             pass = false
+          }
+		  return pass
+}
+
+</script>
+</html>
+
