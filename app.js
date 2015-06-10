@@ -42,5 +42,43 @@ var student = {
 						criminal_history: {
 							criminal_history:
 						}
+					},
+					
+					family: {
+						household:{
+							which_parent_do_you_live_with:
+							martial_status:
+							do_you_have_children:
+							
+						}
+						parent1: {
+							type:
+							living:
+							first_name:
+							middle_name:
+							last_name:
+							email:
+							phone:
+							address:
+							occupation:
+							employment_status:
+							name_of_employer:
+							education_level:
+						},
+						
+						parent2: {
+							type:
+							living:
+							first_name:
+							middle_name:
+							last_name:
+							email:
+							phone:
+							address:
+							occupation:
+							employment_status:
+							name_of_employer:
+							education_level:
+						}
 					}
 				  }
