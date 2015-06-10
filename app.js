@@ -2,8 +2,8 @@
 var student = {
 					login_credentials: {
 						
-						username: "",
-						password:""
+						username: "niranjan",
+						password:"pass"
 					},
 					
 					profile: {
@@ -105,5 +105,14 @@ var student = {
 							GPA_scale:
 							
 						}
+					},
+					tests: {
+						test: {
+							test_name: "",
+							highest_critical_reading_score:2,
+							highest_math_score:3,
+							highest_writing_score:4
+						}
 					}
 				  }
+	
