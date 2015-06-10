@@ -8,101 +8,101 @@ var student = {
 					
 					profile: {
 						personal_information: {
-							first_name:
-							middle_name:
-							last_name:
-							gender:
-							dob:
-							ssn_no:
+							first_name:"",
+							middle_name:"",
+							last_name:"",
+							gender:"",
+							dob:"",
+							ssn_no:"",
 						},
 						address: {
-							country:
-							adress1:
-							adress2:
-							adress3:
-							city:
-							state:
-							zip_code:
+							country:"",
+							adress1:"",
+							adress2:"",
+							adress3:"",
+							city:"",
+							state:"",
+							zip_code:""
 						},
 						contact_details: {
-							email:
-							phone_no:
-							skype_id:
+							email:"",
+							phone_no:"",
+							skype_id:""
 							
 						},
 						geography: {
-							country_of_birth:
-							city_of_birth:
-							citizenship:
+							country_of_birth:"",
+							city_of_birth:"",
+							citizenship:""
 						},
 
 						disciplinary_history: {
-							disciplinary_history:
+							disciplinary_history:""
 						},
 						criminal_history: {
-							criminal_history:
+							criminal_history:""
 						}
 					},
 					
 					family: {
 						household:{
-							which_parent_do_you_live_with:
-							martial_status:
-							do_you_have_children:
+							which_parent_do_you_live_with:"",
+							martial_status:"",
+							do_you_have_children:""
 							
-						}
+						},
 						parent1: {
-							type:
-							living:
-							first_name:
-							middle_name:
-							last_name:
-							email:
-							phone:
-							address:
-							occupation:
-							employment_status:
-							name_of_employer:
-							education_level:
+							type:"",
+							living:"",
+							first_name:"",
+							middle_name:"",
+							last_name:"",
+							email:"",
+							phone:"",
+							address:"",
+							occupation:"",
+							employment_status:"",
+							name_of_employer:"",
+							education_level:""
 						},
 						
 						parent2: {
-							type:
-							living:
-							first_name:
-							middle_name:
-							last_name:
-							email:
-							phone:
-							address:
-							occupation:
-							employment_status:
-							name_of_employer:
-							education_level:
+							type:"",
+							living:"",
+							first_name:"",
+							middle_name:"",
+							last_name:"",
+							email:"",
+							phone:"",
+							address:"",
+							occupation:"",
+							employment_status:"",
+							name_of_employer:"",
+							education_level:""
 						}
 					},
 					education: {
 						school: {
-							no_of_schools: 1,
-							school_name: "sdf"
-							date_of_graduation:
-							counsellor_first_name:
-							counsellor_middle_name:
-							counsellor_last_name:
-							counsellor_phone:
-							counsellor_email:
+							no_of_schools: "",
+							school_name: "",
+							date_of_graduation:"",
+							counsellor_first_name:"",
+							counsellor_middle_name:"",
+							counsellor_last_name:"",
+							counsellor_phone:"",
+							counsellor_email:""
 						},
 						education_interruption:{
-							education_interruption:"sd"
+							education_interruption:""
 						},
 						collage_university: {
-							no_of_collage_or_university_level_courses_taken:
+							no_of_collage_or_university_level_courses_taken:""
 						},
 						grades: {
-							class_ranking:
-							grad_class_size:
-							cumulative_GPA:
-							GPA_scale:
+							class_ranking:"",
+							grad_class_size:"",
+							cumulative_GPA:"",
+							GPA_scale:""
 							
 						}
 					},
@@ -115,4 +115,3 @@ var student = {
 						}
 					}
 				  }
-	
