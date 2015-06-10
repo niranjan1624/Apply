@@ -80,5 +80,30 @@ var student = {
 							name_of_employer:
 							education_level:
 						}
+					},
+					education: {
+						school: {
+							no_of_schools: 1,
+							school_name: "sdf"
+							date_of_graduation:
+							counsellor_first_name:
+							counsellor_middle_name:
+							counsellor_last_name:
+							counsellor_phone:
+							counsellor_email:
+						},
+						education_interruption:{
+							education_interruption:"sd"
+						},
+						collage_university: {
+							no_of_collage_or_university_level_courses_taken:
+						},
+						grades: {
+							class_ranking:
+							grad_class_size:
+							cumulative_GPA:
+							GPA_scale:
+							
+						}
 					}
 				  }
