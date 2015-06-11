@@ -115,6 +115,25 @@ var student = {
 						}
 					}
 				  }
+function createInput(ele,type,clsname,id){
+	var div = document.createElement("div");
+	var field = document.createElement("input");
+	field.type = type;
+	field.className = clsname;
+	field.id = id;
+	div.appendChild(field);
+	document.getElementById(ele).appendChild(div);
+}
+function createLabel(ele,id,value){
+	/* var div = document.createElement("div");
+	var label = document.createElement("label");
+	label.for=id;
+	label.name = value
+	div.appendChild(label);
+	document.getElementById(ele).appendChild(div); */
+	var wrapper = $("."+ele);
+	$(wrapper).append( '<br/><div> <label for='+id+'>'+value+'</label><br/>');
+}
 $(document).ready(function() {
     var max_fields      = 2; //maximum input boxes allowed
     var wrapper         = $(".AccReg-form"); //Fields wrapper
@@ -123,11 +142,24 @@ $(document).ready(function() {
 		$(wrapper).append("<ul>")
         while(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapper).append( '<li class="required"><div class="control  email required jqFRV" id="container_ques_187" data-cao-options="{ &quot;cid&quot;: &quot;ques_187&quot;, &quot;qt&quot;: &quot;3&quot;, &quot;qid&quot; : &quot;187&quot;, &quot;aid&quot; : &quot;0&quot;, &quot;tq&quot; : &quot;False&quot;, &quot;rgid&quot; : &quot;0&quot;, &quot;vgid&quot; : &quot;0&quot;, &quot;cv&quot; : &quot;False&quot;, &quot;agitemid&quot; : &quot;&quot;, &quot;agid&quot; : &quot;&quot;}"><input id="value_ques_187" name="value_ques_187" class="jqHiddenValue" data-defval=""><label class="label" for="email_ques_187" id="title_ques_187" title="Email Address">Email Address</label><div id="validation_ques_187" class="error" style="display: block;">Please complete this required question.</div><input class="defaultTextInput input" type="email" maxlength="254" autocomplete="off" id="email_ques_187" value="" required=""></div><span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span></li>'); //add input box
+			 createLabel("AccReg-form", "email", "Email Address");
+			 createInput("Register0", "email", "defaultTextInput input", "email");
+			 createLabel("AccReg-form", "re_email", "Re-type Email Address");
+			 createInput("Register0", "email", "defaultTextInput input", "email");
+			 
 		}
     $(wrapper).append("</ul>")
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
 });
+ $('form#studentForm').submit(function() {
+	 console.log("submit");
+	 $("form#studentForm :input").each(function(){
+		var input = $(this);
+		var str = input.val();
+		var id = input.attr("id");
+		console.log(id +"  "+str);
+	 });
+ });
 console.log(student.login_credentials.username)
