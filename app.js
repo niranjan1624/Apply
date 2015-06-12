@@ -115,12 +115,13 @@ var student = {
 						}
 					}
 				  }
-function createInput(ele,type,clsname,id){
+function createInput(ele,type,clsname,id,required){
 	var div = document.createElement("div");
 	var field = document.createElement("input");
 	field.type = type;
 	field.className = clsname;
 	field.id = id;
+	field.required=required;
 	div.appendChild(field);
 	document.getElementById(ele).appendChild(div);
 }
@@ -132,34 +133,88 @@ function createLabel(ele,id,value){
 	div.appendChild(label);
 	document.getElementById(ele).appendChild(div); */
 	var wrapper = $("."+ele);
-	$(wrapper).append( '<br/><div> <label for='+id+'>'+value+'</label><br/>');
+	$(wrapper).append( '<br/><div> <label for='+id+'>'+value+'</label>');
+}
+function createHiddenfield(ele,id) {
+	var field = document.createElement("p");
+	field.id = id;
+	field.className = "error";
+	field.hidden = true;
+	document.getElementById(ele).appendChild(field);
+}
+function showMsg(id,msg) {
+	$(id).show()
+	$(id).html(msg);
 }
 $(document).ready(function() {
-    var max_fields      = 2; //maximum input boxes allowed
     var wrapper         = $(".AccReg-form"); //Fields wrapper
     
     var x = 1; //initlal text box count
 		$(wrapper).append("<ul>")
-        while(x < max_fields){ //max input box allowed
-            x++; //text box increment
 			 createLabel("AccReg-form", "email", "Email Address");
-			 createInput("Register0", "email", "defaultTextInput input", "email");
-			 createLabel("AccReg-form", "re_email", "Re-type Email Address");
-			 createInput("Register0", "email", "defaultTextInput input", "email");
+			 createHiddenfield("Register0","email_error")
+			 createInput("Register0", "email", "defaultTextInput input", "email",true);
 			 
-		}
-    $(wrapper).append("</ul>")
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-    })
+			 
+			 createLabel("AccReg-form", "re_email", "Re-type Email Address");
+			 createHiddenfield("Register0","re_email_error")
+			 createInput("Register0", "email", "defaultTextInput input", "re_email",true);
+			 
+			 
+			 createLabel("AccReg-form", "pass", "Password");
+			 createHiddenfield("Register0","pass_error")
+			 createInput("Register0", "password", "defaultTextInput input", "pass",true);
+			 
+			 createLabel("AccReg-form", "re_pass", "Re-type Password");
+			 createHiddenfield("Register0","re_pass_error")
+			 createInput("Register0", "password", "defaultTextInput input", "re_pass",true);
+			 
+			 showMsg("email_error","Enter valid email id");
+
+    $(wrapper).append("</ul>");
+	 $("#email").focusout(function(){
+		 validateField("#email", "email")
+ });
+ $("#re_email").focusout(function(){
+		 validateField("#re_email", "email")
+ });
+ $("#pass").focusout(function(){
+		 validateField("#pass", "password")
+ });
+ $("#re_pass").focusout(function(){
+		 validateField("#re_pass", "password")
+ });
 });
- $('form#studentForm').submit(function() {
+ $('form#loginForm').submit(function() {
 	 console.log("submit");
-	 $("form#studentForm :input").each(function(){
+	 $("form#loginForm :input").each(function(){
 		var input = $(this);
-		var str = input.val();
+		var value = input.val();
 		var id = input.attr("id");
-		console.log(id +"  "+str);
+		
 	 });
  });
+function validateField(id,type) {
+	var value = $(id).val();
+	id = id+"_error";
+	if(value=="")
+		showMsg(id,"Please complete this required question.");
+	else {
+	switch (type) {
+		case "email":
+			console.log(value[value.length - 1]);
+			if(value.indexOf("@") == -1)
+				showMsg(id, "Email must include one @.")
+			else if(value.indexOf("@.") != -1 || value.indexOf(".@") != -1 || value[value.length - 1] == ".")
+				showMsg(id,"Email before and after @ cannot start or end with a dot.")
+			else if(value[value.length - 1] == "@")
+				showMsg(id, "invalid email id.")
+			else
+				$(id).hide();
+			break;
+
+		
+	}
+	}
+}
 console.log(student.login_credentials.username)
