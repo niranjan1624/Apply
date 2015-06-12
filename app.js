@@ -212,6 +212,25 @@ function validateField(id,type) {
 			else
 				$(id).hide();
 			break;
+		case "password":
+			var msg = ""
+			if(value.length < 8 || value.length > 16)
+				msg = msg + "Password Length should be between 8 and 16 characters.<br\>";
+			if (!value.match(/([A-Z])/))
+				msg = msg + "Password must have at least one upper case alphabetic character.<br\>";
+			if (!value.match(/([a-z])/))
+				msg = msg + "Password must have at least one lower case alphabetic character.<br\>"
+			if (!value.match(/([0-9])/))
+				msg = msg + "Password must have at least one numeric character.<br\>"
+			if (!value.match(/([!@#$%^&*])/))
+				msg = msg + "Password must have at least one of the following characters:<br/>! @ # $ % ^ & *<br/>"
+			if (value.match(/([ ])/))
+				msg = msg + "Password should not have space character(s).<br/>"
+			if(msg != "")
+				showMsg(id,msg);
+			else
+				$(id).hide();
+			break;
 
 		
 	}
