@@ -122,16 +122,11 @@ function createInput(ele,type,clsname,id,required){
 	field.className = clsname;
 	field.id = id;
 	field.required=required;
+	field.onpaste = true;
 	div.appendChild(field);
 	document.getElementById(ele).appendChild(div);
 }
 function createLabel(ele,id,value){
-	/* var div = document.createElement("div");
-	var label = document.createElement("label");
-	label.for=id;
-	label.name = value
-	div.appendChild(label);
-	document.getElementById(ele).appendChild(div); */
 	var wrapper = $("."+ele);
 	$(wrapper).append( '<br/><div> <label for='+id+'>'+value+'</label>');
 }
@@ -168,9 +163,10 @@ $(document).ready(function() {
 			 createLabel("AccReg-form", "re_pass", "Re-type Password");
 			 createHiddenfield("Register0","re_pass_error")
 			 createInput("Register0", "password", "defaultTextInput input", "re_pass",true);
-			 
-			 showMsg("email_error","Enter valid email id");
 
+			disableCopyPaste("#re_email");
+			disableCopyPaste("#pass");
+			disableCopyPaste("#re_pass");
     $(wrapper).append("</ul>");
 	 $("#email").focusout(function(){
 		 validateField("#email", "email")
@@ -187,12 +183,12 @@ $(document).ready(function() {
 });
  $('form#loginForm').submit(function() {
 	 console.log("submit");
-	 $("form#loginForm :input").each(function(){
-		var input = $(this);
-		var value = input.val();
-		var id = input.attr("id");
-		
-	 });
+	if ($("#email").val() != $("#re_email").val())
+		showMsg("#re_email_error", "Email addresses must match.")
+	if ($("#pass").val() != $("#re_pass").val())
+		showMsg("#re_pass_error", "Passwords must match.")
+	else
+		console.log("success");
  });
 function validateField(id,type) {
 	var value = $(id).val();
@@ -235,5 +231,10 @@ function validateField(id,type) {
 		
 	}
 	}
+}
+function disableCopyPaste(id){
+	  $(id).bind("cut copy paste",function(e) {
+          e.preventDefault();
+      });
 }
 console.log(student.login_credentials.username)
