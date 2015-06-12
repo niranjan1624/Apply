@@ -126,9 +126,9 @@ function createInput(ele,type,clsname,id,required){
 	div.appendChild(field);
 	document.getElementById(ele).appendChild(div);
 }
-function createLabel(ele,id,value){
-	var wrapper = $("."+ele);
-	$(wrapper).append( '<br/><div> <label for='+id+'>'+value+'</label>');
+function createLabel(ele,name,value,id){
+	var wrapper = $("#"+ele);
+	$(wrapper).append( '<br/><div> <label for='+name+' id='+id+'>'+value+'</label></div>');
 }
 function createHiddenfield(ele,id) {
 	var field = document.createElement("p");
@@ -142,25 +142,47 @@ function showMsg(id,msg) {
 	$(id).html(msg);
 }
 $(document).ready(function() {
-    var wrapper         = $(".AccReg-form"); //Fields wrapper
-    
-    var x = 1; //initlal text box count
+	if(getCurentFileName() == "Apply.html")
+		loginCredential();
+	else if (getCurentFileName() == "Apply2.html")
+		RegInfo();
+});
+function insertBef(id) {
+	 $(id).insertBefore($("#sex"));
+}
+function RegInfo() {
+	
+	 var wrapper = $(".AccReg-form"); 
+	$(wrapper).append("<ul>")
+			 createLabel("Register1", "first_name", "First/given name","first");
+			 createHiddenfield("Register1","first_name_error");
+			 createInput("Register1", "text", "defaultTextInput input", "first_name",true);
+			 
+			 createLabel("Register1", "last_name", "Last/family/surname","last");
+			 createHiddenfield("Register1","last_name_error");
+			 createInput("Register1", "text", "defaultTextInput input", "last_name",true);
+
+	$(wrapper).append("</ul>");
+			 
+}
+function loginCredential(){
+	 var wrapper = $(".Register0"); //Fields wrapper
 		$(wrapper).append("<ul>")
-			 createLabel("AccReg-form", "email", "Email Address");
+			 createLabel("Register0", "email", "Email Address");
 			 createHiddenfield("Register0","email_error")
 			 createInput("Register0", "email", "defaultTextInput input", "email",true);
 			 
 			 
-			 createLabel("AccReg-form", "re_email", "Re-type Email Address");
+			 createLabel("Register0", "re_email", "Re-type Email Address");
 			 createHiddenfield("Register0","re_email_error")
 			 createInput("Register0", "email", "defaultTextInput input", "re_email",true);
 			 
 			 
-			 createLabel("AccReg-form", "pass", "Password");
+			 createLabel("Register0", "pass", "Password");
 			 createHiddenfield("Register0","pass_error")
 			 createInput("Register0", "password", "defaultTextInput input", "pass",true);
 			 
-			 createLabel("AccReg-form", "re_pass", "Re-type Password");
+			 createLabel("Register0", "re_pass", "Re-type Password");
 			 createHiddenfield("Register0","re_pass_error")
 			 createInput("Register0", "password", "defaultTextInput input", "re_pass",true);
 
@@ -180,7 +202,7 @@ $(document).ready(function() {
  $("#re_pass").focusout(function(){
 		 validateField("#re_pass", "password")
  });
-});
+}
  $('form#loginForm').submit(function() {
 	 console.log("submit");
 	if ($("#email").val() != $("#re_email").val())
@@ -236,5 +258,9 @@ function disableCopyPaste(id){
 	  $(id).bind("cut copy paste",function(e) {
           e.preventDefault();
       });
+}
+function getCurentFileName(){
+    var pagePathName= window.location.pathname;
+    return pagePathName.substring(pagePathName.lastIndexOf("/") + 1);
 }
 console.log(student.login_credentials.username)

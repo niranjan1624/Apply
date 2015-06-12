@@ -369,7 +369,7 @@ input.sa {
 .jqControl,
 .control {
     padding-bottom: 2px;
-    margin: 10px 0 20px 0
+    margin: -10px 0 -25px 0	
 }
 .modal {
     padding: 5px;
@@ -6608,7 +6608,9 @@ div.indent2 {
     border-bottom: 1px solid #e3e3e3;
     padding-bottom: 20px;
     margin-bottom: 12px;
-    font-size: 16px
+    font-size: 20px
+
+	
 }
 .Test-applicant-note {
     color: #8a1437;
