@@ -46,10 +46,10 @@
 			<label  style="padding-left:15px" title="Enter name exactly as it appears on official documents. 
 Do not use nicknames.">Enter name exactly as it appears on official documents.<br>Do not use nicknames.</label>
 
-				<div class="required">
+				<div>
 				<div id="Register1" class="container">
 				</div>
-				<div class="container">
+				<div id="register2" class="container">
 				 <li class="required AccReg-radio" id="sex">
                     <table>
                         <tbody><tr>
@@ -57,12 +57,13 @@ Do not use nicknames.">Enter name exactly as it appears on official documents.<b
                                 <div class="control jqSS  singleSelectRadio required " id="gender">
                 <input id="gender_error" name="gender_error" class="jqHiddenValue" data-defval="">
                 <label class="label" id="title_ques_180" title="Sex" style="color:black">Gender:</label>
-                            <div class="RadioButton btnZone_radiobtn bzs " id="rbContainer_0">                
+				<div name="radioDiv" id="radioDiv">
+                                           
                                 <input type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="radio_ques_180" id="gender" title="Male" value="Male" reqired><span class="radiobtn_text bzs-t"> Male</span>
+                                         
+                                <input type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="radio_ques_180" id="gender" title="Female" value="Female" required><span class="radiobtn_text bzs-t"> Female</span>
                             </div>
-                            <div class="RadioButton btnZone_radiobtn bzs " id="rbContainer_1">                
-                                <input type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="radio_ques_180" id="gender_1" title="Female" value="Female" required><span class="radiobtn_text bzs-t"> Female</span>
-                            </div>
+							</div>
                         </tr>                       
                     </tbody></table>
                     
@@ -78,7 +79,7 @@ Do not use nicknames.">Enter name exactly as it appears on official documents.<b
 					<p class="error" id="dob_error" hidden></p>
 					<div id="dob" required>
 						<select style="height:28px;"  id="month" name="month" >
-							<option default>Month</option>
+							<option selected disabled>Month</option>
 							<option value="01">January</option>
 							<option value="02">February</option>
 							<option value="03">March</option>
@@ -93,7 +94,7 @@ Do not use nicknames.">Enter name exactly as it appears on official documents.<b
 							<option value="12">December</option>
 						</select>
 						<select style="height:28px;width:60px"  id="day" name="day">
-							<option default>Day</option>
+							<option selected disabled>Day</option>
 							<option value="01">1</option>
 							<option value="02">2</option>
 							<option value="03">3</option>
@@ -127,7 +128,7 @@ Do not use nicknames.">Enter name exactly as it appears on official documents.<b
 							<option value="31">31</option>
 						</select>
 						<select style="height:28px;width:70px"  id="year" name="year">
-							<option default>Year</option>
+							<option selected disabled>Year</option>
 							<option value="2000">2000</option>
 							<option value="1999">1999</option>
 							<option value="1998">1998</option>
