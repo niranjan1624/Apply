@@ -142,10 +142,32 @@ function showMsg(id,msg) {
 	$(id).html(msg);
 }
 $(document).ready(function() {
+
 	if(getCurentFileName() == "Apply.html")
 		loginCredential();
-	else if (getCurentFileName() == "Apply2.html")
+	else if (getCurentFileName() == "Apply2.html") {
 		RegInfo();
+		$("#mob").intlTelInput();
+		 $("#mob").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+		if (e.keyCode != 187 && e.keyCode != 16) {
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				 // Allow: Ctrl+A, Command+A
+				(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+				 // Allow: home, end, left, right, down, up
+				(e.keyCode >= 35 && e.keyCode <= 40) || e.keyCode == 187 || e.keyCode == 16) {
+					 // let it happen, don't do anything
+					 return;
+			}
+			// Ensure that it is a number and stop the keypress
+			
+			if (((e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				if(e.keyCode != 187 && e.keyCode != 16)
+					e.preventDefault();
+			}
+		}
+    });
+	}
 });
 function insertBef(id) {
 	 $(id).insertBefore($("#sex"));
@@ -163,7 +185,17 @@ function RegInfo() {
 			 createInput("Register1", "text", "defaultTextInput input", "last_name",true);
 
 	$(wrapper).append("</ul>");
-			 
+		 $("#first_name").focusout(function(){
+		 validateField("#first_name", "text")
+ });
+  $("#last_name").focusout(function(){
+		 validateField("#last_name", "text")
+ });
+ $("#last_name").focusout(function(){
+		 validateField("#last_name", "text")
+ });
+
+ 
 }
 function loginCredential(){
 	 var wrapper = $(".Register0"); //Fields wrapper
@@ -203,6 +235,15 @@ function loginCredential(){
 		 validateField("#re_pass", "password")
  });
 }
+$('form#loginForm').submit(function() {
+	 console.log("submit");
+	if ($("#email").val() != $("#re_email").val())
+		showMsg("#re_email_error", "Email addresses must match.")
+	if ($("#pass").val() != $("#re_pass").val())
+		showMsg("#re_pass_error", "Passwords must match.")
+	else
+		console.log("success");
+ });
  $('form#loginForm').submit(function() {
 	 console.log("submit");
 	if ($("#email").val() != $("#re_email").val())
