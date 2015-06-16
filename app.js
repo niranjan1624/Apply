@@ -282,8 +282,17 @@ $('form#Reg-Form').submit(function() {
 	}
 	if (validateRegFields(values) && validateField("#mob","mob")) {
 		// send all the data to server (data store)
-		console.log(assignValuesJson(values).login_credentials);
+		var stu = assignValuesJson(values);
+		console.log(stu.login_credentials);
 		console.log("passed")
+			$.post( "/student/savedetails",student, function( data ) {
+				console.log(data);
+				if(data=="success") {
+					alert(data);
+				} else {
+					alert(data);
+				}
+			});
 	} else {
 		//same page should be shown show the errors
 		console.log("notPassed")
@@ -453,5 +462,6 @@ function assignValuesJson(value) {
 	}
 
 		localStorage.ques190 = student;
+		
 		return student;
 }

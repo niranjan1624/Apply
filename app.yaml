@@ -10,9 +10,7 @@ handlers:
   upload: (.*\.(gif|png|jpg|ico|js|css|html|style))
   
 
-
-
-- url: .*
+- url: /.*
   script: main.app
 
 libraries:
