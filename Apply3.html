@@ -61,14 +61,14 @@ a:visited{
 						
 					</div>
 					<div style="padding:30px;margin-left:100px;margin-top:-40px" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-						<div class="control jqSS  singleSelectRadio required " id="container_ques_180">
-					<input id="value_ques_180" name="value_ques_180" class="jqHiddenValue" data-defval="">
+						<div class="control jqSS  singleSelectRadio required " id="gender">
+					 <input id="gender_error" name="gender_error" class="jqHiddenValue" data-defval="">
 					<label class="required" id="title_ques_180" title="Sex">Sex</label>
-					<div class="RadioButton btnZone_radiobtn bzs " id="rbContainer_0">                
-                                <input type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="radio_ques_180" id="radio_0" title="Male" value="0"><span class="radiobtn_text bzs-t"> Male</span>
-                            </div>
-					<div class="RadioButton btnZone_radiobtn bzs " id="rbContainer_1">                
-                                <input type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="radio_ques_180" id="radio_1" title="Female" value="1"><span class="radiobtn_text bzs-t"> Female</span>
+					<div name="radioDiv" id="radioDiv">
+                                           
+                                <input style="margin-left:10px" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="radio_ques_180" id="gender" title="Male" value="Male" reqired><span style="margin-left:30px;" class="radiobtn_text bzs-t"> Male</span>
+                                         
+                                <input style="margin-left:10px;" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="radio_ques_180" id="gender" title="Female" value="Female" required><span style="margin-left:30px;" class="radiobtn_text bzs-t"> Female</span>
                             </div>
 						</div>
 						<br/><br/>
@@ -187,6 +187,8 @@ a:visited{
 					<p class="error" id="ssn_error" hidden></p>
 					<div><input class="defaultTextInput input" id="ssn" type="text"></input></div>
 					</div>
+					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="1"style="color:white; background-color:#2d4250">Submit</button></div>
 					</div>
 					</div>
 					</div>
@@ -475,27 +477,31 @@ a:visited{
 					<div> <label for='zipcode'>Zip Code</label></div>
 					<p class="error" id="zipcode_error" hidden></p>
 					<div><input type="text" id="zipcode" class="defaultTextInput input" required></input></div>
-					
+					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="2"style="color:white; background-color:#2d4250">Submit</button></div>
 				</div>
 					</div>
+					
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingThree">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Contact Details</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThreee" aria-expanded="false" aria-controls="collapseThreee">Contact Details</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px" id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-					  
+					<div style="padding:30px;margin-left:100px" id="collapseThreee" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+					<div id="collapseThree"></div>
+					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="3"style="color:white; background-color:#2d4250">Submit</button></div>  
 					</div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingFour">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Geography</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFourr" aria-expanded="false" aria-controls="collapseFourr">Geography</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px"  id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+					<div style="padding:30px;margin-left:100px"  id="collapseFourr" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
 					  <div class="required"> <label for='cob'>Country of Birth</label></div>
 					<p class="error" id="cob_error" hidden></p>
 					<select style="width:340px; height:28px" id="cob" name="cob">
@@ -748,24 +754,31 @@ a:visited{
 						<option value="Zimbabwe">Zimbabwe</option>
 					</select>
 					<br/>
+					<div id="collapseFour"></div><br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="4"style="color:white; background-color:#2d4250">Submit</button></div>  
 					</div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingFive">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Disciplinary History</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFivee" aria-expanded="false" aria-controls="collapseFivee">Disciplinary History</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px"   id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+					<div style="padding:30px;margin-left:100px"   id="collapseFivee" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+					<div id="collapseFive"></div><br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="5"style="color:white; background-color:#2d4250">Submit</button></div>  
 					</div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingT">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseT" aria-expanded="false" aria-controls="collapseT">Criminal History</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">Criminal History</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px"   id="collapseT" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingT">
+					<div style="padding:30px;margin-left:100px"   id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingT">
+					<div id="collapseT"></div>
+					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="6"style="color:white; background-color:#2d4250">Submit</button></div>  
 					</div>
 				  </div>
 				</div>
@@ -804,15 +817,18 @@ a:visited{
 						<option value="No">No</option>
 						<option value="Yes">Yes</option>
 					</select>
+					
+					<br/><br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="7"style="color:white; background-color:#2d4250">Submit</button></div> 
 					</div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingTwo">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#1accordion" href="#1collapseTwo" aria-expanded="false" aria-controls="1collapseTwo">Parent 1</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#1accordion" href="#1collapseTwoo" aria-expanded="false" aria-controls="1collapseTwoo">Parent 1</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px" id="1collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+					<div style="padding:30px;margin-left:100px" id="1collapseTwoo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 						<div class="required"> <label for='p1_type'>Type</label></div>
 					<p class="error" id="p1_type_error" hidden></p>
 					<select style="width:340px; height:28px" id="p1_type" name="p1_type">
@@ -826,16 +842,18 @@ a:visited{
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 					</select>
+					<div id="1collapseTwo"></div>
 					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="8"style="color:white; background-color:#2d4250">Submit</button></div> 
 					</div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingThree">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#1accordion" href="#1collapseThree" aria-expanded="false" aria-controls="1collapseThree">parent 2</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#1accordion" href="#1collapseThreee" aria-expanded="false" aria-controls="1collapseThreee">parent 2</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px" id="1collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+					<div style="padding:30px;margin-left:100px" id="1collapseThreee" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 					<div class="required"> <label for='p2_type'>Type</label></div>
 					<p class="error" id="p2_type_error" hidden></p>
 					<select style="width:340px; height:28px" id="p2_type" name="p2_type">
@@ -849,7 +867,9 @@ a:visited{
 						<option value="Yes">Yes</option>
 						<option value="No">No</option>
 					</select>
+					<div id="1collapseThree"></div>
 					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="9"style="color:white; background-color:#2d4250">Submit</button></div> 
 					</div>
 				  </div>
 				</div>
@@ -886,36 +906,43 @@ a:visited{
 						<option value="15">15</option>
 						<option value="16">16</option>
 					</select>
-					<br/><br/>
+					<br/>
 					<div id="2collapseOne"></div>
+					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="10"style="color:white; background-color:#2d4250">Submit</button></div> 
 					</div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingTwo">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#2accordion" href="#2collapseTwo" aria-expanded="false" aria-controls="2collapseTwo">Education Interruption</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#2accordion" href="#2collapseTwoo" aria-expanded="false" aria-controls="2collapseTwoo">Education Interruption</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px" id="2collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-					  
+					<div style="padding:30px;margin-left:100px" id="2collapseTwoo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+					  <div id="2collapseTwo"></div>
+					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="11" style="color:white; background-color:#2d4250">Submit</button></div> 
 					</div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingThree">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#2accordion" href="#2collapseThree" aria-expanded="false" aria-controls="2collapseThree">College University</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#2accordion" href="#2collapseThreee" aria-expanded="false" aria-controls="2collapseThreee">College University</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px" id="2collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+					<div style="padding:30px;margin-left:100px" id="2collapseThreee" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+						<div id="2collapseThree"></div>
+					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="12" style="color:white; background-color:#2d4250">Submit</button></div> 
 					</div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading" role="tab" id="headingFour">
 					  <h4 class="panel-title">
-						<a class="collapsed" data-toggle="collapse" data-parent="#2accordion" href="#2collapseFour" aria-expanded="false" aria-controls="2collapseFour">Grades</a>
+						<a class="collapsed" data-toggle="collapse" data-parent="#2accordion" href="#2collapseFourr" aria-expanded="false" aria-controls="2collapseFourr">Grades</a>
 					  </h4>
 					</div>
-					<div style="padding:30px;margin-left:100px" id="2collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+					<div style="padding:30px;margin-left:100px" id="2collapseFourr" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
 					   <div class="required"> <label for='cls_rank'>Class Ranking</label></div>
 					<p class="error" id="cls_rank_error" hidden></p>
 					<select style="width:340px; height:28px" id="cls_rank" name="cls_rank">
@@ -925,10 +952,13 @@ a:visited{
 						<option value="None">None</option>
 					</select>
 					<br/>
-					</div>
+					<div id="2collapseFour"></div>
+					<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="13" style="color:white; background-color:#2d4250">Submit</button></div> 
 				  </div>
 				</div>
 		  </div>
+		</div>
 		</div>
 		<div class="col-md-9 "id="tabs-4">
 			<div class="container-fluid" style="padding:0px; margin:20px">
@@ -939,6 +969,7 @@ a:visited{
 						<a data-toggle="collapse" data-parent="#3accordion" href="#3collapseOnee" aria-expanded="true" aria-controls="3collapseOnee">Test</a>
 					  </h4>
 					</div>
+
 					<div style="padding:30px;margin-left:100px" id="3collapseOnee" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 						  <div class="required"> <label for='tests_taken'>Tests Taken</label></div>
 						<p class="error" id="tests_taken_error" hidden></p>
@@ -952,7 +983,10 @@ a:visited{
 						</select>
 						<br/>
 						<div id="3collapseOne"></div>
+						<br/>
+					<div class="text-right" style="margin-bottom:20px; margin-right:250px"><button type="submit" class="btn btn-primary" id="14" style="color:white; background-color:#2d4250">Submit</button></div> 
 					</div>
+
 				  </div>
 				</div>
 		  </div>
@@ -976,5 +1010,7 @@ a:visited{
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
   });
+
+  
 </script>
 </html>

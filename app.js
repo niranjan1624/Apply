@@ -17,12 +17,12 @@ var student = {
 						},
 						address: {
 							country:"",
-							adress1:"",
-							adress2:"",
-							adress3:"",
+							address1:"",
+							address2:"",
+							address3:"",
 							city:"",
 							state:"",
-							zip_code:""
+							zipcode:""
 						},
 						contact_details: {
 							email:"",
@@ -166,8 +166,15 @@ $(document).ready(function() {
 	}
 	}
 	else if(getCurentFileName() == "Apply3.html") {
-		fjuApplication();
+		// get student object from datastore
+		fjuApplication(student);
+		$('div input[id][type]:required').each(function(){ 
+			  $("#"+$(this).attr('id')).focusout(function(){
+			  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
+		}); 
+		});
 	}
+		/* $(".panel-default").children(".panel-collapse").append('<br/><div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="'+i+'"style="color:white; background-color:#2d4250">Submit</button></div>'); */
 });
 function insertBef(id) {
 	 $(id).insertBefore($("#sex"));
@@ -186,7 +193,7 @@ function fjuApplication() {
 	createHiddenfield("collapseOne","last_name_error");
 	createInput("collapseOne", "text", "input", "last_name",true);
 	
-	createLabel("collapseThree", "email", "Email Address","email",true);
+	createLabel("collapseThree", "email", "Email Address","emaill",true);
 	createHiddenfield("collapseThree","email_error");
 	createInput("collapseThree", "email", "input", "email",true);
 	
@@ -234,7 +241,7 @@ function fjuApplication() {
 	createHiddenfield("1collapseTwo","p1_last_name_error");
 	createInput("1collapseTwo", "text", "input", "p1_last_name",true);
 	
-	createLabel("1collapseTwo", "p1_email", "Email Address","p1_email",true);
+	createLabel("1collapseTwo", "p1_email", "Email Address","p1_emaill",true);
 	createHiddenfield("1collapseTwo","p1_email_error");
 	createInput("1collapseTwo", "email", "input", "p1_email",true);
 	
@@ -251,8 +258,8 @@ function fjuApplication() {
 		}
     });	
 	createLabel("1collapseTwo", "p1_ocpn", "Occupation","p1_occpn",true);
-	createHiddenfield("1collapseTwo","p1_occpn_error");
-	createInput("1collapseTwo", "text", "input", "p1_occpn",true);
+	createHiddenfield("1collapseTwo","p1_ocpn_error");
+	createInput("1collapseTwo", "text", "input", "p1_ocpn",true);
 
 	createLabel("1collapseTwo", "p1_emp_status", "Employment Status","p1_empp_status",true);
 	createHiddenfield("1collapseTwo","p1_emp_status_error");
@@ -262,7 +269,7 @@ function fjuApplication() {
 	createHiddenfield("1collapseTwo","p1_noe_error");
 	createInput("1collapseTwo", "text", "input", "p1_noe",true);
 	
-	createLabel("1collapseTwo", "p1_edu_level", "Education Level","p1_edu_level",true);
+	createLabel("1collapseTwo", "p1_edu_level", "Education Level","p1_edu_levell",true);
 	createHiddenfield("1collapseTwo","p1_edu_level_error");
 	createInput("1collapseTwo", "text", "input", "p1_edu_level",true);
 	
@@ -279,7 +286,7 @@ function fjuApplication() {
 	createHiddenfield("1collapseThree","p2_last_name_error");
 	createInput("1collapseThree", "text", "input", "p2_last_name",true);
 	
-	createLabel("1collapseThree", "p2_email", "Email Address","p2_email",true);
+	createLabel("1collapseThree", "p2_email", "Email Address","p2_emaill",true);
 	createHiddenfield("1collapseThree","p2_email_error");
 	createInput("1collapseThree", "email", "input", "p2_email",true);
 	
@@ -296,8 +303,8 @@ function fjuApplication() {
 		}
     });
 	createLabel("1collapseThree", "p2_ocpn", "Occupation","p2_occpn",true);
-	createHiddenfield("1collapseThree","p2_occpn_error");
-	createInput("1collapseThree", "text", "input", "p2_occpn",true);
+	createHiddenfield("1collapseThree","p2_ocpn_error");
+	createInput("1collapseThree", "text", "input", "p2_ocpn",true);
 
 	createLabel("1collapseThree", "p2_emp_status", "Employment Status","p2_empp_status",true);
 	createHiddenfield("1collapseThree","p2_emp_status_error");
@@ -307,7 +314,7 @@ function fjuApplication() {
 	createHiddenfield("1collapseThree","p2_noe_error");
 	createInput("1collapseThree", "text", "input", "p2_noe",true);
 	
-	createLabel("1collapseThree", "p2_edu_level", "Education Level","p2_edu_level",true);
+	createLabel("1collapseThree", "p2_edu_level", "Education Level","p2_edu_levell",true);
 	createHiddenfield("1collapseThree","p2_edu_level_error");
 	createInput("1collapseThree", "text", "input", "p2_edu_level",true);
 	
@@ -369,6 +376,7 @@ function createTestFields(id) {
 	createLabel("3collapseOne", id+"hws", "Highest Writing Score",id+"hwss",true);
 	createHiddenfield("3collapseOne",id+"hws_error");
 	createInput("3collapseOne", "text", "input", id+"hws",true);
+
 	
 }
 function createSchoolFields(id){
@@ -418,6 +426,7 @@ function createSchoolFields(id){
 	}
 }
 $('select').on('change', function (e) {
+	
     var optionSelected = $("option:selected", this);
     var valueSelected = this.value;
 	var id = this.id;
@@ -425,12 +434,16 @@ $('select').on('change', function (e) {
 		$('#dyhc').show();
 		$('#dyhcl').show();
 	}
+	if(valueSelected == "Unmarried") {
+		$('#dyhc').hide();
+		$('#dyhcl').hide();
+	}
 	if(id == "no_of_sch") {
 		$('#2collapseOne').empty();
 		var i = 0;
 		while(i < valueSelected) {
 			i++;
-			createSchoolFields(id)
+			createSchoolFields(i)
 		}
 	}
 	if(id == "tests_taken") {
@@ -438,9 +451,15 @@ $('select').on('change', function (e) {
 		var i = 0;
 		while(i < valueSelected) {
 			i++;
-			createTestFields(id)
+			createTestFields(i)
 		}
 	}
+			$('div input[id][type]:required').each(function(){
+			console.log($(this).attr('id'));
+			  $("#"+$(this).attr('id')).focusout(function(){
+			  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
+		}); 
+		});
 });
 function RegInfo() {
 	
@@ -455,11 +474,10 @@ function RegInfo() {
 			 createInput("Register1", "text", "defaultTextInput input", "last_name",true);
 
 			 createLabel("register2", "skype", "Skype ID","last",false);
-			 createHiddenfield("register2","skype_error");
 			 createInput("register2", "text", "defaultTextInput input", "skype",false);
 
 	$(wrapper).append("</ul>");
-		 $("#first_name").focusout(function(){
+	 $("#first_name").focusout(function(){
 		 validateField("#first_name", "text")
  });
   $("#last_name").focusout(function(){
@@ -514,7 +532,7 @@ function loginCredential(){
 			disableCopyPaste("#pass");
 			disableCopyPaste("#re_pass");
     $(wrapper).append("</ul>");
-	 $("#email").focusout(function(){
+$("#email").focusout(function(){
 		 validateField("#email", "email")
  });
  $("#re_email").focusout(function(){
@@ -526,6 +544,7 @@ function loginCredential(){
  $("#re_pass").focusout(function(){
 		 validateField("#re_pass", "password")
  });
+	
 }
 
 $('form#Reg-Form').submit(function() {
@@ -585,11 +604,11 @@ $('form#Reg-Form').submit(function() {
 		values["email"]  = $("#email").val();
 		values["pass"] = $("#pass").val();
 		assignValuesJson(values);
-		console.log(localStorage.user);
 		window.location.href = "Apply2.html"
 	}
  });
 function validateField(id,type) {
+
 	var pass = false;
 	var value = $(id).val();
 	id = id+"_error";
@@ -601,6 +620,8 @@ function validateField(id,type) {
 			
 			if(value.indexOf("@") == -1)
 				showMsg(id, "Email must include one @.")
+			else if(value.indexOf(".") == -1)
+				showMsg(id, "Email must include one dot (.)")
 			else if(value.indexOf("@.") != -1 || value.indexOf(".@") != -1 || value[value.length - 1] == ".")
 				showMsg(id,"Email before and after @ cannot start or end with a dot.")
 			else if(value[value.length - 1] == "@")
@@ -645,6 +666,7 @@ function validateField(id,type) {
 			break;
 		default:
 			$(id).hide();
+			pass = true;
 	}
 	}
 	return pass;
@@ -721,7 +743,7 @@ function assignValuesJson(value) {
 		student.profile.personal_information.first_name = values['first_name'];
 		student.profile.personal_information.last_name = values['last_name'];
 		student.profile.personal_information.gender = values['gender'];
-		student.profile.personal_information.dob = values['month']+"/"+ values['day'] + "/" + values['year'];
+		student.profile.personal_information.dob = values['day']+"/"+ values['month'] + "/" + values['year'];
 		student.profile.address.country = values['country'];
 		student.profile.address.address1 = values['address1'];
 		student.profile.address.address2 = values['address2'];
@@ -731,6 +753,9 @@ function assignValuesJson(value) {
 		student.profile.address.zip_code = values['zipcode'];
 		student.profile.contact_details.phone_no = value['mob'];
 		student.profile.contact_details.skype_id = value['skype'];
+		//send details to datastore
+		sendData(student);
+		
 		localStorage.clear();
 	}
 		localStorage.country  = values['country'];
@@ -754,4 +779,204 @@ function allowNumbers(e) {
 				if(e.keyCode != 187 && e.keyCode != 16)
 					e.preventDefault();
 	}
+}
+
+// Sending all data to data store
+$("#1").click(function(){
+	if($("#first_name").val() != "")
+		student.profile.personal_information.first_name = $("#first_name").val();
+	if($("#middle_name").val() != "")
+		student.profile.personal_information.middle_name = $("#middle_name").val();
+	if($("#last_name").val() != "")
+		student.profile.personal_information.last_name = $("#last_name").val();
+	
+	var selected = $("#radioDiv input[type='radio']:checked");
+	if (selected.length > 0) 
+		student.profile.personal_information.gender = selected.val();
+	
+	if($("#month").val() != "" && $("#day").val() != "" && $("#year").val() != "")
+		student.profile.personal_information.dob = $("#day").val() + "/" + $("#month").val()+ "/" + $("#year").val();
+	if($("#ssn").val() != "")
+		student.profile.personal_information.ssn_no = $("#ssn").val();
+	console.log(student.profile.personal_information);
+	sendData(student);
+	
+});
+
+$("#2").click(function(){
+	if($("#country").val() != "")
+		student.profile.address.country = $("#country").val();
+	if($("#address1").val() != "")
+		student.profile.address.address1 = $("#address1").val();
+	if($("#address2").val() != "")
+		student.profile.address.address2 = $("#address2").val();
+	if($("#address3").val() != "")
+		student.profile.address.address3 = $("#address3").val();
+	if($("#city").val() != "")
+		student.profile.address.city = $("#city").val();
+	if($("#state").val() != "")
+		student.profile.address.state = $("#state").val();
+	if($("#zipcode").val() != "")
+		student.profile.address.zipcode = $("#zipcode").val();
+	console.log(student.profile.address);
+	sendData(student);
+});
+
+$("#3").click(function(){
+	if(validateField("#email","email")) 
+		student.profile.contact_details.email = $('#email').val();
+	if(validateField("#mob","mob"))
+		student.profile.contact_details.phone_no = $('#mob').val();
+
+	if($("#skype").val() != "")
+		student.profile.contact_details.skype_id = $('#skype').val();
+	console.log(student.profile.contact_details);
+	sendData(student);
+});
+
+$("#4").click(function(){
+
+	student.profile.geography.country_of_birth = $('#cob').val();
+	if(validateField("#ciob"))
+		student.profile.geography.city_of_birth = $('#ciob').val();
+	
+	if(validateField("#citizenship")) {
+		student.profile.geography.citizenship = $('#citizenship').val();
+		console.log("passerd")
+	}
+	console.log(student.profile.geography)
+	sendData(student);
+});
+
+$("#5").click(function(){
+	if(validateField("#discHis")) {
+		student.profile.disciplinary_history.disciplinary_history = $("#discHis").val();
+		sendData(student);
+	}
+	console.log(student.profile.disciplinary_history)
+});
+
+$("#6").click(function(){
+	if(validateField("#crimHis")) {
+		student.profile.criminal_history.criminal_history = $("#crimHis").val();
+		sendData(student);
+	}
+	console.log(student.profile.criminal_history)
+});
+
+$("#7").click(function(){
+
+	student.family.household.which_parent_do_you_live_with = $("#whichpar").val();
+	student.family.household.martial_status = $("#martial").val();
+	student.family.household.do_you_have_children = $("#dyhc").val();
+	console.log(student.family.household);
+	sendData(student);
+});
+
+$("#8").click(function(){
+
+	student.family.parent1.type = $("#p1_type").val();
+	student.family.parent1.living = $("#p1_living").val();
+	if($("#p1_first_name").val() != "")
+		student.family.parent1.first_name = $("#p1_first_name").val();
+	if($("#p1_middle_name").val() != "")
+		student.family.parent1.middle_name = $("#p1_middle_name").val();
+	if($("#p1_last_name").val() != "")
+		student.family.parent1.last_name = $("#p1_last_name").val();
+	if($("#p1_email").val() != "")
+		student.family.parent1.email = $('#p1_email').val();
+	if($("#p1_mob").val() != "")
+		student.family.parent1.phone = $('#p1_mob').val();
+	   
+	if(validateField("#p1_ocpn","text"))
+		student.family.parent1.occupation = $('#p1_ocpn').val();
+	if(validateField("#p1_emp_status","text"))
+		student.family.parent1.employment_status = $('#p1_emp_status').val();
+	if(validateField("#p1_noe","text"))
+		student.family.parent1.name_of_employer = $('#p1_noe').val();
+	if(validateField("#p1_edu_level","text"))
+		student.family.parent1.education_level = $('#p1_edu_level').val();
+	
+		console.log(student.family.parent1)
+		sendData(student);
+});
+
+
+$("#9").click(function(){
+	student.family.parent2.type = $("#p2_type").val();
+	student.family.parent2.living = $("#p2_living").val();
+	if($("#p2_first_name").val() != "")
+		student.family.parent2.first_name = $("#p2_first_name").val();
+	if($("#p2_middle_name").val() != "")
+		student.family.parent2.middle_name = $("#p2_middle_name").val();
+	if($("#p2_last_name").val() != "")
+		student.family.parent2.last_name = $("#p2_last_name").val();
+	if($("#p2_email").val() != "") 
+		student.family.parent2.email = $('#p2_email').val();
+	if($("#p2_mob").val() != "") 
+		student.family.parent2.phone = $('#p2_mob').val();
+	   
+	if(validateField("#p2_ocpn","text"))
+		student.family.parent2.occupation = $('#p2_ocpn').val();
+	if(validateField("#p2_emp_status","text"))
+		student.family.parent2.employment_status = $('#p2_emp_status').val();
+	if(validateField("#p2_noe","text"))
+		student.family.parent2.name_of_employer = $('#p2_noe').val();
+	if(validateField("#p2_edu_level","text"))
+		student.family.parent2.education_level = $('#p2_edu_level').val();
+	console.log(student.family.parent2)
+	sendData(student);
+});
+
+
+$("#10").click(function(){
+
+	var nosc =  $('#no_of_sch').val();
+	student.education.school.no_of_schools = nosc;
+	var sc = []
+	for(var i =0; i < nosc; i++) {
+		
+	}
+	
+});
+
+
+$("#11").click(function(){
+	if ($("#edu_intr").val() != "") {
+		student.education.education_interruption.education_interruption = $("#edu_intr").val();
+		sendData(student);
+	}
+});
+
+
+$("#12").click(function(){
+	if ($("#ncc").val() != "") {
+		student.education.collage_university.no_of_collage_or_university_level_courses_taken = $("#ncc").val();
+		sendData(student);
+	}
+});
+
+
+$("#13").click(function(){
+	student.education.grades.class_ranking = $("#cls_rank").val()
+	if($("#cgpa").val() != "")
+		student.education.grades.cumulative_GPA = $("#cgpa").val();
+	if($("#grad_cls_size").val() != "")
+		student.education.grades.grad_class_size = $("#grad_cls_size").val();
+	if($("#gpas").val() != "")
+		student.education.grades.GPA_scale = $("#gpas").val();
+	console.log(student.education.grades);
+});
+
+
+$("#14").click(function(){
+	var tt = $("tests_taken").val();
+	student.tests.test.tests_taken = tt;
+	for(var i = 0; i < tt; i++) {
+		
+	}
+});
+
+function sendData(student) {
+	
 }
