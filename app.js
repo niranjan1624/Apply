@@ -108,6 +108,7 @@ var student = {
 					},
 					tests: {
 						test: {
+							tests_taken:1,
 							test_name: "",
 							highest_critical_reading_score:2,
 							highest_math_score:3,
@@ -116,6 +117,8 @@ var student = {
 					}
 				  }
 var values = {};
+var tests_taken = 0
+var no_schools = 0
 function createInput(ele,type,clsname,id,required){
 	var div = document.createElement("div");
 	var field = document.createElement("input");
@@ -132,7 +135,7 @@ function createLabel(ele,name,value,id,required){
 	if (required)
 		$(wrapper).append( '<br/><div class = "required"> <label for='+name+' id='+id+'>'+value+'</label></div>');
 	else
-		$(wrapper).append( '<div> <label for='+name+' id='+id+'>'+value+'</label></div>');
+		$(wrapper).append( '<br/><div> <label for='+name+' id='+id+'>'+value+'</label></div>');
 }
 function createHiddenfield(ele,id) {
 	var field = document.createElement("p");
@@ -155,30 +158,290 @@ $(document).ready(function() {
 		 $("#mob").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
 		if (e.keyCode != 187 && e.keyCode != 16) {
-			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-				 // Allow: Ctrl+A, Command+A
-				(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
-				 // Allow: home, end, left, right, down, up
-				(e.keyCode >= 35 && e.keyCode <= 40) || e.keyCode == 187 || e.keyCode == 16) {
-					 // let it happen, don't do anything
-					 return;
-			}
-			// Ensure that it is a number and stop the keypress
-			
-			if (((e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-				if(e.keyCode != 187 && e.keyCode != 16)
-					e.preventDefault();
-			}
+			allowNumbers(e);
 		}
     });
 	} else {
 		window.location.href = "Apply.html"
 	}
 	}
+	else if(getCurentFileName() == "Apply3.html") {
+		fjuApplication();
+	}
 });
 function insertBef(id) {
 	 $(id).insertBefore($("#sex"));
 }
+function fjuApplication() {
+	var wrapper = $(".panel-collapse collapse in"); 
+	createLabel("collapseOne", "first_name", "First/given name","first",true);
+	createHiddenfield("collapseOne","first_name_error");
+	createInput("collapseOne", "text", "input", "first_name",true);
+	
+	createLabel("collapseOne", "middle_name", "Middle name","middle",false);
+	createHiddenfield("collapseOne","middle_name_error");
+	createInput("collapseOne", "text", "input", "middle_name",false);
+	
+	createLabel("collapseOne", "last_name", "Last name","last",true);
+	createHiddenfield("collapseOne","last_name_error");
+	createInput("collapseOne", "text", "input", "last_name",true);
+	
+	createLabel("collapseThree", "email", "Email Address","email",true);
+	createHiddenfield("collapseThree","email_error");
+	createInput("collapseThree", "email", "input", "email",true);
+	
+	createLabel("collapseThree", "mob", "Phone","phone",true);
+	createHiddenfield("collapseThree","mob_error");
+	createInput("collapseThree", "tell", "input", "mob",true);
+	
+	$('#mob').val('+91');
+	$("#mob").intlTelInput();
+	 $("#mob").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+		if (e.keyCode != 187 && e.keyCode != 16) {
+			allowNumbers(e);
+		}
+    });
+	createLabel("collapseThree", "skype", "Skype ID","skyp",false);
+	createHiddenfield("collapseThree","skype_error");
+	createInput("collapseThree", "text", "defaultTextInput input", "skype",false);
+	
+	createLabel("collapseFour", "ciob", "City of Birth","cityob",true);
+	createHiddenfield("collapseFour","ciob_error");
+	createInput("collapseFour", "text", "input", "ciob",true);
+	
+	createLabel("collapseFour", "citizenship", "Cityzenship","citizen",true);
+	createHiddenfield("collapseFour","citizenship_error");
+	createInput("collapseFour", "text", "input", "citizenship",true);
+	
+	createLabel("collapseFive", "discHis", "Disciplinary History","dishis",true);
+	createHiddenfield("collapseFive","discHis_error");
+	createInput("collapseFive", "text", "input", "discHis",true);
+	
+	createLabel("collapseT", "crimHis", "Disciplinary History","crimihis",true);
+	createHiddenfield("collapseT","crimHis_error");
+	createInput("collapseT", "text", "input", "crimHis",true);
+	
+	createLabel("1collapseTwo", "p1_first_name", "First/given name","p1_first",true);
+	createHiddenfield("1collapseTwo","p1_first_name_error");
+	createInput("1collapseTwo", "text", "input", "p1_first_name",true);
+	
+	createLabel("1collapseTwo", "p1_middle_name", "Middle name","p1_middle",false);
+	createHiddenfield("1collapseTwo","middle_name_error");
+	createInput("1collapseTwo", "text", "input", "p1_middle_name",false);
+	
+	createLabel("1collapseTwo", "p1_last_name", "Last name","p1_last",true);
+	createHiddenfield("1collapseTwo","p1_last_name_error");
+	createInput("1collapseTwo", "text", "input", "p1_last_name",true);
+	
+	createLabel("1collapseTwo", "p1_email", "Email Address","p1_email",true);
+	createHiddenfield("1collapseTwo","p1_email_error");
+	createInput("1collapseTwo", "email", "input", "p1_email",true);
+	
+	createLabel("1collapseTwo", "p1_mob", "Phone","p1_phone",true);
+	createHiddenfield("1collapseTwo","p1_mob_error");
+	createInput("1collapseTwo", "tell", "input", "p1_mob",true);
+	
+	$('#p1_mob').val('+91');
+	$("#p1_mob").intlTelInput();						
+	$("#p1_mob").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+		if (e.keyCode != 187 && e.keyCode != 16) {
+			allowNumbers(e);
+		}
+    });	
+	createLabel("1collapseTwo", "p1_ocpn", "Occupation","p1_occpn",true);
+	createHiddenfield("1collapseTwo","p1_occpn_error");
+	createInput("1collapseTwo", "text", "input", "p1_occpn",true);
+
+	createLabel("1collapseTwo", "p1_emp_status", "Employment Status","p1_empp_status",true);
+	createHiddenfield("1collapseTwo","p1_emp_status_error");
+	createInput("1collapseTwo", "text", "input", "p1_emp_status",true);
+	
+	createLabel("1collapseTwo", "p1_noe", "Name of Employer","p1_noemp",true);
+	createHiddenfield("1collapseTwo","p1_noe_error");
+	createInput("1collapseTwo", "text", "input", "p1_noe",true);
+	
+	createLabel("1collapseTwo", "p1_edu_level", "Education Level","p1_edu_level",true);
+	createHiddenfield("1collapseTwo","p1_edu_level_error");
+	createInput("1collapseTwo", "text", "input", "p1_edu_level",true);
+	
+	
+	createLabel("1collapseThree", "p2_first_name", "First/given name","p2_first",true);
+	createHiddenfield("1collapseThree","p2_first_name_error");
+	createInput("1collapseThree", "text", "input", "p2_first_name",true);
+	
+	createLabel("1collapseThree", "p2_middle_name", "Middle name","p2_middle",false);
+	createHiddenfield("1collapseThree","middle_name_error");
+	createInput("1collapseThree", "text", "input", "p2_middle_name",false);
+	
+	createLabel("1collapseThree", "p2_last_name", "Last name","p2_last",true);
+	createHiddenfield("1collapseThree","p2_last_name_error");
+	createInput("1collapseThree", "text", "input", "p2_last_name",true);
+	
+	createLabel("1collapseThree", "p2_email", "Email Address","p2_email",true);
+	createHiddenfield("1collapseThree","p2_email_error");
+	createInput("1collapseThree", "email", "input", "p2_email",true);
+	
+	createLabel("1collapseThree", "p2_mob", "Phone","p2_phone",true);
+	createHiddenfield("1collapseThree","p2_mob_error");
+	createInput("1collapseThree", "tell", "input", "p2_mob",true);
+	
+	$('#p2_mob').val('+91');
+	$("#p2_mob").intlTelInput();						
+	$("#p2_mob").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+		if (e.keyCode != 187 && e.keyCode != 16) {
+			allowNumbers(e);
+		}
+    });
+	createLabel("1collapseThree", "p2_ocpn", "Occupation","p2_occpn",true);
+	createHiddenfield("1collapseThree","p2_occpn_error");
+	createInput("1collapseThree", "text", "input", "p2_occpn",true);
+
+	createLabel("1collapseThree", "p2_emp_status", "Employment Status","p2_empp_status",true);
+	createHiddenfield("1collapseThree","p2_emp_status_error");
+	createInput("1collapseThree", "text", "input", "p2_emp_status",true);
+	
+	createLabel("1collapseThree", "p2_noe", "Name of Employer","p2_noemp",true);
+	createHiddenfield("1collapseThree","p2_noe_error");
+	createInput("1collapseThree", "text", "input", "p2_noe",true);
+	
+	createLabel("1collapseThree", "p2_edu_level", "Education Level","p2_edu_level",true);
+	createHiddenfield("1collapseThree","p2_edu_level_error");
+	createInput("1collapseThree", "text", "input", "p2_edu_level",true);
+	
+	createLabel("2collapseTwo", "edu_intr", "Education Interruption","edu_int",true);
+	createHiddenfield("2collapseTwo","edu_intr_error");
+	createInput("2collapseTwo", "text", "input", "edu_intr",true);	
+
+	createLabel("2collapseThree", "ncc", "Number of College or University Level Course taken","nccl",true);
+	createHiddenfield("2collapseThree","ncc_error");
+	createInput("2collapseThree", "text", "input", "ncc",true);
+	
+	$('#ncc').keydown(function(e) {
+		allowNumbers(e);
+	});
+
+	
+	createLabel("2collapseFour", "grad_cls_size", "Grad Class Size","grad_clss_size",true);
+	createHiddenfield("2collapseFour","grad_cls_size_error");
+	createInput("2collapseFour", "text", "input", "grad_cls_size",true);	
+	
+	createLabel("2collapseFour", "cgpa", "Cumulative GPA","cmgpa",true);
+	createHiddenfield("2collapseFour","cgpa_error");
+	createInput("2collapseFour", "text", "input", "cgpa",true);
+	
+	createLabel("2collapseFour", "gpas", "GPA Scale","gpass",true);
+	createHiddenfield("2collapseFour","gpas_error");
+	createInput("2collapseFour", "text", "input", "gpas",true);
+	
+
+	$('#grad_cls_size').keydown(function(e) {
+		allowNumbers(e);
+	});
+	$('#cgpa').keydown(function(e) {
+		allowNumbers(e);
+	});
+	$('#gpas').keydown(function(e) {
+		allowNumbers(e);
+	});
+	
+
+	
+
+	
+}
+function createTestFields(id) {
+	
+	createLabel("3collapseOne", id+"test_name", "Test Name",id+"testt_name",true);
+	createHiddenfield("3collapseOne",id+"test_name_error");
+	createInput("3collapseOne", "text", "input", id+"test_name",true);
+	
+	createLabel("3collapseOne", id+"hcrs", "Highest Critical Reading Score",id+"hcrss",true);
+	createHiddenfield("3collapseOne",id+"hcrs_error");
+	createInput("3collapseOne", "text", "input", id+"hcrs",true);	
+	
+	createLabel("3collapseOne", id+"hms", "Highest Math Score",id+"hmss",true);
+	createHiddenfield("3collapseOne",id+"hms_error");
+	createInput("3collapseOne", "text", "input", id+"hms",true);
+	
+	createLabel("3collapseOne", id+"hws", "Highest Writing Score",id+"hwss",true);
+	createHiddenfield("3collapseOne",id+"hws_error");
+	createInput("3collapseOne", "text", "input", id+"hws",true);
+	
+}
+function createSchoolFields(id){
+	var field = document.createElement("h3");
+	field.title = "School "+id
+	field.id = id+"head"
+	document.getElementById("2collapseOne").appendChild(field);
+	$('#'+id+"head").attr('title', 'School '+id + ':');
+	createLabel("2collapseOne", id+"schl_name", "School Name",id+"schll_name",true);
+	createHiddenfield("2collapseOne",id+"schl_name_error");
+	createInput("2collapseOne", "text", "input", id+"schl_name",true);
+	
+	createLabel("2collapseOne", id+"dog", "Date of Graduation",id+"dogg",true);
+	createHiddenfield("2collapseOne",id+"dog_error");
+	createInput("2collapseOne", "text", "input", id+"dog",true);
+	console.log(student.profile.address.country);
+	if(student.profile.address.country != "India" ) {
+	
+		createLabel("2collapseOne", id+"first_name", "Counsellor First name",id+"first",true);
+		createHiddenfield("2collapseOne",id+"first_name_error");
+		createInput("2collapseOne", "text", "input", id+"first_name",true);
+		
+		createLabel("2collapseOne", id+"middle_name", "Counsellor Middle name",id+"middle",false);
+		createHiddenfield("2collapseOne",id+"middle_name_error");
+		createInput("2collapseOne", "text", "input", id+"middle_name",false);
+		
+		createLabel("2collapseOne", id+"last_name", "Counsellor Last name",id+"last",true);
+		createHiddenfield("2collapseOne",id+"last_name_error");
+		createInput("2collapseOne", "text", "input", id+"last_name",true);
+		
+		createLabel("2collapseOne", id+"email", "Counsellor Email Address",id+"emaill",true);
+		createHiddenfield("2collapseOne","email_error");
+		createInput("2collapseOne", "email", "input", id+"email",true);
+		
+		createLabel("2collapseOne", id+"mob", "Counsellor Phone",id+"phone",true);
+		createHiddenfield("2collapseOne",id+"mob_error");
+		createInput("2collapseOne", "tell", "input", id+"mob",true);
+		
+		$('#'+id+'mob').val('+1');
+		$('#'+id+'mob').intlTelInput();	
+		 $('#'+id+'mob').keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+		if (e.keyCode != 187 && e.keyCode != 16) {
+			allowNumbers(e);
+		}
+    });
+	}
+}
+$('select').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+	var id = this.id;
+    if(valueSelected == "Married" || valueSelected == "Separated" || valueSelected == "Divorced"){
+		$('#dyhc').show();
+		$('#dyhcl').show();
+	}
+	if(id == "no_of_sch") {
+		$('#2collapseOne').empty();
+		var i = 0;
+		while(i < valueSelected) {
+			i++;
+			createSchoolFields(id)
+		}
+	}
+	if(id == "tests_taken") {
+		$('#3collapseOne').empty();
+		var i = 0;
+		while(i < valueSelected) {
+			i++;
+			createTestFields(id)
+		}
+	}
+});
 function RegInfo() {
 	
 	 var wrapper = $(".AccReg-form"); 
@@ -191,7 +454,7 @@ function RegInfo() {
 			 createHiddenfield("Register1","last_name_error");
 			 createInput("Register1", "text", "defaultTextInput input", "last_name",true);
 
-			  createLabel("register2", "skype", "Skype ID","last",false);
+			 createLabel("register2", "skype", "Skype ID","last",false);
 			 createHiddenfield("register2","skype_error");
 			 createInput("register2", "text", "defaultTextInput input", "skype",false);
 
@@ -285,14 +548,24 @@ $('form#Reg-Form').submit(function() {
 		var stu = assignValuesJson(values);
 		console.log(stu.login_credentials);
 		console.log("passed")
-			$.post( "/student/savedetails",student, function( data ) {
+			/* $.post( "/student/savedetails",student, function( data ) {
 				console.log(data);
 				if(data=="success") {
 					alert(data);
 				} else {
 					alert(data);
 				}
-			});
+			}); */
+			function sendData() {
+				$.ajax({
+					url: '/student/savedetails',
+					type: 'POST',
+					data: { json: JSON.stringify({
+						name:"Bob",
+					})},
+					dataType: 'json'
+				});
+}
 	} else {
 		//same page should be shown show the errors
 		console.log("notPassed")
@@ -460,8 +733,25 @@ function assignValuesJson(value) {
 		student.profile.contact_details.skype_id = value['skype'];
 		localStorage.clear();
 	}
-
+		localStorage.country  = values['country'];
 		localStorage.ques190 = student;
 		
 		return student;
+}
+function allowNumbers(e) {
+	
+	if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				 // Allow: Ctrl+A, Command+A
+				(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+				 // Allow: home, end, left, right, down, up
+				(e.keyCode >= 35 && e.keyCode <= 40) || e.keyCode == 187 || e.keyCode == 16) {
+					 // let it happen, don't do anything
+					 return;
+			}
+			// Ensure that it is a number and stop the keypress
+			
+			if (((e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				if(e.keyCode != 187 && e.keyCode != 16)
+					e.preventDefault();
+	}
 }
