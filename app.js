@@ -167,23 +167,26 @@ $(document).ready(function() {
 	}
 	else if(getCurentFileName() == "Apply3.html") {
 		// get student object from datastore
+		student = getStudentObj(email)
 		fjuApplication(student);
 		$('div input[id][type]:required').each(function(){ 
 			  $("#"+$(this).attr('id')).focusout(function(){
 			  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
 		}); 
 		});
+		
 	}
 		/* $(".panel-default").children(".panel-collapse").append('<br/><div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="'+i+'"style="color:white; background-color:#2d4250">Submit</button></div>'); */
 });
 function insertBef(id) {
 	 $(id).insertBefore($("#sex"));
 }
-function fjuApplication() {
+function fjuApplication(student) {
 	var wrapper = $(".panel-collapse collapse in"); 
 	createLabel("collapseOne", "first_name", "First/given name","first",true);
 	createHiddenfield("collapseOne","first_name_error");
 	createInput("collapseOne", "text", "input", "first_name",true);
+	$("#first_name").val(student.profile.personal_information.first_name)
 	
 	createLabel("collapseOne", "middle_name", "Middle name","middle",false);
 	createHiddenfield("collapseOne","middle_name_error");
@@ -1022,7 +1025,6 @@ $("#14").click(function(){
 });
 
 function sendData(student) {	
-	console.log(student);
 	$.ajax({
     url: '/student/savedetails',
     type: 'POST',
@@ -1035,5 +1037,22 @@ function sendData(student) {
     },
 });
 }
-
-                
+function getStudentObj() {
+	$.ajax({
+    url: '/student/savedetails',
+    type: 'POST',
+    data:JSON.stringify(student),
+    success: function (data, status) {
+		console.log("data " +jQuery.type(data) + "  ||  "+ data);
+    },
+    error: function (xhr, desc, err) {
+       alert("errorrrr   "+ err + " ||  "+ xhr.status);
+    },
+});
+}
+function getStudentObj(emaill) {
+$.post( "/meta/getStudentObj",{email:emaill}, function( student ) {
+				console.log(student);
+				return student;
+			});             
+}

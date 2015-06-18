@@ -212,19 +212,143 @@ class saveStudent(webapp2.RequestHandler):
             dataa.put()
             self.response.write("success2")            
             
-class updateStudent(webapp2.RequestHandler):
-    def post(self):
-        #first get student and update details
-        self.response.write('success')
 class getStudent(webapp2.RequestHandler):
     def post(self):
         #get student
-        student_json = ""
+        email =self.request.get("email")
+        keycontent = self.request.get('logger_name',"studentKey")
+        qry = Student.query(ancestor = Student_key(keycontent))
+        qry = qry.filter(Student.email == email)
+        data = qry.fetch()
+        student = {}
+        login = {}
+        profile = {}
+        pi = {}
+        adr = {}
+        con = {}
+        geo = {}
+        dh = {}
+        ch = {}
+        family = {}
+        household = {}
+        parent1 = {}
+        parent2 = {}
+        education = {}
+        school = {}
+        ei = {}
+        cu = {}
+        grd = {}
+        testing = {}
+        test = {}
+        for row in data:
+            login['username'] = row.username  
+            login['password'] = row.password
+            student['login_credentials'] = login
+            
+            pi['first_name'] = row.first_name  
+            pi['last_name'] = row.last_name  
+            pi['middle_name'] = row.middle_name
+            pi['gender'] = row.gender  
+            pi['dob'] = row.dob  
+            pi['ssn_no'] = row.ssn_no
+            profile['personal_information'] = pi
+            
+            adr['country'] = row.country  
+            adr['state'] = row.state  
+            adr['city'] = row.city  
+            adr['address1'] = row.address1  
+            adr['address2'] = row.address2  
+            adr['address3'] = row.address3  
+            adr['zipcode'] = row.zipcode
+            profile['address'] = adr
+            
+            con['email'] = row.email  
+            con['phone_no'] = row.phone  
+            con['skype_id'] = row.skype
+            profile['contact_details'] = con
+            
+            geo['country_of_birth'] = row.country_of_birth  
+            geo['city_of_birth'] = row.city_of_birth  
+            geo['citizenship'] = row.citizenship
+            profile['geography'] = geo
+            
+            dh['disciplinary_history'] = row.disciplinary_history
+            profile['disciplinary_history'] = dh
+            
+            ch['criminal_history'] = row.criminal_history
+            profile['criminal_history'] = ch
+            student['profile'] = profile
+            
+            household['which_parent_do_you_live_with'] = row.which_parent_do_you_live_with  
+            household['martial_status'] = row.martial_status  
+            household['do_you_have_children'] = row.have_children
+            family['household'] = household
+            
+            parent1['type'] = row.parent1_type  
+            parent1['living'] = row.parent1_living  
+            parent1['first_name'] = row.parent1_first_name  
+            parent1['last_name'] = row.parent1_last_name  
+            parent1['middle_name'] = row.parent1_middle_name  
+            parent1['email'] = row.parent1_email  
+            parent1['phone'] = row.parent1_phone  
+            parent1['address'] = row.parent1_address  
+            parent1['occupation'] = row.parent1_occupation  
+            parent1['employment_status'] = row.parent1_employment_status  
+            parent1['name_of_employer'] = row.parent1_name_of_employer   
+            parent1['education_level'] = row.parent1_education_level
+            family['parent1'] = parent1
+            
+            parent2['type'] = row.parent2_type  
+            parent2['living'] = row.parent2_living  
+            parent2['first_name'] = row.parent2_first_name  
+            parent2['last_name'] = row.parent2_last_name  
+            parent2['middle_name'] = row.parent2_middle_name  
+            parent2['email'] = row.parent2_email  
+            parent2['phone'] = row.parent2_phone  
+            parent2['address'] = row.parent2_address  
+            parent2['occupation'] = row.parent2_occupation  
+            parent2['employment_status'] = row.parent2_employment_status  
+            parent2['name_of_employer'] = row.parent2_name_of_employer  
+            parent2['education_level'] = row.parent2_education_level
+            family['parent2'] = parent2
+            student['family'] = family
+            
+            school['no_of_schools'] = row.no_of_schools  
+            school['school_name'] = row.school_name  
+            school['date_of_graduation'] = row.date_of_graduation  
+            school['counsellor_first_name'] = row.counsellor_first_name   
+            school['counsellor_middle_name'] = row.counsellor_middle_name  
+            school['counsellor_last_name'] = row.counsellor_last_name  
+            school['counsellor_phone'] = row.counsellor_phone  
+            school['counsellor_email'] = row.counsellor_email
+            education['school'] = school
+            
+            ei['education_interruption'] = row.education_interruption
+            education['education_interruption'] = ei
+            
+            cu['no_of_collage_or_university_level_courses_taken'] = row.no_of_collage_or_university_level_courses_taken
+            education['collage_university'] = cu
+            
+            grd['class_ranking'] = row.class_ranking  
+            grd['grad_class_size'] = row.grad_class_size  
+            grd['cumulative_GPA'] = row.cumulative_GPA  
+            grd['GPA_scale'] = row.GPA_scale
+            education['grades'] = grd
+            student['education'] = education
+            
+            test['tests_taken'] = row.tests_taken  
+            test['test_name'] = row.test_name  
+            test['highest_critical_reading_score'] = row.highest_critical_reading_score  
+            test['highest_math_score'] = row.highest_math_score  
+            test['highest_writing_score'] = row.highest_writing_score
+            testing['test'] = test
+            student['tests'] = testing
+                                
+        student_json = json.dumps(student)
         self.response.write(student_json)
         
 app = webapp2.WSGIApplication([
     (r'/(.+\.html)', MainHandler),
     (r'/student/savedetails',saveStudent),
-    (r'/meta/updateStudentdetails', updateStudent),
     (r'/meta/getStudentObj', getStudent),
            ], debug=True)
