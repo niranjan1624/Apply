@@ -25,7 +25,7 @@ var student = {
 							zipcode:""
 						},
 						contact_details: {
-							email:"",
+							email:"niranjan.ece1@gmail.com",
 							phone_no:"",
 							skype_id:""
 							
@@ -108,11 +108,11 @@ var student = {
 					},
 					tests: {
 						test: {
-							tests_taken:1,
+							tests_taken:"",
 							test_name: "",
-							highest_critical_reading_score:2,
-							highest_math_score:3,
-							highest_writing_score:4
+							highest_critical_reading_score:"",
+							highest_math_score:"",
+							highest_writing_score:""
 						}
 					}
 				  }
@@ -394,7 +394,7 @@ function createSchoolFields(id){
 	createInput("2collapseOne", "text", "input", id+"dog",true);
 	console.log(student.profile.address.country);
 	if(student.profile.address.country != "India" ) {
-	
+
 		createLabel("2collapseOne", id+"first_name", "Counsellor First name",id+"first",true);
 		createHiddenfield("2collapseOne",id+"first_name_error");
 		createInput("2collapseOne", "text", "input", id+"first_name",true);
@@ -455,7 +455,6 @@ $('select').on('change', function (e) {
 		}
 	}
 			$('div input[id][type]:required').each(function(){
-			console.log($(this).attr('id'));
 			  $("#"+$(this).attr('id')).focusout(function(){
 			  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
 		}); 
@@ -564,27 +563,9 @@ $('form#Reg-Form').submit(function() {
 	}
 	if (validateRegFields(values) && validateField("#mob","mob")) {
 		// send all the data to server (data store)
-		var stu = assignValuesJson(values);
-		console.log(stu.login_credentials);
+		var student = assignValuesJson(values);
 		console.log("passed")
-			/* $.post( "/student/savedetails",student, function( data ) {
-				console.log(data);
-				if(data=="success") {
-					alert(data);
-				} else {
-					alert(data);
-				}
-			}); */
-			function sendData() {
-				$.ajax({
-					url: '/student/savedetails',
-					type: 'POST',
-					data: { json: JSON.stringify({
-						name:"Bob",
-					})},
-					dataType: 'json'
-				});
-}
+		sendData(student);
 	} else {
 		//same page should be shown show the errors
 		console.log("notPassed")
@@ -754,9 +735,7 @@ function assignValuesJson(value) {
 		student.profile.contact_details.phone_no = value['mob'];
 		student.profile.contact_details.skype_id = value['skype'];
 		//send details to datastore
-		sendData(student);
-		
-		localStorage.clear();
+
 	}
 		localStorage.country  = values['country'];
 		localStorage.ques190 = student;
@@ -933,11 +912,53 @@ $("#10").click(function(){
 
 	var nosc =  $('#no_of_sch').val();
 	student.education.school.no_of_schools = nosc;
-	var sc = []
+	var sn = []
+	var dog = []
+	var cfn = []
+	var cmn = []
+	var cln = []
+	var cea = []
+	var cp = []
+
 	for(var i =0; i < nosc; i++) {
-		
+		if($(i+"#schl_name").val() != "")
+			sn[i] = $(i+"#schl_name").val();
+		if($(i+"#dog").val() != "")
+			dog[i] = $(i+"#dog").val();
+		if($(i+"#first_name").val() != "")
+			cfn[i] = $(i+"#first_name").val();
+		if($(i+"#middle_name").val() != "")
+			cmn[i] = $(i+"#middle_name").val();
+		if($(i+"#last_name").val() != "")
+			cln[i] = $(i+"#last_name").val();
+		if($(i+"#email").val() != "")
+			cea[i] = $(i+"#email").val();
+		if(validateField(i+"#mob","text"))
+			cp[i] = $(i+"#mob").val();
 	}
+	if(sn.length > 0)
+		student.education.school.school_name = sn;
 	
+	if(dog.length > 0)
+		student.education.school.date_of_graduation = dog;
+	
+	if(cp.length > 0)
+		student.education.school.counsellor_phone= cp
+
+	if(cfn.length > 0)
+		student.education.school.counsellor_first_name  = cfn
+
+	if(cmn.length > 0)
+		student.education.school.counsellor_middle_name = cmn
+
+	if(cln.length > 0)
+		student.education.school.counsellor_last_name = cln;
+
+	if(cea.length > 0)
+		student.education.school.counsellor_email = cea;
+	
+	sendData(student);
+	console.log(student.education.school);
 });
 
 
@@ -966,17 +987,53 @@ $("#13").click(function(){
 	if($("#gpas").val() != "")
 		student.education.grades.GPA_scale = $("#gpas").val();
 	console.log(student.education.grades);
+	sendData(student);
 });
 
 
 $("#14").click(function(){
-	var tt = $("tests_taken").val();
+	var tt = $("#tests_taken").val();
 	student.tests.test.tests_taken = tt;
+	tn = []
+	hcrs = []
+	hms = []
+	hws = []
 	for(var i = 0; i < tt; i++) {
-		
+		if($(i+"#test_name").val() != "")
+			tn[i] = $(i+"#test_name").val();
+		if($(i+"#hcrs").val() != "")
+			hcrs[i] = $(i+"#hcrs").val();
+		if($(i+"#hms").val() != "")
+			hms[i] = $(i+"#hms").val();
+		if($(i+"#hws").val() != "")
+			hws[i] = $(i+"#hws").val();
 	}
+	if(tn.length > 0)
+		student.tests.test.test_name = tn;
+	if(hcrs.length > 0)
+		student.tests.test.highest_critical_reading_score = hcrs;
+	if(hms.length > 0)
+		student.tests.test.highest_math_score = hms;
+	if(hws.length > 0)
+		student.tests.test.highest_writing_score = hws;
+	
+	//console.log(student.tests.test);
+	sendData(student);
 });
 
-function sendData(student) {
-	
+function sendData(student) {	
+	console.log(student);
+	$.ajax({
+    url: '/student/savedetails',
+    type: 'POST',
+    data:JSON.stringify(student),
+    success: function (data, status) {
+		console.log("data " +jQuery.type(data) + "  ||  "+ data);
+    },
+    error: function (xhr, desc, err) {
+       alert("errorrrr   "+ err + " ||  "+ xhr.status);
+    },
+});
 }
+
+                

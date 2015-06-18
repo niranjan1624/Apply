@@ -20,6 +20,7 @@ from google.appengine.ext import ndb
 import json
 from datetime import datetime
 import os
+import json
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -41,7 +42,7 @@ class Student(ndb.Model):
     last_name = ndb.StringProperty(indexed=True)
     middle_name=ndb.StringProperty(indexed=True)
     gender = ndb.StringProperty(indexed=True)
-    dob = ndb.DateTimeProperty(indexed=True)
+    dob = ndb.StringProperty(indexed=True)
     ssn_no = ndb.StringProperty(indexed=True)
     country = ndb.StringProperty(indexed=True)
     state = ndb.StringProperty(indexed=True)
@@ -54,7 +55,7 @@ class Student(ndb.Model):
     phone = ndb.StringProperty(indexed=True)
     skype = ndb.StringProperty(indexed=True)
     country_of_birth = ndb.StringProperty(indexed=True)
-    dity_of_birth = ndb.StringProperty(indexed=True)
+    city_of_birth = ndb.StringProperty(indexed=True)
     citizenship = ndb.StringProperty(indexed=True)
     disciplinary_history = ndb.StringProperty(indexed=True)
     criminal_history = ndb.StringProperty(indexed=True)
@@ -99,6 +100,7 @@ class Student(ndb.Model):
     grad_class_size = ndb.StringProperty(indexed=True)
     cumulative_GPA = ndb.StringProperty(indexed=True)
     GPA_scale = ndb.StringProperty(indexed=True)
+    tests_taken = ndb.StringProperty(indexed=True)
     test_name = ndb.StringProperty(indexed=True)
     highest_critical_reading_score = ndb.StringProperty(indexed=True)
     highest_math_score = ndb.StringProperty(indexed=True)
@@ -107,7 +109,109 @@ class Student(ndb.Model):
 class saveStudent(webapp2.RequestHandler):
     def post(self):
         #read json file and assign those values to student
-        self.response.write("username:  " + student.login_credentials.username)
+        student = json.loads(self.request.body)
+        email = student['profile']['contact_details']['email']
+        keycontent = self.request.get('logger_name',"studentKey")
+        qry = Student.query(ancestor = Student_key(keycontent))
+        qry = qry.filter(Student.email == email)
+        data = qry.fetch()
+        if len(data) > 0 :
+            for row in data:
+                row.username = student['login_credentials']['username']
+                row.password = student['login_credentials']['password']
+                row.first_name = student['profile']['personal_information']['first_name']
+                row.last_name = student['profile']['personal_information']['last_name']
+                row.middle_name = student['profile']['personal_information']['middle_name']
+                row.gender = student['profile']['personal_information']['gender']
+                row.dob = student['profile']['personal_information']['dob']
+                row.ssn_no = student['profile']['personal_information']['ssn_no']
+                row.country = student['profile']['address']['country']
+                row.state = student['profile']['address']['state']
+                row.city = student['profile']['address']['city']
+                row.address1 = student['profile']['address']['address1']
+                row.address2 = student['profile']['address']['address2']
+                row.address3 = student['profile']['address']['address3']
+                row.zipcode = student['profile']['address']['zipcode']
+                row.email = student['profile']['contact_details']['email']
+                row.phone = student['profile']['contact_details']['phone_no']
+                row.skype = student['profile']['contact_details']['skype_id']
+                row.country_of_birth = student['profile']['geography']['country_of_birth']
+                row.city_of_birth = student['profile']['geography']['city_of_birth']
+                row.citizenship = student['profile']['geography']['citizenship']
+                row.disciplinary_history = student['profile']['disciplinary_history']['disciplinary_history']
+                row.criminal_history = student['profile']['criminal_history']['criminal_history']
+                row.which_parent_do_you_live_with = student['family']['household']['which_parent_do_you_live_with']
+                row.martial_status = student['family']['household']['martial_status']
+                row.have_children = student['family']['household']['do_you_have_children']
+                row.parent1_type = student['family']['parent1']['type']
+                row.parent1_living = student['family']['parent1']['living']
+                row.parent1_first_name = student['family']['parent1']['first_name']
+                row.parent1_last_name = student['family']['parent1']['last_name']
+                row.parent1_middle_name = student['family']['parent1']['middle_name']
+                row.parent1_email = student['family']['parent1']['email']
+                row.parent1_phone = student['family']['parent1']['phone']
+                row.parent1_address = student['family']['parent1']['address']
+                row.parent1_occupation = student['family']['parent1']['occupation']
+                row.parent1_employment_status = student['family']['parent1']['employment_status']
+                row.parent1_name_of_employer =  student['family']['parent1']['name_of_employer']
+                row.parent1_education_level = student['family']['parent1']['education_level']
+                row.parent2_type = student['family']['parent2']['type']
+                row.parent2_living = student['family']['parent2']['living']
+                row.parent2_first_name = student['family']['parent2']['first_name']
+                row.parent2_last_name = student['family']['parent2']['last_name']
+                row.parent2_middle_name = student['family']['parent2']['middle_name']
+                row.parent2_email = student['family']['parent2']['email']
+                row.parent2_phone = student['family']['parent2']['phone']
+                row.parent2_address = student['family']['parent2']['address']
+                row.parent2_occupation = student['family']['parent2']['occupation']
+                row.parent2_employment_status = student['family']['parent2']['employment_status']
+                row.parent2_name_of_employer = student['family']['parent2']['name_of_employer']
+                row.parent2_education_level = student['family']['parent2']['education_level']
+                row.no_of_schools = student['education']['school']['no_of_schools']
+                row.school_name = student['education']['school']['school_name']
+                row.date_of_graduation = student['education']['school']['date_of_graduation']
+                row.counsellor_first_name  = student['education']['school']['counsellor_first_name']
+                row.counsellor_middle_name = student['education']['school']['counsellor_middle_name']
+                row.counsellor_last_name = student['education']['school']['counsellor_last_name']
+                row.counsellor_phone = student['education']['school']['counsellor_phone']
+                row.counsellor_email = student['education']['school']['counsellor_email']
+                row.education_interruption = student['education']['education_interruption']['education_interruption']
+                row.no_of_collage_or_university_level_courses_taken = student['education']['collage_university']['no_of_collage_or_university_level_courses_taken']
+                row.class_ranking = student['education']['grades']['class_ranking']
+                row.grad_class_size = student['education']['grades']['grad_class_size'] 
+                row.cumulative_GPA = student['education']['grades']['cumulative_GPA']
+                row.GPA_scale = student['education']['grades']['GPA_scale']
+                row.tests_taken = student['tests']['test']['tests_taken']
+                row.test_name = student['tests']['test']['test_name']
+                row.highest_critical_reading_score = student['tests']['test']['highest_critical_reading_score']
+                row.highest_math_score = student['tests']['test']['highest_math_score']
+                row.highest_writing_score = student['tests']['test']['highest_writing_score']
+                row.put()
+                self.response.write("success1")
+        else:
+            keycontent = self.request.get('logger_name',"studentKey")
+            dataa = Student(parent = Student_key(keycontent))
+            dataa.username = student['login_credentials']['username']
+            dataa.password = student['login_credentials']['password']
+            dataa.first_name = student['profile']['personal_information']['first_name']
+            dataa.last_name = student['profile']['personal_information']['middle_name']
+            dataa.middle_name = student['profile']['personal_information']['last_name']
+            dataa.gender = student['profile']['personal_information']['gender']
+            dataa.dob = student['profile']['personal_information']['dob']
+            dataa.ssn_no = student['profile']['personal_information']['ssn_no']
+            dataa.country = student['profile']['address']['country']
+            dataa.state = student['profile']['address']['address1']
+            dataa.city = student['profile']['address']['address2']
+            dataa.address1 = student['profile']['address']['address3']
+            dataa.address2 = student['profile']['address']['city']
+            dataa.address3 = student['profile']['address']['state']
+            dataa.zipcode = student['profile']['address']['zipcode']
+            dataa.email = student['profile']['contact_details']['email']
+            dataa.phone = student['profile']['contact_details']['phone_no']
+            dataa.skype = student['profile']['contact_details']['skype_id']
+            dataa.put()
+            self.response.write("success2")            
+            
 class updateStudent(webapp2.RequestHandler):
     def post(self):
         #first get student and update details

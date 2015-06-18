@@ -2485,8 +2485,8 @@ img.scent {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-    border: 1px solid #861035;
-    background: #861035 url(../../Include/Contents/images/ui/ui-bg_flat_100_861035_40x100.png) 50% 50% repeat-x;
+    border: 1px solid #C8C8C8 ;
+    background: #C8C8C8  url(../../Include/Contents/images/ui/ui-bg_flat_100_861035_40x100.png) 50% 50% repeat-x;
     font-weight: normal;
     color: #fff
 }
@@ -2500,8 +2500,8 @@ img.scent {
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-    border: 1px solid #861035;
-    background: #861035 url(../../Include/Contents/images/ui/ui-bg_flat_65_861035_40x100.png) 50% 50% repeat-x;
+    border: 1px solid #C8C8C8  ;
+    background: #C8C8C8   url(../../Include/Contents/images/ui/ui-bg_flat_65_861035_40x100.png) 50% 50% repeat-x;
     font-weight: normal;
     color: #fff
 }
