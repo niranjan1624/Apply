@@ -2,7 +2,7 @@
 var student = {
 					login_credentials: {
 						
-						username: "niranjan",
+						username: "",
 						password:"pass"
 					},
 					
@@ -25,7 +25,7 @@ var student = {
 							zipcode:""
 						},
 						contact_details: {
-							email:"niranjan.ece1@gmail.com",
+							email:"",
 							phone_no:"",
 							skype_id:""
 							
@@ -84,13 +84,13 @@ var student = {
 					education: {
 						school: {
 							no_of_schools: "",
-							school_name: "",
-							date_of_graduation:"",
-							counsellor_first_name:"",
-							counsellor_middle_name:"",
-							counsellor_last_name:"",
-							counsellor_phone:"",
-							counsellor_email:""
+							school_name: [],
+							date_of_graduation:[],
+							counsellor_first_name:[],
+							counsellor_middle_name:[],
+							counsellor_last_name:[],
+							counsellor_phone:[],
+							counsellor_email:[]
 						},
 						education_interruption:{
 							education_interruption:""
@@ -109,10 +109,10 @@ var student = {
 					tests: {
 						test: {
 							tests_taken:"",
-							test_name: "",
-							highest_critical_reading_score:"",
-							highest_math_score:"",
-							highest_writing_score:""
+							test_name: [],
+							highest_critical_reading_score:[],
+							highest_math_score:[],
+							highest_writing_score:[]
 						}
 					}
 				  }
@@ -149,6 +149,7 @@ function showMsg(id,msg) {
 	$(id).html(msg);
 }
 $(document).ready(function() {
+	$('#sp1').hide();$('#sp2').hide();$('#sp3').hide();$('#sp4').hide();$('#sp5').hide();$('#sp6').hide();$('#sp7').hide();$('#sp8').hide();$('#sp9').hide();$('#sp10').hide();$('#sp11').hide();$('#sp12').hide();$('#sp13').hide();$('#sp14').hide();
 	if(getCurentFileName() == "Apply.html")
 		loginCredential();
 	else if (getCurentFileName() == "Apply2.html") {
@@ -166,9 +167,23 @@ $(document).ready(function() {
 	}
 	}
 	else if(getCurentFileName() == "Apply3.html") {
+		$('#collapseTwo').collapse('toggle');
+		$('#collapseThreee').collapse('toggle');
+		$('#collapseFourr').collapse('toggle');
+		$('#collapseFivee').collapse('toggle');
+		$('#collapseSix').collapse('toggle');
+		
+		$('#1collapseTwoo').collapse('toggle');
+		$('#1collapseThreee').collapse('toggle');
+		
+		$('#2collapseTwoo').collapse('toggle');
+		$('#2collapseThreee').collapse('toggle');
+		$('#2collapseFourr').collapse('toggle');
+		
 		// get student object from datastore
-		student = getStudentObj(email)
-		fjuApplication(student);
+		var student1 = getStudentObj("niranjan.ece1@gmail.com")
+		console.log(student1);
+		fjuApplication(student1);
 		$('div input[id][type]:required').each(function(){ 
 			  $("#"+$(this).attr('id')).focusout(function(){
 			  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
@@ -186,7 +201,7 @@ function fjuApplication(student) {
 	createLabel("collapseOne", "first_name", "First/given name","first",true);
 	createHiddenfield("collapseOne","first_name_error");
 	createInput("collapseOne", "text", "input", "first_name",true);
-	$("#first_name").val(student.profile.personal_information.first_name)
+//	$("#first_name").val(student.profile.personal_information.first_name)
 	
 	createLabel("collapseOne", "middle_name", "Middle name","middle",false);
 	createHiddenfield("collapseOne","middle_name_error");
@@ -573,22 +588,39 @@ $('form#Reg-Form').submit(function() {
 		//same page should be shown show the errors
 		console.log("notPassed")
 	}
-	
+	window.location.href = "Apply2.html"
 	console.log(values);
  });
 
  $('form#loginForm').submit(function() {
 	 console.log("submit");
-	if ($("#email").val() != $("#re_email").val())
+	 var pass = true;
+	if ($("#email").val() != $("#re_email").val()) {
 		showMsg("#re_email_error", "Email addresses must match.")
-	if ($("#pass").val() != $("#re_pass").val())
+		pass = false
+	}
+	if ($("#pass").val() != $("#re_pass").val()) {
 		showMsg("#re_pass_error", "Passwords must match.")
-	else {
-		console.log("success");
-		values["email"]  = $("#email").val();
-		values["pass"] = $("#pass").val();
-		assignValuesJson(values);
-		window.location.href = "Apply2.html"
+		pass = false
+	}
+	if(pass) {
+		$.post( "/student/existstudent",{email:$("#email").val()}, function( data ) {
+				//console.log(student);
+				if (data == "exist") {
+					showMsg("#err_101", "Student email address already exist");
+					
+				}
+				else {
+					console.log("success");
+					student.login_credentials.username = $("#email").val() 
+					student.login_credentials.password = $("#pass").val() 
+					student.profile.contact_details.email = $("#email").val() 
+					sendData(student)
+					localStorage.user="dummy";
+					window.location.href = "Apply2.html"
+				}
+			});  
+		
 	}
  });
 function validateField(id,type) {
@@ -716,14 +748,7 @@ function getCurentFileName(){
     return pagePathName.substring(pagePathName.lastIndexOf("/") + 1);
 }
 function assignValuesJson(value) {
-	if(getCurentFileName() == "Apply.html") {
-		localStorage.user = values['email']
-		localStorage.pass = values['pass'];
-	}
-	else if (getCurentFileName() == "Apply2.html") {
-		student.login_credentials.username = localStorage.user;
-		student.login_credentials.password = localStorage.pass;	
-		student.profile.contact_details.email = localStorage.user;
+if (getCurentFileName() == "Apply2.html") {
 		student.profile.personal_information.first_name = values['first_name'];
 		student.profile.personal_information.last_name = values['last_name'];
 		student.profile.personal_information.gender = values['gender'];
@@ -738,10 +763,8 @@ function assignValuesJson(value) {
 		student.profile.contact_details.phone_no = value['mob'];
 		student.profile.contact_details.skype_id = value['skype'];
 		//send details to datastore
-
 	}
-		localStorage.country  = values['country'];
-		localStorage.ques190 = student;
+		
 		
 		return student;
 }
@@ -765,85 +788,172 @@ function allowNumbers(e) {
 
 // Sending all data to data store
 $("#1").click(function(){
+	var pass = true;
 	if($("#first_name").val() != "")
 		student.profile.personal_information.first_name = $("#first_name").val();
+	 else {
+		pass = false;
+	}
 	if($("#middle_name").val() != "")
 		student.profile.personal_information.middle_name = $("#middle_name").val();
+	 else {
+		pass = false;
+	}
 	if($("#last_name").val() != "")
 		student.profile.personal_information.last_name = $("#last_name").val();
+	 else {
+		pass = false;
+	}
 	
 	var selected = $("#radioDiv input[type='radio']:checked");
 	if (selected.length > 0) 
 		student.profile.personal_information.gender = selected.val();
+	 else {
+		pass = false;
+	}
 	
 	if($("#month").val() != "" && $("#day").val() != "" && $("#year").val() != "")
 		student.profile.personal_information.dob = $("#day").val() + "/" + $("#month").val()+ "/" + $("#year").val();
+	 else {
+		pass = false;
+	}
 	if($("#ssn").val() != "")
 		student.profile.personal_information.ssn_no = $("#ssn").val();
+	 else {
+		pass = false;
+	}
 	console.log(student.profile.personal_information);
-	sendData(student);
-	
+	$("#collapse1").collapse('toggle');
+	$('#collapseTwo').collapse('toggle');
+	//sendData(student);
+	if (pass)
+		$('#sp1').show();
 });
 
 $("#2").click(function(){
-	if($("#country").val() != "")
+	var pass = true;
+	if($("#country").val() != "") {
 		student.profile.address.country = $("#country").val();
+	} else {
+		pass = false;
+	}
 	if($("#address1").val() != "")
 		student.profile.address.address1 = $("#address1").val();
+	 else {
+		pass = false;
+	}
 	if($("#address2").val() != "")
 		student.profile.address.address2 = $("#address2").val();
+	 else {
+		pass = false;
+	}
 	if($("#address3").val() != "")
 		student.profile.address.address3 = $("#address3").val();
+	 else {
+		pass = false;
+	}
 	if($("#city").val() != "")
 		student.profile.address.city = $("#city").val();
+	 else {
+		pass = false;
+	}
 	if($("#state").val() != "")
 		student.profile.address.state = $("#state").val();
+	 else {
+		pass = false;
+	}
 	if($("#zipcode").val() != "")
 		student.profile.address.zipcode = $("#zipcode").val();
+	 else {
+		pass = false;
+	}
 	console.log(student.profile.address);
 	sendData(student);
+	$('#collapseTwo').collapse('toggle');
+	$('#collapseThreee').collapse('toggle');
+	if(pass)
+		$('#sp2').show();
 });
 
 $("#3").click(function(){
+	var pass = true
 	if(validateField("#email","email")) 
 		student.profile.contact_details.email = $('#email').val();
+	 else {
+		pass = false;
+	}
 	if(validateField("#mob","mob"))
 		student.profile.contact_details.phone_no = $('#mob').val();
+	 else {
+		pass = false;
+	}
 
 	if($("#skype").val() != "")
 		student.profile.contact_details.skype_id = $('#skype').val();
+	 else {
+		pass = false;
+	}
 	console.log(student.profile.contact_details);
 	sendData(student);
+	$('#collapseThreee').collapse('toggle');
+	$('#collapseFourr').collapse('toggle');
+	if(pass)
+		$('#sp3').show()
 });
 
 $("#4").click(function(){
-
+	var pass = true
 	student.profile.geography.country_of_birth = $('#cob').val();
 	if(validateField("#ciob"))
 		student.profile.geography.city_of_birth = $('#ciob').val();
+	else {
+		pass = false;
+	}
 	
 	if(validateField("#citizenship")) {
 		student.profile.geography.citizenship = $('#citizenship').val();
 		console.log("passerd")
 	}
+	else {
+		pass = false;
+	}
 	console.log(student.profile.geography)
 	sendData(student);
+	$('#collapseFourr').collapse('toggle');
+	$('#collapseFivee').collapse('toggle');
+	if(pass)
+		$('#sp4').show()
 });
 
 $("#5").click(function(){
+	var pass = true;
 	if(validateField("#discHis")) {
 		student.profile.disciplinary_history.disciplinary_history = $("#discHis").val();
 		sendData(student);
 	}
+	else {
+		pass = false;
+	}
 	console.log(student.profile.disciplinary_history)
+	$('#collapseFivee').collapse('toggle');
+	$('#collapseSix').collapse('toggle');
+	if(pass)
+		$('#sp5').show()
 });
 
 $("#6").click(function(){
+	var pass = true;
 	if(validateField("#crimHis")) {
 		student.profile.criminal_history.criminal_history = $("#crimHis").val();
 		sendData(student);
+	} else {
+		pass = false;
 	}
 	console.log(student.profile.criminal_history)
+	$('#collapseSix').collapse('toggle');
+	$('#1collapseOne').collapse('toggle');
+	if(pass)
+		$('#sp6').show()
 });
 
 $("#7").click(function(){
@@ -853,66 +963,132 @@ $("#7").click(function(){
 	student.family.household.do_you_have_children = $("#dyhc").val();
 	console.log(student.family.household);
 	sendData(student);
+	$('#1collapseOne').collapse('toggle');
+	$('#1collapseTwoo').collapse('toggle');
+	$('#sp7').show()
 });
 
 $("#8").click(function(){
-
+	var pass = true;
 	student.family.parent1.type = $("#p1_type").val();
 	student.family.parent1.living = $("#p1_living").val();
 	if($("#p1_first_name").val() != "")
 		student.family.parent1.first_name = $("#p1_first_name").val();
+	else {
+		pass = false;
+	}
 	if($("#p1_middle_name").val() != "")
 		student.family.parent1.middle_name = $("#p1_middle_name").val();
+	else {
+		pass = false;
+	}
 	if($("#p1_last_name").val() != "")
 		student.family.parent1.last_name = $("#p1_last_name").val();
+	else {
+		pass = false;
+	}
 	if($("#p1_email").val() != "")
 		student.family.parent1.email = $('#p1_email').val();
+	else {
+		pass = false;
+	}
 	if($("#p1_mob").val() != "")
 		student.family.parent1.phone = $('#p1_mob').val();
+	else {
+		pass = false;
+	}
 	   
 	if(validateField("#p1_ocpn","text"))
 		student.family.parent1.occupation = $('#p1_ocpn').val();
+	else {
+		pass = false;
+	}
 	if(validateField("#p1_emp_status","text"))
 		student.family.parent1.employment_status = $('#p1_emp_status').val();
+	else {
+		pass = false;
+	}
 	if(validateField("#p1_noe","text"))
 		student.family.parent1.name_of_employer = $('#p1_noe').val();
+	else {
+		pass = false;
+	}
 	if(validateField("#p1_edu_level","text"))
 		student.family.parent1.education_level = $('#p1_edu_level').val();
+	else {
+		pass = false;
+	}
 	
 		console.log(student.family.parent1)
 		sendData(student);
+		$('#1collapseTwoo').collapse('toggle');
+		$('#1collapseThreee').collapse('toggle');
+	if(pass)
+		$('#sp8').show()
 });
 
 
 $("#9").click(function(){
+	var pass = true;
 	student.family.parent2.type = $("#p2_type").val();
 	student.family.parent2.living = $("#p2_living").val();
 	if($("#p2_first_name").val() != "")
 		student.family.parent2.first_name = $("#p2_first_name").val();
+	else {
+		pass = false;
+	}
 	if($("#p2_middle_name").val() != "")
 		student.family.parent2.middle_name = $("#p2_middle_name").val();
+	else {
+		pass = false;
+	}
 	if($("#p2_last_name").val() != "")
 		student.family.parent2.last_name = $("#p2_last_name").val();
+	else {
+		pass = false;
+	}
 	if($("#p2_email").val() != "") 
 		student.family.parent2.email = $('#p2_email').val();
+	else {
+		pass = false;
+	}
 	if($("#p2_mob").val() != "") 
 		student.family.parent2.phone = $('#p2_mob').val();
+	else {
+		pass = false;
+	}
 	   
 	if(validateField("#p2_ocpn","text"))
 		student.family.parent2.occupation = $('#p2_ocpn').val();
+	else {
+		pass = false;
+	}
 	if(validateField("#p2_emp_status","text"))
 		student.family.parent2.employment_status = $('#p2_emp_status').val();
+	else {
+		pass = false;
+	}
 	if(validateField("#p2_noe","text"))
 		student.family.parent2.name_of_employer = $('#p2_noe').val();
+	else {
+		pass = false;
+	}
 	if(validateField("#p2_edu_level","text"))
 		student.family.parent2.education_level = $('#p2_edu_level').val();
+	else {
+		pass = false;
+	}
 	console.log(student.family.parent2)
 	sendData(student);
+	$('#1collapseThreee').collapse('toggle');
+	$('#2collapseOnee').collapse('toggle');
+	if(pass)
+		$('#sp9').show()
 });
 
 
 $("#10").click(function(){
-
+	var pass = true;
 	var nosc =  $('#no_of_sch').val();
 	student.education.school.no_of_schools = nosc;
 	var sn = []
@@ -923,105 +1099,181 @@ $("#10").click(function(){
 	var cea = []
 	var cp = []
 
-	for(var i =0; i < nosc; i++) {
-		if($(i+"#schl_name").val() != "")
-			sn[i] = $(i+"#schl_name").val();
-		if($(i+"#dog").val() != "")
-			dog[i] = $(i+"#dog").val();
-		if($(i+"#first_name").val() != "")
-			cfn[i] = $(i+"#first_name").val();
-		if($(i+"#middle_name").val() != "")
-			cmn[i] = $(i+"#middle_name").val();
-		if($(i+"#last_name").val() != "")
-			cln[i] = $(i+"#last_name").val();
-		if($(i+"#email").val() != "")
-			cea[i] = $(i+"#email").val();
-		if(validateField(i+"#mob","text"))
-			cp[i] = $(i+"#mob").val();
+	for(var i =1; i <= nosc; i++) {
+		if($("#"+i+"schl_name").val() != "")
+			sn[i-1] = $("#"+i+"schl_name").val();
+		if($("#"+i+"dog").val() != "")
+			dog[i-1] = $("#"+i+"dog").val();
+		if($("#"+i+"first_name").val() != "")
+			cfn[i-1] = $("#"+i+"first_name").val();
+		if($("#"+i+"middle_name").val() != "")
+			cmn[i-1] = $("#"+i+"middle_name").val();
+		if($("#"+i+"last_name").val() != "")
+			cln[i-1] = $("#"+i+"last_name").val();
+		if($("#"+i+"email").val() != "")
+			cea[i-1] = $("#"+i+"email").val();
+		if(validateField("#"+i+"mob","text"))
+			cp[i-1] = $("#"+i+"mob").val();
 	}
 	if(sn.length > 0)
 		student.education.school.school_name = sn;
+	else {
+		pass = false;
+	}
 	
 	if(dog.length > 0)
 		student.education.school.date_of_graduation = dog;
+	else {
+		pass = false;
+	}
 	
 	if(cp.length > 0)
 		student.education.school.counsellor_phone= cp
+	else {
+		pass = false;
+	}
 
 	if(cfn.length > 0)
 		student.education.school.counsellor_first_name  = cfn
+	else {
+		pass = false;
+	}
 
 	if(cmn.length > 0)
 		student.education.school.counsellor_middle_name = cmn
+	else {
+		pass = false;
+	}
 
 	if(cln.length > 0)
 		student.education.school.counsellor_last_name = cln;
+	else {
+		pass = false;
+	}
 
 	if(cea.length > 0)
 		student.education.school.counsellor_email = cea;
+	else {
+		pass = false;
+	}
 	
 	sendData(student);
 	console.log(student.education.school);
+	$('#2collapseOnee').collapse('toggle');
+	$('#2collapseTwoo').collapse('toggle');
+	if(pass)
+		$('#sp10').show()
 });
 
 
 $("#11").click(function(){
+	var pass = true;
 	if ($("#edu_intr").val() != "") {
 		student.education.education_interruption.education_interruption = $("#edu_intr").val();
 		sendData(student);
+	} else {
+		pass = false;
 	}
+	$('#2collapseTwoo').collapse('toggle');
+	$('#2collapseThreee').collapse('toggle');
+	
+	if(pass)
+		$('#sp11').show()
 });
 
 
 $("#12").click(function(){
+	var pass = true;
 	if ($("#ncc").val() != "") {
 		student.education.collage_university.no_of_collage_or_university_level_courses_taken = $("#ncc").val();
 		sendData(student);
+	} else {
+		pass = false;
 	}
+	$('#2collapseThreee').collapse('toggle');
+	$('#2collapseFourr').collapse('toggle');
+	if(pass)
+		$('#sp12').show()
 });
 
 
 $("#13").click(function(){
+	var pass = true;
 	student.education.grades.class_ranking = $("#cls_rank").val()
 	if($("#cgpa").val() != "")
 		student.education.grades.cumulative_GPA = $("#cgpa").val();
+	else {
+		pass = false;
+	}
 	if($("#grad_cls_size").val() != "")
 		student.education.grades.grad_class_size = $("#grad_cls_size").val();
+	else {
+		pass = false;
+	}
+	
 	if($("#gpas").val() != "")
 		student.education.grades.GPA_scale = $("#gpas").val();
+	else {
+		pass = false;
+	}
 	console.log(student.education.grades);
 	sendData(student);
+	$('#2collapseFourr').collapse('toggle');
+	if(pass)
+		$('#sp13').show()
 });
 
 
 $("#14").click(function(){
+	var pass = true;
 	var tt = $("#tests_taken").val();
 	student.tests.test.tests_taken = tt;
 	tn = []
 	hcrs = []
 	hms = []
 	hws = []
-	for(var i = 0; i < tt; i++) {
-		if($(i+"#test_name").val() != "")
-			tn[i] = $(i+"#test_name").val();
-		if($(i+"#hcrs").val() != "")
-			hcrs[i] = $(i+"#hcrs").val();
-		if($(i+"#hms").val() != "")
-			hms[i] = $(i+"#hms").val();
-		if($(i+"#hws").val() != "")
-			hws[i] = $(i+"#hws").val();
+	for(var i = 1; i <= tt; i++) {
+		console.log("inside for loop")
+		console.log($("#"+i+"test_name").val());
+		console.log($("#"+i+"hcrs").val())
+		console.log($("#"+i+"hms").val())
+		console.log($("#"+i+"hws").val());
+		if($("#"+i+"test_name").val() != "")
+			tn[i-1] = $("#"+i+"test_name").val();
+		if($("#"+i+"hcrs").val() != "")
+			hcrs[i-1] = $("#"+i+"hcrs").val();
+		if($("#"+i+"hms").val() != "")
+			hms[i-1] = $("#"+i+"hms").val();
+		if($("#"+i+"hws").val() != "")
+			hws[i-1] = $("#"+i+"hws").val();
 	}
 	if(tn.length > 0)
 		student.tests.test.test_name = tn;
+	else {
+		pass = false;
+	}
 	if(hcrs.length > 0)
 		student.tests.test.highest_critical_reading_score = hcrs;
+	else {
+		pass = false;
+	}
 	if(hms.length > 0)
 		student.tests.test.highest_math_score = hms;
+	else {
+		pass = false;
+	}
 	if(hws.length > 0)
 		student.tests.test.highest_writing_score = hws;
+	else {
+		pass = false;
+	}
 	
 	//console.log(student.tests.test);
+	console.log(tn + hcrs + hws + hms);
 	sendData(student);
+	$("#3collapseOnee").collapse('toggle');
+	if(pass)
+		$('#sp14').show()
 });
 
 function sendData(student) {	
@@ -1033,26 +1285,16 @@ function sendData(student) {
 		console.log("data " +jQuery.type(data) + "  ||  "+ data);
     },
     error: function (xhr, desc, err) {
-       alert("errorrrr   "+ err + " ||  "+ xhr.status);
+      // alert("errorrrr   "+ err + " ||  "+ xhr.status);
     },
 });
 }
-function getStudentObj() {
-	$.ajax({
-    url: '/student/savedetails',
-    type: 'POST',
-    data:JSON.stringify(student),
-    success: function (data, status) {
-		console.log("data " +jQuery.type(data) + "  ||  "+ data);
-    },
-    error: function (xhr, desc, err) {
-       alert("errorrrr   "+ err + " ||  "+ xhr.status);
-    },
-});
-}
+
 function getStudentObj(emaill) {
 $.post( "/meta/getStudentObj",{email:emaill}, function( student ) {
-				console.log(student);
-				return student;
-			});             
+				//console.log(student);
+				return "niranjan";
+			});          
+return "niranjan"			
 }
+

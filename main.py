@@ -87,13 +87,13 @@ class Student(ndb.Model):
     parent2_name_of_employer = ndb.StringProperty(indexed=True)
     parent2_education_level = ndb.StringProperty(indexed=True)
     no_of_schools = ndb.StringProperty(indexed=True)
-    school_name = ndb.StringProperty(indexed=True)
-    date_of_graduation = ndb.StringProperty(indexed=True)
-    counsellor_first_name  = ndb.StringProperty(indexed=True)
-    counsellor_middle_name = ndb.StringProperty(indexed=True)
-    counsellor_last_name = ndb.StringProperty(indexed=True)
-    counsellor_phone = ndb.StringProperty(indexed=True)
-    counsellor_email = ndb.StringProperty(indexed=True)
+    school_name = ndb.StringProperty(repeated=True)
+    date_of_graduation = ndb.StringProperty(repeated=True)
+    counsellor_first_name  = ndb.StringProperty(repeated=True)
+    counsellor_middle_name = ndb.StringProperty(repeated=True)
+    counsellor_last_name = ndb.StringProperty(repeated=True)
+    counsellor_phone = ndb.StringProperty(repeated=True)
+    counsellor_email = ndb.StringProperty(repeated=True)
     education_interruption = ndb.StringProperty(indexed=True)
     no_of_collage_or_university_level_courses_taken = ndb.StringProperty(indexed=True)
     class_ranking = ndb.StringProperty(indexed=True)
@@ -101,10 +101,10 @@ class Student(ndb.Model):
     cumulative_GPA = ndb.StringProperty(indexed=True)
     GPA_scale = ndb.StringProperty(indexed=True)
     tests_taken = ndb.StringProperty(indexed=True)
-    test_name = ndb.StringProperty(indexed=True)
-    highest_critical_reading_score = ndb.StringProperty(indexed=True)
-    highest_math_score = ndb.StringProperty(indexed=True)
-    highest_writing_score = ndb.StringProperty(indexed=True)
+    test_name = ndb.StringProperty(repeated=True)
+    highest_critical_reading_score = ndb.StringProperty(repeated=True)
+    highest_math_score = ndb.StringProperty(repeated=True)
+    highest_writing_score = ndb.StringProperty(repeated=True)
 
 class saveStudent(webapp2.RequestHandler):
     def post(self):
@@ -346,9 +346,21 @@ class getStudent(webapp2.RequestHandler):
                                 
         student_json = json.dumps(student)
         self.response.write(student_json)
+class existStudent(webapp2.RequestHandler):
+    def post(self):
+        email =self.request.get("email")
+        keycontent = self.request.get('logger_name',"studentKey")
+        qry = Student.query(ancestor = Student_key(keycontent))
+        qry = qry.filter(Student.email == email)
+        data = qry.fetch()
+        if(len(data) > 0):
+            self.response.write("exist")
+        else:
+            self.response.write("doesn't exist")
         
 app = webapp2.WSGIApplication([
     (r'/(.+\.html)', MainHandler),
     (r'/student/savedetails',saveStudent),
+    (r'/student/existstudent',existStudent),
     (r'/meta/getStudentObj', getStudent),
            ], debug=True)
