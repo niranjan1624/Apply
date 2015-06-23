@@ -120,7 +120,7 @@ var values = {};
 var tests_taken = 0
 var no_schools = 0
 function createInput(ele,type,clsname,id,required){
-	var div = document.createElement("div");
+	var div = document.getElementById("a"+id)
 	var field = document.createElement("input");
 	field.type = type;
 	field.className = clsname;
@@ -133,9 +133,9 @@ function createInput(ele,type,clsname,id,required){
 function createLabel(ele,name,value,id,required){
 	var wrapper = $("#"+ele);
 	if (required)
-		$(wrapper).append( '<br/><div class = "required"> <label for='+name+' id='+id+'>'+value+'</label></div>');
+		$(wrapper).append( '<br/><div id=a'+name+' class = "required"> <label for='+name+' id='+id+'>'+value+'</label></div>');
 	else
-		$(wrapper).append( '<br/><div> <label for='+name+' id='+id+'>'+value+'</label></div>');
+		$(wrapper).append( '<br/><div id=a'+name+'> <label for='+name+' id='+id+'>'+value+'</label></div>');
 }
 function createHiddenfield(ele,id) {
 	var field = document.createElement("p");
@@ -149,6 +149,7 @@ function showMsg(id,msg) {
 	$(id).html(msg);
 }
 $(document).ready(function() {
+	
 	$('#sp1').hide();$('#sp2').hide();$('#sp3').hide();$('#sp4').hide();$('#sp5').hide();$('#sp6').hide();$('#sp7').hide();$('#sp8').hide();$('#sp9').hide();$('#sp10').hide();$('#sp11').hide();$('#sp12').hide();$('#sp13').hide();$('#sp14').hide();
 	if(getCurentFileName() == "Apply.html")
 		loginCredential();
@@ -1298,3 +1299,50 @@ $.post( "/meta/getStudentObj",{email:emaill}, function( student ) {
 return "niranjan"			
 }
 
+
+$('#sendPin').click(function(){
+	var resp = $("#g-recaptcha-response").val();
+	console.log(JSON.parse(grecaptcha.getResponse()));
+	//loadCaptcha();
+	var em = $('#email').val();
+	console.log(em);
+	if(validateField("#email","email")) {
+		$.post("meta/sendpin",{email:em,res:resp}, function(data){
+			$('#info').show()
+				console.log(data);
+				$('#info').css('color', 'green');
+				$("#info").html("A pin has been generated and sent to your email address, Please check your mail and enter the pin below in Step2 to verify")
+				$("#sendPin").text("Re-generate Pin");
+		});
+	}
+});
+
+$('#validate').click(function(){
+	var pi = $("#pin").val();
+	var em = $('#email').val();
+	$.post("meta/validatepin",{pin:pi,email:em}, function(data){
+		$('#info').show()
+		if(data == "success") {
+			$('#info').css('color', 'green');
+			$("#info").html("Successfully verified");
+			window.location.href = "Apply3.html"
+		} else {
+			$('#info').css('color', 'red');
+			$("#info").html("Invalid Pin");
+		}
+	});
+});
+
+var loadCaptcha = function() {
+  var captchaContainer = grecaptcha.render('captcha_container', {
+    'sitekey' : '6LdzsggTAAAAAArQ1vJvQvfMhl4K7HmYynJT10UC',
+    'callback' : function(response) {
+      console.log(response);
+    }
+  });
+};
+
+// Even verified regenerate pin and send to the email
+//remove email already exist messgae
+// on valid pin enter, it should redirect to apply page insted showing success message
+// show the invalid pin message below text field

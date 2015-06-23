@@ -21,6 +21,13 @@ import json
 from datetime import datetime
 import os
 import json
+import random
+from google.appengine.api import mail
+from google.appengine.ext.webapp.mail_handlers import BounceNotification
+from google.appengine.ext.webapp.mail_handlers import BounceNotificationHandler
+import logging
+
+
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -105,6 +112,8 @@ class Student(ndb.Model):
     highest_critical_reading_score = ndb.StringProperty(repeated=True)
     highest_math_score = ndb.StringProperty(repeated=True)
     highest_writing_score = ndb.StringProperty(repeated=True)
+    pin = ndb.StringProperty(indexed=True)
+    status=ndb.StringProperty(indexed=True)
 
 class saveStudent(webapp2.RequestHandler):
     def post(self):
@@ -357,10 +366,67 @@ class existStudent(webapp2.RequestHandler):
             self.response.write("exist")
         else:
             self.response.write("doesn't exist")
-        
+global stat 
+class sendPin(webapp2.RequestHandler):
+    def post(self):
+        email = self.request.get("email")
+        resp = self.request.get("res")
+        #req = requests.post("https://www.google.com/recaptcha/api/siteverify",{secret:"6LdzsggTAAAAAMgP4xV_KDRLSLvbEragkVA2NBzJ",response:resp})
+        keycontent = self.request.get('logger_name',"studentKey")
+        qry = Student.query(ancestor = Student_key(keycontent))
+        qry = qry.filter(Student.email == email)
+        dataa = qry.fetch()
+        pin = ""
+        for i in range (0,4):
+            pin = pin + str(random.randint(0,9))
+        if len(dataa) > 0:
+            for row in dataa:
+                row.pin = pin
+                row.put()
+        else:
+            data = Student(parent = Student_key(keycontent))
+            data.pin = pin
+            data.email = email
+            data.put()
+        message = mail.EmailMessage(sender="TaraLabs <niranjanlucky@gmail.com>",
+                                subject="Pin Generated")
+
+        message.to = "<"+email+">"
+        message.body = """
+Please enter the below pin in application form
+                
+"""+pin + """
+
+Thank you"""
+        message.send()
+        self.response.write("success")
+class validatePin(webapp2.RequestHandler):
+    def post(self):
+        pin = self.request.get("pin")
+        email = self.request.get("email")
+        keycontent = self.request.get('logger_name',"studentKey")
+        qry = Student.query(ancestor = Student_key(keycontent))
+        qry = qry.filter(Student.email == email)
+        data = qry.fetch()
+        for row in data:
+            if row.pin == pin:
+                row.status = "Verified"
+                row.put()
+                self.response.write("success")
+            else:
+                self.response.write("failed")
+class BounceLogger(BounceNotificationHandler):
+    def receive(self, bounce_notification):
+        self.response.write("bounced")
+        stat = "failed"
+        logging.info('Received bounce from')
 app = webapp2.WSGIApplication([
     (r'/(.+\.html)', MainHandler),
     (r'/student/savedetails',saveStudent),
     (r'/student/existstudent',existStudent),
     (r'/meta/getStudentObj', getStudent),
+    (r'/meta/sendpin', sendPin),
+    (r'/meta/validatepin', validatePin),
+     BounceLogger.mapping(),
+    (r'/_ah/bounce', BounceLogger),
            ], debug=True)

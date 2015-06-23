@@ -4,11 +4,15 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
+
+inbound_services:
+- mail_bounce
+
 handlers:
 - url: /(.*\.(gif|png|jpg|ico|js|css|html|style))
   static_files: \1
   upload: (.*\.(gif|png|jpg|ico|js|css|html|style))
-  
+
 
 - url: /.*
   script: main.app
