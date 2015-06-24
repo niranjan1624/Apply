@@ -3,15 +3,13 @@
 <head>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
-<link type="text/css" rel="stylesheet" href="style.css">
+<!-- <link type="text/css" rel="stylesheet" href="style.css"> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-<script src="bootstrap-formhelpers.min.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <title>Pin Generate</title>
 </head>
@@ -27,16 +25,22 @@
 	</div>
 	</div>	
 	</div>
-	<div name="instructions" class="Acc-RegInfo" style="margin-left:40px;margin-top:40px;">
-	<h3><b> Instructions: </b></h3>
-	<ul>
+		<div class="container" name="instructions" style="width:25%;margin:0 auto; margin-top:40px;">
+	<h3><b>  Online Application Form </b></h3>
+<!-- 	<ul>
 		<li>Enter email address and Submit</li>		
 		<li>After submitting a Pin will be generated and send it to your email address</li>	
 		<li> Don't remove email address from Email Address field </li>
 		<li>You have to enter the pin and validate to proceed further to apply</li>		
 	</ul>
+	<br/> -->
 	</div>
-	 <div class="" style="margin-left:40px;margin-top:40px">
+	<div class = "container ">
+	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1"></div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-10 well well-lg">
+	
+	 <div class="" style="margin-left:25px;margin-top:40px">
                             <!-- BEGIN: ReCAPTCHA implementation example. -->
 
                             <div class="g-recaptcha" data-sitekey=
@@ -69,22 +73,33 @@
                         </div>
 	<form class="form-horizontal" action="javascript:void(0);" >
 	<div class="container" style="margin-left:40px;margin-top:10px">
-	<p hidden class="error" id="email_error"> </p>
+	
 	
 	<div class="form-group" >
-	<h4><u> Step 1: </u></h4>
-		<label for="email"> Email Address</label>
-		<input style="margin-left:10px" id="email" name="email" class="defaultTextInput input" type="email"></input>
-		<button type="submit" id="sendPin" class="btn btn-primary"> Generate Pin </button>
+	<p style="margin-left:-15px"><b> Step 1: Give your email address for communication</b></p>
+		<label style="margin-left:-15px;font-weight:normal" style="margin-left:-15px;" for="email"> Email Address</label>
+		<input style="margin-left:10px;width:200px" id="email" name="email" class="input" type="email"></input>
+	</div>
+	<p style="margin-left:90px" hidden id="email_error"> </p>
+	<div class="form-group" >
+	<p style="margin-left:-15px"><b> Step 2: Generate PIN and send to your email provided in Step 1.</b></p>
+	<button style="margin-left:-15px;" type="submit" id="sendPin" class="btn btn-primary"> Generate PIN </button>
 	</div>
 	
+	<p style="margin-left:-15px" hidden id="info1"></p>
+	<p style="margin-left:-15px" hidden id="info2"> </p>
+	
 	<div class="form-group">
-	<h4><u> Step 2: </u></h4>
-		<label for="pin"> Pin</label>
-		<input style="margin-left:80px" id="pin" class="defaultTextInput input" type="text"></input>
-		<button type="submit" id="validate" class="btn btn-primary"> Start Application Form </button>
+	<p style="margin-left:-15px"><b> Step 3:  Enter the PIN sent to your email.</b> </p>
+		<label style="margin-left:-15px;font-weight:normal" for="pin"> 4 Digit PIN</label>
+		<input style="margin-left:17px;width:200px" id="pin" class="input" type="text"></input>
 	</div>
 	<p style="margin-left:90px" hidden id="info"> </p>
+	<div class="form-group" >
+	<button style="margin-left:-15px;" type="submit" id="validate" class="btn btn-primary"> Verify PIN </button>
+	</div>
+	</div>
+	</div>
 	</div>
 	</form>
 </body>

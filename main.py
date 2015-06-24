@@ -26,7 +26,9 @@ from google.appengine.api import mail
 from google.appengine.ext.webapp.mail_handlers import BounceNotification
 from google.appengine.ext.webapp.mail_handlers import BounceNotificationHandler
 import logging
-
+import requests
+from webapp2_extras import sessions
+import webbrowser
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -371,7 +373,8 @@ class sendPin(webapp2.RequestHandler):
     def post(self):
         email = self.request.get("email")
         resp = self.request.get("res")
-        #req = requests.post("https://www.google.com/recaptcha/api/siteverify",{secret:"6LdzsggTAAAAAMgP4xV_KDRLSLvbEragkVA2NBzJ",response:resp})
+        req = "success"
+        #req = requests.post("https://www.google.com/recaptcha/api/siteverify",{"secret":"6LdzsggTAAAAAMgP4xV_KDRLSLvbEragkVA2NBzJ","response":resp})
         keycontent = self.request.get('logger_name',"studentKey")
         qry = Student.query(ancestor = Student_key(keycontent))
         qry = qry.filter(Student.email == email)
@@ -399,7 +402,18 @@ Please enter the below pin in application form
 
 Thank you"""
         message.send()
-        self.response.write("success")
+        self.response.write(req)
+class BaseHandler(webapp2.RequestHandler):              
+    def dispatch(self):                                 
+        self.session_store = sessions.get_store(request=self.request)
+        try:  
+            webapp2.RequestHandler.dispatch(self)       
+        finally:        
+            self.session_store.save_sessions(self.response)
+    @webapp2.cached_property
+    def session(self):
+        return self.session_store.get_session()
+
 class validatePin(webapp2.RequestHandler):
     def post(self):
         pin = self.request.get("pin")
@@ -412,14 +426,29 @@ class validatePin(webapp2.RequestHandler):
             if row.pin == pin:
                 row.status = "Verified"
                 row.put()
-                self.response.write("success")
+                self.response.write(row.email)
             else:
                 self.response.write("failed")
+class Login(BaseHandler):
+    def post(self):
+        self.session['user'] = self.request.get("email")
+        self.response.write(self.session.get('user')+" ||| "+self.request.get("email"))
+class Logout(BaseHandler):
+    def get(self):
+        self.session.pop('user')
+        self.response.write(self.session.get('user'))
 class BounceLogger(BounceNotificationHandler):
     def receive(self, bounce_notification):
         self.response.write("bounced")
         stat = "failed"
         logging.info('Received bounce from')
+class existSesn(BaseHandler):
+    def post(self):
+        self.response.write(self.session.get('user'))
+config = {}
+config['webapp2_extras.sessions'] = {
+    'secret_key': 'akljsdlfjFGCSSDFIS8lds',
+}
 app = webapp2.WSGIApplication([
     (r'/(.+\.html)', MainHandler),
     (r'/student/savedetails',saveStudent),
@@ -427,6 +456,9 @@ app = webapp2.WSGIApplication([
     (r'/meta/getStudentObj', getStudent),
     (r'/meta/sendpin', sendPin),
     (r'/meta/validatepin', validatePin),
+    (r'/meta/sessionexist', existSesn),
+    (r'/meta/login', Login),
+    (r'/meta/logout', Logout),
      BounceLogger.mapping(),
     (r'/_ah/bounce', BounceLogger),
-           ], debug=True)
+           ], debug=True, config=config)

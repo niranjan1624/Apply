@@ -165,9 +165,15 @@ $(document).ready(function() {
     });
 	} else {
 		window.location.href = "Apply.html"
+		
 	}
 	}
 	else if(getCurentFileName() == "Apply3.html") {
+		$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+			console.log(data);
+			if(data == "None")
+				window.location.href="apply-pin.html"
+		})
 		$('#collapseTwo').collapse('toggle');
 		$('#collapseThreee').collapse('toggle');
 		$('#collapseFourr').collapse('toggle');
@@ -191,7 +197,7 @@ $(document).ready(function() {
 		}); 
 		});
 		
-	}
+	} 
 		/* $(".panel-default").children(".panel-collapse").append('<br/><div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="'+i+'"style="color:white; background-color:#2d4250">Submit</button></div>'); */
 });
 function insertBef(id) {
@@ -628,9 +634,13 @@ function validateField(id,type) {
 
 	var pass = false;
 	var value = $(id).val();
+	idd = id;
 	id = id+"_error";
 	if(value=="")
-		showMsg(id,"Please complete this required question.");
+		if(type == "email")
+			showMsg(id,"Please enter your email. ");
+		else
+			showMsg(id,"Please complete this required question.");
 	else {
 	switch (type) {
 		case "email":
@@ -685,6 +695,10 @@ function validateField(id,type) {
 			$(id).hide();
 			pass = true;
 	}
+	}
+	if(!pass) {
+		$(idd).css('outline-color','red');
+		$(idd).focus();
 	}
 	return pass;
 }
@@ -1302,35 +1316,82 @@ return "niranjan"
 
 $('#sendPin').click(function(){
 	var resp = $("#g-recaptcha-response").val();
-	console.log(JSON.parse(grecaptcha.getResponse()));
+	console.log(grecaptcha.getResponse());
 	//loadCaptcha();
+/* 	$.get("https://www.google.com/recaptcha/api/siteverify",{secret:"6LdzsggTAAAAAMgP4xV_KDRLSLvbEragkVA2NBzJ",response:resp,headers:{"Access-Control-Allow-Origin", "*"}},function(data){
+		console.log(data);
+	}); */
 	var em = $('#email').val();
 	console.log(em);
+	$("#email_error").css('color','red')
 	if(validateField("#email","email")) {
 		$.post("meta/sendpin",{email:em,res:resp}, function(data){
-			$('#info').show()
+			$("#email_error").hide();
+			$("#email").css('outline-color','grey');
+			
+			$('#info1').show()
+			$('#info2').show()
 				console.log(data);
-				$('#info').css('color', 'green');
-				$("#info").html("A pin has been generated and sent to your email address, Please check your mail and enter the pin below in Step2 to verify")
-				$("#sendPin").text("Re-generate Pin");
+				$('#info1').css('color', 'green');
+				$('#info1').css("list-style-type", "bullet");
+				$('#info2').css('color', 'green');
+				$('#info2').css("list-style-type", "bullet");
+				
+				$("#info1").html("A PIN has been generated and sent to your email address")
+				$("#info2").html("Please check your mail and enter the PIN below in Step 2 to verify");
+				$("#sendPin").text("Re-generate PIN");
 		});
+	} else {
+		$("#email").css('outline-color','red');
+		$("#email").focus()
+		console.log("failed");
 	}
 });
 
 $('#validate').click(function(){
+	var pass = true;
 	var pi = $("#pin").val();
 	var em = $('#email').val();
-	$.post("meta/validatepin",{pin:pi,email:em}, function(data){
-		$('#info').show()
-		if(data == "success") {
-			$('#info').css('color', 'green');
-			$("#info").html("Successfully verified");
-			window.location.href = "Apply3.html"
-		} else {
-			$('#info').css('color', 'red');
-			$("#info").html("Invalid Pin");
-		}
-	});
+	console.log(pi + " |||  "+ em)
+	if(pi == "") {
+		$('#info').show();
+		$('#info').css('color', 'red');
+		$("#pin").css('outline-color','red');
+		$("#pin").focus();
+		$("#info").html("Please enter generated PIN.");
+		pass = false;
+	} 
+	if(em == "") {
+			$("#email").css('outline-color','red');
+			$("#email").focus();
+			$("#info").html("Please enter generated PIN.");
+			$("#email_error").show();
+			$("#email_error").css('color','red')
+			$("#email_error").html("Please enter email address");
+			pass = false;
+			
+		} 
+		if (pass) {
+				$.post("meta/validatepin",{pin:pi,email:em}, function(data){
+					$("#pin").css('outline-color','grey');
+					$("#email").css('outline-color','grey');
+					$('#info').show()
+					if(data != "failed") {
+						$('#info').css('color', 'green');
+						$("#info").html("Successfully verified");
+						console.log("test");
+						$.post("meta/login",{email:data},function(dataa){
+							console.log(dataa);
+							window.location.href="Apply3.html"
+						});
+						
+					} else {
+						$("#email_error").hide();
+						$('#info').css('color', 'red');
+						$("#info").html("Invalid Pin");
+					}
+				});
+	}
 });
 
 var loadCaptcha = function() {
