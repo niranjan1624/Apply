@@ -169,12 +169,19 @@ $(document).ready(function() {
 	}
 	}
 	else if(getCurentFileName() == "Apply3.html") {
+		$("#welcome").show();
 		$.post("/meta/sessionexist",{dummy:"dum"},function(data){
 			console.log(data);
 			if(data == "None")
 				window.location.href="apply-pin.html"
+			else {
+				var html = "If " + data + " is not your email then click "  
+				$("#welcome").html(html);
+				student.profile.contact_details.email = data;
+				student.login_credentials.username  = data;
+			}
 		})
-		$('#collapseTwo').collapse('toggle');
+		/* $('#collapseTwo').collapse('toggle');
 		$('#collapseThreee').collapse('toggle');
 		$('#collapseFourr').collapse('toggle');
 		$('#collapseFivee').collapse('toggle');
@@ -195,9 +202,16 @@ $(document).ready(function() {
 			  $("#"+$(this).attr('id')).focusout(function(){
 			  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
 		}); 
-		});
+		}); */
 		
-	} 
+	} else if(getCurentFileName() == "apply-pin.html") {
+		$("#welcome").show();
+		$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+			console.log(data);
+			if(data != "None")
+				window.location.href="Apply3.html"
+		});
+	}
 		/* $(".panel-default").children(".panel-collapse").append('<br/><div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="'+i+'"style="color:white; background-color:#2d4250">Submit</button></div>'); */
 });
 function insertBef(id) {
@@ -832,17 +846,29 @@ $("#1").click(function(){
 	 else {
 		pass = false;
 	}
-	if($("#ssn").val() != "")
-		student.profile.personal_information.ssn_no = $("#ssn").val();
+	var ssn = ""
+	var pas = pass;
+	if($("#ssn1").val() != "")
+		ssn = $("#ssn1").val() + "-"
 	 else {
-		pass = false;
+		pas = false;
 	}
-	console.log(student.profile.personal_information);
+	if($("#ssn2").val() != "")
+		ssn = $("#ssn2").val() + "-"
+	 else {
+		pas = false;
+	}
+	if($("#ssn3").val() != "")
+		ssn = $("#ssn3").val()
+	 else {
+		pas = false;
+	}
+	if (pas)
+		student.profile.personal_information.ssn_no = ssn;
+	console.log(student.profile);
 	$("#collapse1").collapse('toggle');
 	$('#collapseTwo').collapse('toggle');
-	//sendData(student);
-	if (pass)
-		$('#sp1').show();
+	sendData(student);
 });
 
 $("#2").click(function(){
@@ -1380,7 +1406,7 @@ $('#validate').click(function(){
 						$('#info').css('color', 'green');
 						$("#info").html("Successfully verified");
 						console.log("test");
-						$.post("meta/login",{email:data},function(dataa){
+						$.post("/meta/login",{email:data},function(dataa){
 							console.log(dataa);
 							window.location.href="Apply3.html"
 						});
@@ -1402,7 +1428,12 @@ var loadCaptcha = function() {
     }
   });
 };
-
+$(document).on("click","a[name='logout']", function (e) {
+        $.get("/meta/logout",function(dataa){
+			console.log(dataa);
+			window.location.href = "apply-pin.html"
+		});
+    });
 // Even verified regenerate pin and send to the email
 //remove email already exist messgae
 // on valid pin enter, it should redirect to apply page insted showing success message
