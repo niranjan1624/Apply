@@ -195,7 +195,27 @@ $(document).ready(function() {
 					 validateField("#middle_name", "name")
 			});
 		 */
-	} else if(getCurentFileName() == "apply-pin.html") {
+	} else if(getCurentFileName() ==  "geography.html") {
+		$("#welcome").show();
+		sessionexist();
+		$("#ciob").focusout(function(){
+				validateField("#ciob", "text","City of Birth")
+		});
+		$("#cityzenship").focusout(function(){
+				validateField("#cityzenship", "text","Citizenship")
+		});
+		$("#disHis").focusout(function(){
+				validateField("#disHis", "text","Disciplinary History")
+		});
+		$("#crimHis").focusout(function(){
+				validateField("#crimHis", "text","Criminal History")
+		});
+			
+	}  else if(getCurentFileName() ==  "household.html") {
+		$("#welcome").show();
+		sessionexist();
+	}
+	else if(getCurentFileName() == "apply-pin.html") {
 		$("#welcome").show();
 		$.post("/meta/sessionexist",{dummy:"dum"},function(data){
 			console.log(data);
@@ -520,7 +540,7 @@ function validateField(id,type,name) {
 			if(idd == "#last_name")
 				showMsg(id,"Please enter your Last name");
 		} else
-			showMsg(id,"Please enter "+name);
+			showMsg(id,"Please enter "+name+".");
 	else {
 	switch (type) {
 		case "email":
@@ -886,27 +906,42 @@ $("#3").click(function(){
 });
 
 $("#4").click(function(){
-	var pass = true
-	student.profile.geography.country_of_birth = $('#cob').val();
-	if(validateField("#ciob"))
-		student.profile.geography.city_of_birth = $('#ciob').val();
-	else {
-		pass = false;
-	}
+	$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
+			var pass = true
+			student = JSON.parse(student);
+			student.profile.geography.country_of_birth = $('#cob').val();
+			if(validateField("#ciob","","City of Birth"))
+				student.profile.geography.city_of_birth = $('#ciob').val();
+			else {
+				pass = false;
+			}
+			
+			if(validateField("#citizenship","","Citizenship")) {
+				student.profile.geography.citizenship = $('#citizenship').val();
+				console.log("passerd")
+			}
+			else {
+				pass = false;
+			}
+			if(validateField("#discHis","","Disciplinary History")) {
+				student.profile.disciplinary_history.disciplinary_history = $("#discHis").val();
+			}
+			else {
+				pass = false;
+			}
+			if(validateField("#crimHis","","Criminal History")) {
+				student.profile.criminal_history.criminal_history = $("#crimHis").val();
+			} else {
+				pass = false;
+			}
+			console.log(student.profile.geography)
+			sendData(student);
+			if(pass)
+				window.location.href = "household.html";
+		});
+	});
 	
-	if(validateField("#citizenship")) {
-		student.profile.geography.citizenship = $('#citizenship').val();
-		console.log("passerd")
-	}
-	else {
-		pass = false;
-	}
-	console.log(student.profile.geography)
-	sendData(student);
-	$('#collapseFourr').collapse('toggle');
-	$('#collapseFivee').collapse('toggle');
-	if(pass)
-		$('#sp4').show()
 });
 
 $("#5").click(function(){
@@ -941,15 +976,17 @@ $("#6").click(function(){
 });
 
 $("#7").click(function(){
-
-	student.family.household.which_parent_do_you_live_with = $("#whichpar").val();
-	student.family.household.martial_status = $("#martial").val();
-	student.family.household.do_you_have_children = $("#dyhc").val();
-	console.log(student.family.household);
-	sendData(student);
-	$('#1collapseOne').collapse('toggle');
-	$('#1collapseTwoo').collapse('toggle');
-	$('#sp7').show()
+	$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
+			student = JSON.parse(student);
+			student.family.household.which_parent_do_you_live_with = $("#whichpar").val();
+			student.family.household.martial_status = $("#martial").val();
+			student.family.household.do_you_have_children = $("#dyhc").val();
+			console.log(student.family.household);
+			sendData(student);
+			window.location.href = "parent1.html"
+		});
+	});
 });
 
 $("#8").click(function(){
@@ -1273,7 +1310,7 @@ function sendData(student) {
     },
 });
 }
-function filluppersonalDetails(student) {
+function fillupDetails(student) {
 	student = JSON.parse(student)
 	if (getCurentFileName() == "personalinfo.html") {
 		console.log(student)
@@ -1300,17 +1337,26 @@ function filluppersonalDetails(student) {
 		$("#zipcode").val(student.profile.address.zipcode);
 		$("#mob").val(student.profile.contact_details.phone_no);
 		$("#skype").val(student.profile.contact_details.skype_id);
+	} else if (getCurentFileName() == "geography.html") {
+		$("#cob").val(student.profile.geography.country_of_birth);
+		$("#ciob").val(student.profile.geography.city_of_birth);
+		$("#citizenship").val(student.profile.geography.citizenship);
+		$("#discHis").val(student.profile.disciplinary_history.disciplinary_history);
+		$("#crimHis").val(student.profile.criminal_history.criminal_history);
+	} else if(getCurentFileName() == "household.html") {
+		$("#whichpar").val(student.family.household.which_parent_do_you_live_with);
+		$("#martial").val(student.family.household.martial_status);
+		if(student.family.household.martial_status != "Unmarried")
+			$("#dyhcl").show();
+		$("#dyhc").val(student.family.household.do_you_have_children);
 	}
 	console.log("filledupdetails")
 }
 function getStudentObj(emaill) {
 	var student = {}
 $.post( "/meta/getStudentObj",{email:emaill}, function( stu ) {
-				student = stu;
-				console.log(student);
-							
-				filluppersonalDetails(stu)
-				return student;
+				console.log(stu);		
+				fillupDetails(stu)
 			});     
 console.log(student)			
 }

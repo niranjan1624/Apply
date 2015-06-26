@@ -8,8 +8,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-	<link type="text/css" href="bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
-	<script src="bootstrap-formhelpers.min.js"></script>
 
 	<title>Student Details</title>
 <style>
@@ -43,56 +41,51 @@ a:visited{
 			<p  id="welcome"></p>
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1"></div>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-10 well well-lg">
-			<center><h3><b>Need a meaningful title</b></h3></center>
+			<center><h3><b>Household</b></h3></center>
 			<br/>
 			<p id="info" name="info"></p>
 			
 				<form id="studentForm" class="form-horizontal" name="studentForm" action="javascript:void(0);">
 					<div class="form-group">
-							<label for="cob" class="control-label col-xs-4">Country of Birth <span style="color:red;">*</span><br/></label>
+							<label for="whichpar" class="control-label col-xs-4">Which parent do you live with? <span style="color:red;">*</span><br/></label>
 							<div class="col-xs-8">
-								<select style="width:200px;height:28px" type="text" id="cob" class="bfh-countries" data-country="IN"></select>
+								<select style="width:200px;height:28px" type="text" id="whichpar">
+									<option value="Both">Both</option>
+									<option value="Mother">Mother</option>
+									<option value="Father">Father</option>
+								</select>
 							</div>
 					</div>
-					<p style="margin-left:90px;color:red;" hidden id="cob_error"> </p>
+					<p style="margin-left:90px;color:red;" hidden id="whichpar_error"> </p>
 					<div class="form-group">
-						<label for="ciob" class="control-label col-xs-4">City of Birth <span style="color:red;">*</span><br/></label>
-						<div class="col-xs-8">
-							<input style="width:200px" type="text" class="input" id="ciob"
-								 >
-						</div>
+							<label for="martial" class="control-label col-xs-4">Martial status <span style="color:red;">*</span><br/></label>
+							<div class="col-xs-8">
+								<select style="width:200px;height:28px" type="text" id="martial">
+									<option value="Unmarried">Unmarried</option>
+									<option value="Married">Married</option>
+									<option value="Divorced">Divorced</option>
+									<option value="Separated">Separated</option>
+								</select>
+							</div>
 					</div>
-					<p style="margin-left:90px;color:red;" hidden id="ciob_error"> </p>
-					<div class="form-group">
-						<label for="citizenship" class="control-label col-xs-4">Citizenship <span style="color:red;">*</span><br/></label>
-						<div class="col-xs-8">
-							<input style="width:200px" type="text" class="input" id="citizenship"
-								 >
-						</div>
+					<p style="margin-left:90px;color:red;" hidden id="martial_error"> </p>
+					<div class="form-group" hidden id="dyhcl">
+							<label for="dyhc" class="control-label col-xs-4">Do you have children? <span style="color:red;">*</span><br/></label>
+							<div class="col-xs-8">
+								<select style="width:200px;height:28px" type="text" id="dyhc">
+									<option value="No">No</option>
+									<option value="Yes">Yes</option>
+								</select>
+							</div>
 					</div>
-					<p style="margin-left:90px;color:red;" hidden id="citizenship_error"> </p>
-					<div class="form-group">
-						<label for="discHis" class="control-label col-xs-4">Disciplinary History <span style="color:red;">*</span><br/></label>
-						<div class="col-xs-8">
-							<input style="width:200px" type="text" class="input" id="discHis"
-								 >
-						</div>
-					</div>
-					<p style="margin-left:90px;color:red;" hidden id="discHis_error"> </p>
-					<div class="form-group">
-						<label for="crimHis" class="control-label col-xs-4">Criminal History <span style="color:red;">*</span><br/></label>
-						<div class="col-xs-8">
-							<input style="width:200px" type="text" class="input" id="crimHis"
-								 >
-						</div>
-					</div>
-					<p style="margin-left:90px;color:red;" hidden id="crimHis_error"> </p>
+					<p style="margin-left:90px;color:red;" hidden id="dyhc_error"> </p>
+					
 					<div style="width:400px;margin-left:185px">
 						<div style="float: left; width: 130px"> 
-							<input id="prev" type="submit" value="Previous" class="btn btn-primary" onclick="location.href='http://apply-973.appspot.com/addressinfo.html'">
+							<input id="prev" type="submit" value="Previous" class="btn btn-primary" onclick="location.href='http://apply-973.appspot.com/geography.html'">
 						</div>
 						<div style="float: right; width: 250px"> 
-							 <input id="4" type="submit" value="Next" class="btn btn-primary">
+							 <input id="7" type="submit" value="Next" class="btn btn-primary">
 						</div>
 					</div>
 				</form>
