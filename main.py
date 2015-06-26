@@ -392,15 +392,21 @@ class sendPin(webapp2.RequestHandler):
             data.email = email
             data.put()
         message = mail.EmailMessage(sender="TaraLabs <niranjanlucky@gmail.com>",
-                                subject="Pin Generated")
+                                subject="PIN Generated")
 
         message.to = "<"+email+">"
-        message.body = """
-Please enter the below pin in application form
-                
+        message.body = """ 
+Hello """+email+ """,
+
+Thank you for your interest in FJU.
+
+Please enter the following PIN on the FJU.US application to validate your email.
+
 """+pin + """
 
-Thank you"""
+Thank you,
+
+FJU Admissions Team"""
         message.send()
         self.response.write(req)
 class BaseHandler(webapp2.RequestHandler):              

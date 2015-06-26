@@ -119,42 +119,16 @@ var student = {
 var values = {};
 var tests_taken = 0
 var no_schools = 0
-function createInput(ele,type,clsname,id,required){
-	var div = document.getElementById("a"+id)
-	var field = document.createElement("input");
-	field.type = type;
-	field.className = clsname;
-	field.id = id;
-	field.required=required;
-	field.onpaste = true;
-	div.appendChild(field);
-	document.getElementById(ele).appendChild(div);
-}
-function createLabel(ele,name,value,id,required){
-	var wrapper = $("#"+ele);
-	if (required)
-		$(wrapper).append( '<br/><div id=a'+name+' class = "required"> <label for='+name+' id='+id+'>'+value+'</label></div>');
-	else
-		$(wrapper).append( '<br/><div id=a'+name+'> <label for='+name+' id='+id+'>'+value+'</label></div>');
-}
-function createHiddenfield(ele,id) {
-	var field = document.createElement("p");
-	field.id = id;
-	field.className = "error";
-	field.hidden = true;
-	document.getElementById(ele).appendChild(field);
-}
+var student1 = {}
 function showMsg(id,msg) {
 	$(id).show()
 	$(id).html(msg);
 }
 $(document).ready(function() {
-	
-	$('#sp1').hide();$('#sp2').hide();$('#sp3').hide();$('#sp4').hide();$('#sp5').hide();$('#sp6').hide();$('#sp7').hide();$('#sp8').hide();$('#sp9').hide();$('#sp10').hide();$('#sp11').hide();$('#sp12').hide();$('#sp13').hide();$('#sp14').hide();
 	if(getCurentFileName() == "Apply.html")
 		loginCredential();
 	else if (getCurentFileName() == "Apply2.html") {
-		if(localStorage.user != undefined)  {
+		/* if(localStorage.user != undefined)  {
 		RegInfo();
 		$("#mob").intlTelInput();
 		 $("#mob").keydown(function (e) {
@@ -166,21 +140,32 @@ $(document).ready(function() {
 	} else {
 		window.location.href = "Apply.html"
 		
+	} */
 	}
+	else if(getCurentFileName() == "addressinfo.html") {
+		sessionexist();
+		$("#mob").intlTelInput();
+		$("#mob").focusout(function(){
+			 validateField("#mob", "mob")
+		 });
+		 $("#address1").focusout(function(){
+				 validateField("#address1", "text","House Number")
+		 });
+		  $("#address2").focusout(function(){
+				 validateField("#address2", "text", "Street")
+		 });
+		  $("#city").focusout(function(){
+				 validateField("#city", "text","City")
+		 });
+		  $("#zipcode").focusout(function(){
+				 validateField("#zipcode", "text")
+		 }); 
 	}
-	else if(getCurentFileName() == "Apply3.html") {
+	else if(getCurentFileName() == "personalinfo.html") {
 		$("#welcome").show();
-		$.post("/meta/sessionexist",{dummy:"dum"},function(data){
-			console.log(data);
-			if(data == "None")
-				window.location.href="apply-pin.html"
-			else {
-				var html = "If " + data + " is not your email then click "  
-				$("#welcome").html(html);
-				student.profile.contact_details.email = data;
-				student.login_credentials.username  = data;
-			}
-		})
+		var emaill = ""
+		var student1 = {};
+		sessionexist();
 		/* $('#collapseTwo').collapse('toggle');
 		$('#collapseThreee').collapse('toggle');
 		$('#collapseFourr').collapse('toggle');
@@ -192,54 +177,40 @@ $(document).ready(function() {
 		
 		$('#2collapseTwoo').collapse('toggle');
 		$('#2collapseThreee').collapse('toggle');
-		$('#2collapseFourr').collapse('toggle');
+		$('#2collapseFourr').collapse('toggle');*/
 		
 		// get student object from datastore
-		var student1 = getStudentObj("niranjan.ece1@gmail.com")
-		console.log(student1);
-		fjuApplication(student1);
-		$('div input[id][type]:required').each(function(){ 
-			  $("#"+$(this).attr('id')).focusout(function(){
-			  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
-		}); 
-		}); */
 		
+		
+		
+		//console.log(student1);
+		//fjuApplication(student1);
+			 $("#first_name").focusout(function(){
+				validateField("#first_name", "name")
+			});
+			  $("#last_name").focusout(function(){
+					 validateField("#last_name", "name")
+			});
+			/* $("#middle_name").focusout(function(){
+					 validateField("#middle_name", "name")
+			});
+		 */
 	} else if(getCurentFileName() == "apply-pin.html") {
 		$("#welcome").show();
 		$.post("/meta/sessionexist",{dummy:"dum"},function(data){
 			console.log(data);
+			
 			if(data != "None")
-				window.location.href="Apply3.html"
+				window.location.href="personalinfo.html"
 		});
-	}
-		/* $(".panel-default").children(".panel-collapse").append('<br/><div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="'+i+'"style="color:white; background-color:#2d4250">Submit</button></div>'); */
+	}/* $(".panel-default").children(".panel-collapse").append('<br/><div class="text-right" style="margin-bottom:20px; margin-right:250px"><button class="btn btn-primary" id="'+i+'"style="color:white; background-color:#2d4250">Submit</button></div>'); */
 });
 function insertBef(id) {
 	 $(id).insertBefore($("#sex"));
 }
 function fjuApplication(student) {
-	var wrapper = $(".panel-collapse collapse in"); 
-	createLabel("collapseOne", "first_name", "First/given name","first",true);
-	createHiddenfield("collapseOne","first_name_error");
-	createInput("collapseOne", "text", "input", "first_name",true);
-//	$("#first_name").val(student.profile.personal_information.first_name)
-	
-	createLabel("collapseOne", "middle_name", "Middle name","middle",false);
-	createHiddenfield("collapseOne","middle_name_error");
-	createInput("collapseOne", "text", "input", "middle_name",false);
-	
-	createLabel("collapseOne", "last_name", "Last name","last",true);
-	createHiddenfield("collapseOne","last_name_error");
-	createInput("collapseOne", "text", "input", "last_name",true);
-	
-	createLabel("collapseThree", "email", "Email Address","emaill",true);
-	createHiddenfield("collapseThree","email_error");
-	createInput("collapseThree", "email", "input", "email",true);
-	
-	createLabel("collapseThree", "mob", "Phone","phone",true);
-	createHiddenfield("collapseThree","mob_error");
-	createInput("collapseThree", "tell", "input", "mob",true);
-	
+
+	/* 
 	$('#mob').val('+91');
 	$("#mob").intlTelInput();
 	 $("#mob").keydown(function (e) {
@@ -247,46 +218,7 @@ function fjuApplication(student) {
 		if (e.keyCode != 187 && e.keyCode != 16) {
 			allowNumbers(e);
 		}
-    });
-	createLabel("collapseThree", "skype", "Skype ID","skyp",false);
-	createHiddenfield("collapseThree","skype_error");
-	createInput("collapseThree", "text", "defaultTextInput input", "skype",false);
-	
-	createLabel("collapseFour", "ciob", "City of Birth","cityob",true);
-	createHiddenfield("collapseFour","ciob_error");
-	createInput("collapseFour", "text", "input", "ciob",true);
-	
-	createLabel("collapseFour", "citizenship", "Cityzenship","citizen",true);
-	createHiddenfield("collapseFour","citizenship_error");
-	createInput("collapseFour", "text", "input", "citizenship",true);
-	
-	createLabel("collapseFive", "discHis", "Disciplinary History","dishis",true);
-	createHiddenfield("collapseFive","discHis_error");
-	createInput("collapseFive", "text", "input", "discHis",true);
-	
-	createLabel("collapseT", "crimHis", "Disciplinary History","crimihis",true);
-	createHiddenfield("collapseT","crimHis_error");
-	createInput("collapseT", "text", "input", "crimHis",true);
-	
-	createLabel("1collapseTwo", "p1_first_name", "First/given name","p1_first",true);
-	createHiddenfield("1collapseTwo","p1_first_name_error");
-	createInput("1collapseTwo", "text", "input", "p1_first_name",true);
-	
-	createLabel("1collapseTwo", "p1_middle_name", "Middle name","p1_middle",false);
-	createHiddenfield("1collapseTwo","middle_name_error");
-	createInput("1collapseTwo", "text", "input", "p1_middle_name",false);
-	
-	createLabel("1collapseTwo", "p1_last_name", "Last name","p1_last",true);
-	createHiddenfield("1collapseTwo","p1_last_name_error");
-	createInput("1collapseTwo", "text", "input", "p1_last_name",true);
-	
-	createLabel("1collapseTwo", "p1_email", "Email Address","p1_emaill",true);
-	createHiddenfield("1collapseTwo","p1_email_error");
-	createInput("1collapseTwo", "email", "input", "p1_email",true);
-	
-	createLabel("1collapseTwo", "p1_mob", "Phone","p1_phone",true);
-	createHiddenfield("1collapseTwo","p1_mob_error");
-	createInput("1collapseTwo", "tell", "input", "p1_mob",true);
+    }); */
 	
 	$('#p1_mob').val('+91');
 	$("#p1_mob").intlTelInput();						
@@ -296,43 +228,6 @@ function fjuApplication(student) {
 			allowNumbers(e);
 		}
     });	
-	createLabel("1collapseTwo", "p1_ocpn", "Occupation","p1_occpn",true);
-	createHiddenfield("1collapseTwo","p1_ocpn_error");
-	createInput("1collapseTwo", "text", "input", "p1_ocpn",true);
-
-	createLabel("1collapseTwo", "p1_emp_status", "Employment Status","p1_empp_status",true);
-	createHiddenfield("1collapseTwo","p1_emp_status_error");
-	createInput("1collapseTwo", "text", "input", "p1_emp_status",true);
-	
-	createLabel("1collapseTwo", "p1_noe", "Name of Employer","p1_noemp",true);
-	createHiddenfield("1collapseTwo","p1_noe_error");
-	createInput("1collapseTwo", "text", "input", "p1_noe",true);
-	
-	createLabel("1collapseTwo", "p1_edu_level", "Education Level","p1_edu_levell",true);
-	createHiddenfield("1collapseTwo","p1_edu_level_error");
-	createInput("1collapseTwo", "text", "input", "p1_edu_level",true);
-	
-	
-	createLabel("1collapseThree", "p2_first_name", "First/given name","p2_first",true);
-	createHiddenfield("1collapseThree","p2_first_name_error");
-	createInput("1collapseThree", "text", "input", "p2_first_name",true);
-	
-	createLabel("1collapseThree", "p2_middle_name", "Middle name","p2_middle",false);
-	createHiddenfield("1collapseThree","middle_name_error");
-	createInput("1collapseThree", "text", "input", "p2_middle_name",false);
-	
-	createLabel("1collapseThree", "p2_last_name", "Last name","p2_last",true);
-	createHiddenfield("1collapseThree","p2_last_name_error");
-	createInput("1collapseThree", "text", "input", "p2_last_name",true);
-	
-	createLabel("1collapseThree", "p2_email", "Email Address","p2_emaill",true);
-	createHiddenfield("1collapseThree","p2_email_error");
-	createInput("1collapseThree", "email", "input", "p2_email",true);
-	
-	createLabel("1collapseThree", "p2_mob", "Phone","p2_phone",true);
-	createHiddenfield("1collapseThree","p2_mob_error");
-	createInput("1collapseThree", "tell", "input", "p2_mob",true);
-	
 	$('#p2_mob').val('+91');
 	$("#p2_mob").intlTelInput();						
 	$("#p2_mob").keydown(function (e) {
@@ -341,48 +236,11 @@ function fjuApplication(student) {
 			allowNumbers(e);
 		}
     });
-	createLabel("1collapseThree", "p2_ocpn", "Occupation","p2_occpn",true);
-	createHiddenfield("1collapseThree","p2_ocpn_error");
-	createInput("1collapseThree", "text", "input", "p2_ocpn",true);
-
-	createLabel("1collapseThree", "p2_emp_status", "Employment Status","p2_empp_status",true);
-	createHiddenfield("1collapseThree","p2_emp_status_error");
-	createInput("1collapseThree", "text", "input", "p2_emp_status",true);
-	
-	createLabel("1collapseThree", "p2_noe", "Name of Employer","p2_noemp",true);
-	createHiddenfield("1collapseThree","p2_noe_error");
-	createInput("1collapseThree", "text", "input", "p2_noe",true);
-	
-	createLabel("1collapseThree", "p2_edu_level", "Education Level","p2_edu_levell",true);
-	createHiddenfield("1collapseThree","p2_edu_level_error");
-	createInput("1collapseThree", "text", "input", "p2_edu_level",true);
-	
-	createLabel("2collapseTwo", "edu_intr", "Education Interruption","edu_int",true);
-	createHiddenfield("2collapseTwo","edu_intr_error");
-	createInput("2collapseTwo", "text", "input", "edu_intr",true);	
-
-	createLabel("2collapseThree", "ncc", "Number of College or University Level Course taken","nccl",true);
-	createHiddenfield("2collapseThree","ncc_error");
-	createInput("2collapseThree", "text", "input", "ncc",true);
-	
 	$('#ncc').keydown(function(e) {
 		allowNumbers(e);
 	});
 
 	
-	createLabel("2collapseFour", "grad_cls_size", "Grad Class Size","grad_clss_size",true);
-	createHiddenfield("2collapseFour","grad_cls_size_error");
-	createInput("2collapseFour", "text", "input", "grad_cls_size",true);	
-	
-	createLabel("2collapseFour", "cgpa", "Cumulative GPA","cmgpa",true);
-	createHiddenfield("2collapseFour","cgpa_error");
-	createInput("2collapseFour", "text", "input", "cgpa",true);
-	
-	createLabel("2collapseFour", "gpas", "GPA Scale","gpass",true);
-	createHiddenfield("2collapseFour","gpas_error");
-	createInput("2collapseFour", "text", "input", "gpas",true);
-	
-
 	$('#grad_cls_size').keydown(function(e) {
 		allowNumbers(e);
 	});
@@ -465,10 +323,10 @@ function createSchoolFields(id){
 	}
 }
 $('select').on('change', function (e) {
-	
     var optionSelected = $("option:selected", this);
     var valueSelected = this.value;
 	var id = this.id;
+	console.log(id)
     if(valueSelected == "Married" || valueSelected == "Separated" || valueSelected == "Divorced"){
 		$('#dyhc').show();
 		$('#dyhcl').show();
@@ -477,6 +335,12 @@ $('select').on('change', function (e) {
 		$('#dyhc').hide();
 		$('#dyhcl').hide();
 	}
+	if(id == "month" || id == "day" || id == "year") 
+		$("#dob_error").hide();
+	if(id == "state") 
+		$("#state_error").hide();
+	if(id == "country")
+		$("#country_error").hide();
 	if(id == "no_of_sch") {
 		$('#2collapseOne').empty();
 		var i = 0;
@@ -519,9 +383,6 @@ function RegInfo() {
 		 validateField("#first_name", "text")
  });
   $("#last_name").focusout(function(){
-		 validateField("#last_name", "text")
- });
- $("#last_name").focusout(function(){
 		 validateField("#last_name", "text")
  });
  $("#mob").focusout(function(){
@@ -644,7 +505,7 @@ $('form#Reg-Form').submit(function() {
 		
 	}
  });
-function validateField(id,type) {
+function validateField(id,type,name) {
 
 	var pass = false;
 	var value = $(id).val();
@@ -653,8 +514,13 @@ function validateField(id,type) {
 	if(value=="")
 		if(type == "email")
 			showMsg(id,"Please enter your email. ");
-		else
-			showMsg(id,"Please complete this required question.");
+		else if(type == "name") {
+			if(idd == "#first_name")
+				showMsg(id,"Please enter your First name");
+			if(idd == "#last_name")
+				showMsg(id,"Please enter your Last name");
+		} else
+			showMsg(id,"Please enter "+name);
 	else {
 	switch (type) {
 		case "email":
@@ -670,6 +536,20 @@ function validateField(id,type) {
 			else {
 				$(id).hide();
 				pass = true;
+			}
+			break;
+		case "name":
+			var regx = /^[A-Za-z]+$/;
+			var len = 2;
+			if(id == "middle_name") {
+				len = 0;
+			}
+			if (!regx.test(value) || value.length < len) {
+				showMsg(id, "Only alphabets allowed.")
+				pass = false;
+			} else {
+				pass = true;
+				$(id).hide();
 			}
 			break;
 		case "password":
@@ -695,7 +575,7 @@ function validateField(id,type) {
 			break;
 		case "mob":
 			if(value.length < 7) 
-				showMsg(id,"Please complete the required field")
+				showMsg(id,"Please enter the Phone Number")
 			else if(value.substring(0,2) == "+1" && value.length != 12)
 				showMsg(id, "Phone - For country code +1 your phone number must be 10 digits.")
 			else if(value.length <= 9 || value.length >= 16)
@@ -713,12 +593,15 @@ function validateField(id,type) {
 	if(!pass) {
 		$(idd).css('outline-color','red');
 		$(idd).focus();
+		console.log(idd);
+		} else {
+		$(idd).css('outline-color','#1589FF');
 	}
 	return pass;
 }
-function validateRegFields(values){
+function validateDOB(values){
 	var pass = true;
-	var zip = values['zipcode'];
+	//var zip = values['zipcode'];
 	var mm = values["month"]
 	var dd = values["day"]
 	var yy = values["year"]
@@ -758,11 +641,11 @@ function validateRegFields(values){
                       return false;
                   }
               }  
-		if(zip.length > 10) {
+		/* if(zip.length > 10) {
 			showMsg("#zipcode_error", "Enter valid zip code");
 			pass  = false;
 			return false;
-		}
+		} */
 		if(pass)
 			$("#dob_error").hide();
 	return pass
@@ -817,103 +700,163 @@ function allowNumbers(e) {
 
 // Sending all data to data store
 $("#1").click(function(){
-	var pass = true;
-	if($("#first_name").val() != "")
-		student.profile.personal_information.first_name = $("#first_name").val();
-	 else {
-		pass = false;
-	}
-	if($("#middle_name").val() != "")
-		student.profile.personal_information.middle_name = $("#middle_name").val();
-	 else {
-		pass = false;
-	}
-	if($("#last_name").val() != "")
-		student.profile.personal_information.last_name = $("#last_name").val();
-	 else {
-		pass = false;
-	}
-	
-	var selected = $("#radioDiv input[type='radio']:checked");
-	if (selected.length > 0) 
-		student.profile.personal_information.gender = selected.val();
-	 else {
-		pass = false;
-	}
-	
-	if($("#month").val() != "" && $("#day").val() != "" && $("#year").val() != "")
-		student.profile.personal_information.dob = $("#day").val() + "/" + $("#month").val()+ "/" + $("#year").val();
-	 else {
-		pass = false;
-	}
-	var ssn = ""
-	var pas = pass;
-	if($("#ssn1").val() != "")
-		ssn = $("#ssn1").val() + "-"
-	 else {
-		pas = false;
-	}
-	if($("#ssn2").val() != "")
-		ssn = $("#ssn2").val() + "-"
-	 else {
-		pas = false;
-	}
-	if($("#ssn3").val() != "")
-		ssn = $("#ssn3").val()
-	 else {
-		pas = false;
-	}
-	if (pas)
-		student.profile.personal_information.ssn_no = ssn;
-	console.log(student.profile);
-	$("#collapse1").collapse('toggle');
-	$('#collapseTwo').collapse('toggle');
-	sendData(student);
+	$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+		console.log(data);
+		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
+			console.log(student);
+			student = JSON.parse(student);
+					var pass = true;
+		if(validateField("#first_name", "name")) {
+			student.profile.personal_information.first_name = $("#first_name").val();
+			$("#last_name_error").hide();
+		}
+		 else {
+			pass = false;					 
+		}
+		if($("#middle_name").val() != "") 
+			student.profile.personal_information.middle_name = $("#middle_name").val();
+
+		if(validateField("#last_name", "name")) {
+			student.profile.personal_information.last_name = $("#last_name").val();
+			$("#last_name_error").hide();
+		}
+		 else {
+			pass = false;
+		}
+		
+		var selected = $("#radioDiv input[type='radio']:checked");
+		if (selected.length > 0) {
+			student.profile.personal_information.gender = selected.val();
+			//pass = true;
+			$("#gender_error").hide();
+		}
+		 else {
+			pass = false;
+			$("#gender_error").show()
+			$("#gender_error").css('color','red')
+			$("#gender_error").html("Please specify your Gender.")
+		}
+		
+		if($("#month").val() && $("#day").val() && $("#year").val()) {
+			
+			var values = {};
+			values["month"] = $("#month").val();
+			values["day"] = $("#day").val();
+			values["year"] = $("#year").val();
+			console.log(values)
+			if (validateDOB(values)) {
+				student.profile.personal_information.dob = $("#day").val() + "/" + $("#month").val()+ "/" + $("#year").val();
+				$("#dob_error").hide();
+			//	pass = true;
+			}
+			else {
+				pass = false;
+				$("#dob_error").show();
+				$("#dob_error").css('color','red')
+				$("#dob_error").html("Invalid Date of Birth.");
+			}
+		}
+		 else {
+			pass = false;
+			$("#dob_error").show();
+			$("#dob_error").css('color','red')
+			$("#dob_error").html("Please enter your Date of Birth");
+		}
+		var ssn = ""
+		var pas = true;
+		if($("#ssn1").val() != "")
+			ssn = $("#ssn1").val() + "-"
+		 else {
+			pas = false;
+		}
+		if($("#ssn2").val() != "")
+			ssn = ssn+$("#ssn2").val() + "-"
+		 else {
+			pas = false;
+		}
+		if($("#ssn3").val() != "")
+			ssn = ssn+$("#ssn3").val()
+		 else {
+			pas = false;
+		}
+		if (pas && ssn.length == 11) {
+			student.profile.personal_information.ssn_no = ssn
+			$("#ssn_error").hide();
+			//pass = true;
+		}
+		else if (ssn.length > 0){
+			$("#ssn1").css('outline-color','red');
+			$("#ssn1").focus()
+			showMsg("#ssn_error","Invalid Social Security Number.")
+		} else {
+			$("#ssn_error").hide();
+		}
+		//if (pass)
+		sendData(student);
+		if(pass)
+			window.location.href = "addressinfo.html"
+		});   
+	});		
 });
 
 $("#2").click(function(){
-	var pass = true;
-	if($("#country").val() != "") {
-		student.profile.address.country = $("#country").val();
-	} else {
-		pass = false;
-	}
-	if($("#address1").val() != "")
-		student.profile.address.address1 = $("#address1").val();
-	 else {
-		pass = false;
-	}
-	if($("#address2").val() != "")
-		student.profile.address.address2 = $("#address2").val();
-	 else {
-		pass = false;
-	}
-	if($("#address3").val() != "")
-		student.profile.address.address3 = $("#address3").val();
-	 else {
-		pass = false;
-	}
-	if($("#city").val() != "")
-		student.profile.address.city = $("#city").val();
-	 else {
-		pass = false;
-	}
-	if($("#state").val() != "")
-		student.profile.address.state = $("#state").val();
-	 else {
-		pass = false;
-	}
-	if($("#zipcode").val() != "")
-		student.profile.address.zipcode = $("#zipcode").val();
-	 else {
-		pass = false;
-	}
-	console.log(student.profile.address);
-	sendData(student);
-	$('#collapseTwo').collapse('toggle');
-	$('#collapseThreee').collapse('toggle');
-	if(pass)
-		$('#sp2').show();
+	$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
+			var pass = true;
+			student = JSON.parse(student);
+		if(validateField("#address1","","House Number"))
+			student.profile.address.address1 = $("#address1").val();
+		 else {
+			pass = false;
+		}
+		if(validateField("#mob","mob","Phone Number"))
+			student.profile.contact_details.phone_no = $('#mob').val();
+		 else {
+			pass = false;
+		}
+		//console.log(pass);
+		if(validateField("#zipcode","","Zip/Pin code"))
+			student.profile.address.zipcode = $("#zipcode").val();
+		 else {
+			pass = false;
+		}
+			if(validateField("#city","","City"))
+			student.profile.address.city = $("#city").val();
+		 else {
+			pass = false;
+		}
+		if($("#state").val() && validateField("#state","","State"))
+			student.profile.address.state = $("#state").val();
+		 else {
+			pass = false;
+			$("#state_error").show();
+			$("#state_error").css('color','red');
+			$("#state_error").html("Please select State.");
+			
+		}
+		if($("#country").val() && validateField("#country")) {
+			student.profile.address.country = $("#country").val();
+		} else {
+			pass = false;
+			$("#country_error").show();
+			$("#country_error").css('color','red');
+			$("#country_error").html("Please select Country.");
+		}
+		if(validateField("#address2","","Street"))
+			student.profile.address.address2 = $("#address2").val();
+		 else {
+			pass = false;
+		}
+		if($("#skype").val() != "")
+			student.profile.contact_details.skype_id = $('#skype').val();
+		console.log(student.profile.address);
+		console.log(pass);
+		sendData(student);
+		//console.log(bootstrap-formhelpers.min.BFHCountriesList);
+		if(pass)
+			window.location.href = "geography.html"	
+		});     
+	});
 });
 
 $("#3").click(function(){
@@ -1330,13 +1273,46 @@ function sendData(student) {
     },
 });
 }
-
+function filluppersonalDetails(student) {
+	student = JSON.parse(student)
+	if (getCurentFileName() == "personalinfo.html") {
+		console.log(student)
+		$("#first_name").val(student.profile.personal_information.first_name);
+		$("#middle_name").val(student.profile.personal_information.middle_name);
+		$("#last_name").val(student.profile.personal_information.last_name);
+		$("#month").val(student.profile.personal_information.dob.substring(3,5));
+		$("#day").val(student.profile.personal_information.dob.substring(0,2));
+		$("#year").val(student.profile.personal_information.dob.substring(6,10));
+		 var $radios = $('input:radio[name=gender]');
+		if($radios.is(':checked') === false) {
+			$radios.filter('[value='+student.profile.personal_information.gender+']').prop('checked', true);
+		}
+		$("#ssn1").val(student.profile.personal_information.ssn_no.substring(0,3));
+		$("#ssn2").val(student.profile.personal_information.ssn_no.substring(4,6));
+		$("#ssn3").val(student.profile.personal_information.ssn_no.substring(7,11));
+		
+	} else if (getCurentFileName() == "addressinfo.html") {
+		$("#address1").val(student.profile.address.address1);
+		$("#address2").val(student.profile.address.address2);
+		$("#city").val(student.profile.address.city);
+		$("#state").val(student.profile.address.state);
+		$("#country").val(student.profile.address.country);
+		$("#zipcode").val(student.profile.address.zipcode);
+		$("#mob").val(student.profile.contact_details.phone_no);
+		$("#skype").val(student.profile.contact_details.skype_id);
+	}
+	console.log("filledupdetails")
+}
 function getStudentObj(emaill) {
-$.post( "/meta/getStudentObj",{email:emaill}, function( student ) {
-				//console.log(student);
-				return "niranjan";
-			});          
-return "niranjan"			
+	var student = {}
+$.post( "/meta/getStudentObj",{email:emaill}, function( stu ) {
+				student = stu;
+				console.log(student);
+							
+				filluppersonalDetails(stu)
+				return student;
+			});     
+console.log(student)			
 }
 
 
@@ -1408,7 +1384,7 @@ $('#validate').click(function(){
 						console.log("test");
 						$.post("/meta/login",{email:data},function(dataa){
 							console.log(dataa);
-							window.location.href="Apply3.html"
+							window.location.href="personalinfo.html"
 						});
 						
 					} else {
@@ -1434,6 +1410,25 @@ $(document).on("click","a[name='logout']", function (e) {
 			window.location.href = "apply-pin.html"
 		});
     });
+	
+function sessionexist() {
+	
+	$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+			console.log(data);
+			if(data == "None")
+				window.location.href="apply-pin.html"
+			else {
+				var html = "If " + data + " is not your email then "  
+				$("#welcome").html(html);
+				student.profile.contact_details.email = data;
+				student.login_credentials.username  = data;
+				console.log(getStudentObj(data));
+			}
+		});
+}
+$("input[name=gender]:radio").change(function () {
+	$("#gender_error").hide();
+});
 // Even verified regenerate pin and send to the email
 //remove email already exist messgae
 // on valid pin enter, it should redirect to apply page insted showing success message
