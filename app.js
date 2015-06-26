@@ -214,6 +214,51 @@ $(document).ready(function() {
 	}  else if(getCurentFileName() ==  "household.html") {
 		$("#welcome").show();
 		sessionexist();
+	} else if(getCurentFileName() ==  "parent1.html") {
+		$("#welcome").show();
+		sessionexist();
+		
+		$('div input[id][type]').each(function(){
+			if($(this).attr('id') != "p1_middle_name") {
+				console.log();
+				  $("#"+$(this).attr('id')).focusout(function(){
+				  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
+			
+			}); 
+			}
+			});
+	
+		
+		$('#p1_mob').val('+91');
+		$("#p1_mob").intlTelInput();						
+		$("#p1_mob").keydown(function (e) {
+			// Allow: backspace, delete, tab, escape, enter and .
+			if (e.keyCode != 187 && e.keyCode != 16) {
+				allowNumbers(e);
+			}
+		});	
+	} else if(getCurentFileName() ==  "parent2.html") {
+		$("#welcome").show();
+		sessionexist();
+		
+		$('div input[id][type]').each(function(){
+			if($(this).attr('id') != "p2_middle_name") {
+				  $("#"+$(this).attr('id')).focusout(function(){
+				  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
+			
+			}); 
+			}
+			});
+	
+		
+		$('#p2_mob').val('+91');
+		$("#p2_mob").intlTelInput();						
+		$("#p2_mob").keydown(function (e) {
+			// Allow: backspace, delete, tab, escape, enter and .
+			if (e.keyCode != 187 && e.keyCode != 16) {
+				allowNumbers(e);
+			}
+		});	
 	}
 	else if(getCurentFileName() == "apply-pin.html") {
 		$("#welcome").show();
@@ -526,21 +571,26 @@ $('form#Reg-Form').submit(function() {
 	}
  });
 function validateField(id,type,name) {
-
+	if(id == "#first_name" ||id == "#p1_first_name"|| id == "#p2_first_name" || id == "#last_name" || id == "#p1_last_name" || id == "#p2_last_name" || id == "#p1_noe" || id == "#p2_noe")
+		type = "name";
 	var pass = false;
 	var value = $(id).val();
-	idd = id;
+	var idd = id;
 	id = id+"_error";
-	if(value=="")
+	if(value==""){
 		if(type == "email")
-			showMsg(id,"Please enter your email. ");
+			showMsg(id,"Please enter Email. ");
 		else if(type == "name") {
-			if(idd == "#first_name")
-				showMsg(id,"Please enter your First name");
-			if(idd == "#last_name")
-				showMsg(id,"Please enter your Last name");
+			if(idd == "#first_name" ||idd == "#p1_first_name"|| idd == "#p2_first_name")
+				showMsg(id,"Please enter First name.");
+			if(idd == "#last_name" || idd == "#p1_last_name" || idd == "#p2_last_name")
+				showMsg(id,"Please enter Last name.");
 		} else
 			showMsg(id,"Please enter "+name+".");
+		if (typeof name == 'undefined')
+			showMsg(id,"Please enter required field.");
+	}
+
 	else {
 	switch (type) {
 		case "email":
@@ -990,121 +1040,134 @@ $("#7").click(function(){
 });
 
 $("#8").click(function(){
-	var pass = true;
-	student.family.parent1.type = $("#p1_type").val();
-	student.family.parent1.living = $("#p1_living").val();
-	if($("#p1_first_name").val() != "")
-		student.family.parent1.first_name = $("#p1_first_name").val();
-	else {
-		pass = false;
-	}
-	if($("#p1_middle_name").val() != "")
-		student.family.parent1.middle_name = $("#p1_middle_name").val();
-	else {
-		pass = false;
-	}
-	if($("#p1_last_name").val() != "")
-		student.family.parent1.last_name = $("#p1_last_name").val();
-	else {
-		pass = false;
-	}
-	if($("#p1_email").val() != "")
-		student.family.parent1.email = $('#p1_email').val();
-	else {
-		pass = false;
-	}
-	if($("#p1_mob").val() != "")
-		student.family.parent1.phone = $('#p1_mob').val();
-	else {
-		pass = false;
-	}
-	   
-	if(validateField("#p1_ocpn","text"))
-		student.family.parent1.occupation = $('#p1_ocpn').val();
-	else {
-		pass = false;
-	}
-	if(validateField("#p1_emp_status","text"))
-		student.family.parent1.employment_status = $('#p1_emp_status').val();
-	else {
-		pass = false;
-	}
-	if(validateField("#p1_noe","text"))
-		student.family.parent1.name_of_employer = $('#p1_noe').val();
-	else {
-		pass = false;
-	}
-	if(validateField("#p1_edu_level","text"))
-		student.family.parent1.education_level = $('#p1_edu_level').val();
-	else {
-		pass = false;
-	}
-	
-		console.log(student.family.parent1)
-		sendData(student);
-		$('#1collapseTwoo').collapse('toggle');
-		$('#1collapseThreee').collapse('toggle');
-	if(pass)
-		$('#sp8').show()
+	$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
+			student = JSON.parse(student);
+			var pass = true;
+			student.family.parent1.type = $("#p1_type").val();
+			student.family.parent1.living = $("#p1_living").val();
+			if(validateField("#p1_first_name","name"))
+				student.family.parent1.first_name = $("#p1_first_name").val();
+			else {
+				pass = false;
+			}
+			console.log(pass)
+			if($("#p1_middle_name").val() != "")
+				student.family.parent1.middle_name = $("#p1_middle_name").val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p1_last_name","name"))
+				student.family.parent1.last_name = $("#p1_last_name").val();
+			else {
+				pass = false;
+			}
+				console.log(pass)
+			if(validateField("#p1_email","email",""))
+				student.family.parent1.email = $('#p1_email').val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p1_mob","mob",""))
+				student.family.parent1.phone = $('#p1_mob').val();
+			else {
+				pass = false;
+			}
+			   
+			if(validateField("#p1_ocpn","text","Occupation"))
+				student.family.parent1.occupation = $('#p1_ocpn').val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p1_emp_status","text","Employment Status"))
+				student.family.parent1.employment_status = $('#p1_emp_status').val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p1_noe","text","Name of Employer"))
+				student.family.parent1.name_of_employer = $('#p1_noe').val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p1_edu_level","text","Education Level"))
+				student.family.parent1.education_level = $('#p1_edu_level').val();
+			else {
+				pass = false;
+			}
+			
+				console.log(student.family.parent1)
+				sendData(student);
+				
+			if(pass)
+				window.location.href = "parent2.html"
+		});
+	});
 });
 
 
 $("#9").click(function(){
-	var pass = true;
-	student.family.parent2.type = $("#p2_type").val();
-	student.family.parent2.living = $("#p2_living").val();
-	if($("#p2_first_name").val() != "")
-		student.family.parent2.first_name = $("#p2_first_name").val();
-	else {
-		pass = false;
-	}
-	if($("#p2_middle_name").val() != "")
-		student.family.parent2.middle_name = $("#p2_middle_name").val();
-	else {
-		pass = false;
-	}
-	if($("#p2_last_name").val() != "")
-		student.family.parent2.last_name = $("#p2_last_name").val();
-	else {
-		pass = false;
-	}
-	if($("#p2_email").val() != "") 
-		student.family.parent2.email = $('#p2_email').val();
-	else {
-		pass = false;
-	}
-	if($("#p2_mob").val() != "") 
-		student.family.parent2.phone = $('#p2_mob').val();
-	else {
-		pass = false;
-	}
-	   
-	if(validateField("#p2_ocpn","text"))
-		student.family.parent2.occupation = $('#p2_ocpn').val();
-	else {
-		pass = false;
-	}
-	if(validateField("#p2_emp_status","text"))
-		student.family.parent2.employment_status = $('#p2_emp_status').val();
-	else {
-		pass = false;
-	}
-	if(validateField("#p2_noe","text"))
-		student.family.parent2.name_of_employer = $('#p2_noe').val();
-	else {
-		pass = false;
-	}
-	if(validateField("#p2_edu_level","text"))
-		student.family.parent2.education_level = $('#p2_edu_level').val();
-	else {
-		pass = false;
-	}
-	console.log(student.family.parent2)
-	sendData(student);
-	$('#1collapseThreee').collapse('toggle');
-	$('#2collapseOnee').collapse('toggle');
-	if(pass)
-		$('#sp9').show()
+	$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
+			student = JSON.parse(student);
+			var pass = true;
+			student.family.parent2.type = $("#p2_type").val();
+			student.family.parent2.living = $("#p2_living").val();
+			if(validateField("#p2_first_name","name"))
+				student.family.parent2.first_name = $("#p2_first_name").val();
+			else {
+				pass = false;
+			}
+			console.log(pass)
+			if($("#p2_middle_name").val() != "")
+				student.family.parent2.middle_name = $("#p2_middle_name").val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p2_last_name","name"))
+				student.family.parent2.last_name = $("#p2_last_name").val();
+			else {
+				pass = false;
+			}
+				console.log(pass)
+			if(validateField("#p2_email","email",""))
+				student.family.parent2.email = $('#p2_email').val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p2_mob","mob",""))
+				student.family.parent2.phone = $('#p2_mob').val();
+			else {
+				pass = false;
+			}
+			   
+			if(validateField("#p2_ocpn","text","Occupation"))
+				student.family.parent2.occupation = $('#p2_ocpn').val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p2_emp_status","text","Employment Status"))
+				student.family.parent2.employment_status = $('#p2_emp_status').val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p2_noe","text","Name of Employer"))
+				student.family.parent2.name_of_employer = $('#p2_noe').val();
+			else {
+				pass = false;
+			}
+			if(validateField("#p2_edu_level","text","Education Level"))
+				student.family.parent2.education_level = $('#p2_edu_level').val();
+			else {
+				pass = false;
+			}
+			
+				console.log(student.family.parent2)
+				sendData(student);
+				
+			if(pass)
+				window.location.href = "personalinfo.html"
+		});
+	});
 });
 
 
@@ -1349,6 +1412,30 @@ function fillupDetails(student) {
 		if(student.family.household.martial_status != "Unmarried")
 			$("#dyhcl").show();
 		$("#dyhc").val(student.family.household.do_you_have_children);
+	} else if(getCurentFileName() == "parent1.html") {
+		$("#p1_first_name").val(student.family.parent1.first_name);
+		$("#p1_middle_name").val(student.family.parent1.middle_name);
+		$("#p1_last_name").val(student.family.parent1.last_name);
+		$("#p1_type").val(student.family.parent1.type);
+		$("#p1_living").val(student.family.parent1.living);
+		$("#p1_ocpn").val(student.family.parent1.occupation);
+		$("#p1_noe").val(student.family.parent1.name_of_employer);
+		$("#p1_emp_status").val(student.family.parent1.employment_status);
+		$("#p1_edu_level").val(student.family.parent1.education_level);
+		$("#p1_email").val(student.family.parent1.email);
+		$("#p1_mob").val(student.family.parent1.phone);
+	}else if(getCurentFileName() == "parent2.html") {
+		$("#p2_first_name").val(student.family.parent2.first_name);
+		$("#p2_middle_name").val(student.family.parent2.middle_name);
+		$("#p2_last_name").val(student.family.parent2.last_name);
+		$("#p2_type").val(student.family.parent2.type);
+		$("#p2_living").val(student.family.parent2.living);
+		$("#p2_ocpn").val(student.family.parent2.occupation);
+		$("#p2_noe").val(student.family.parent2.name_of_employer);
+		$("#p2_emp_status").val(student.family.parent2.employment_status);
+		$("#p2_edu_level").val(student.family.parent2.education_level);
+		$("#p2_email").val(student.family.parent2.email);
+		$("#p2_mob").val(student.family.parent2.phone);
 	}
 	console.log("filledupdetails")
 }
