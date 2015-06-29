@@ -40,64 +40,37 @@
 
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-10 well well-lg">
 	
-	 <div class="" style="margin-left:25px;margin-top:40px">
-                            <!-- BEGIN: ReCAPTCHA implementation example. -->
-
-                            <div class="g-recaptcha" data-sitekey=
-                            "6LdzsggTAAAAAArQ1vJvQvfMhl4K7HmYynJT10UC"></div>
-                            <!-- Optional noscript fallback. --><noscript>
-                            <div style="width: 302px; height: 462px;">
-                                <div style=
-                                "width: 302px; height: 422px; position: relative;">
-                                <div style=
-                                "width: 302px; height: 422px; position: absolute;">
-                                    <iframe frameborder="0" scrolling="no"
-                                        src="/recaptcha/api/fallback?k=6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-"
-                                        style=
-                                        "width: 302px; height:422px; border-style: none;">
-                                        </iframe>
-                                    </div>
-                                </div>
-
-                                <div style=
-                                "border-style: none; bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px; background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px; height: 60px; width: 300px;">
-                                <textarea class="g-recaptcha-response" id=
-                                "g-recaptcha-response" name=
-                                "g-recaptcha-response" style=
-                                "width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;">
-
-</textarea>
-                                </div>
-                            </div><br></noscript>
-                            <!-- END: ReCAPTCHA implementation example. -->
-                        </div>
+	 
+	
 	<form class="form-horizontal" action="javascript:void(0);" >
 	<div class="container" style="margin-left:40px;margin-top:10px">
 	
 	
 	<div class="form-group" >
-	<p style="margin-left:-15px"><b> Step 1: Give your email address for communication</b></p>
-		<label style="margin-left:-15px;font-weight:normal" style="margin-left:-15px;" for="email"> Email Address</label>
+	<p style="margin-left:0px"><b> Step 1: Give your email address for communication</b></p>
+		<label style="margin-left:0px;font-weight:normal" style="margin-left:-15px;" for="email"> Email Address</label>
 		<input style="margin-left:10px;width:200px" id="email" name="email" class="input" type="email"></input>
+		<button style="margin-left:5px;" id="sendPin" class="btn btn-primary"> Submit </button>
 	</div>
 	<p style="margin-left:90px" hidden id="email_error"> </p>
-	<div class="form-group" >
+<!-- 	<div class="form-group" >
 	<p style="margin-left:-15px"><b> Step 2: Generate PIN and send to your email provided in Step 1.</b></p>
 	<button style="margin-left:-15px;" type="submit" id="sendPin" class="btn btn-primary"> Generate PIN </button>
-	</div>
+	</div> -->
 	
-	<p style="margin-left:-15px" hidden id="info1"></p>
-	<p style="margin-left:-15px" hidden id="info2"> </p>
+	<p  hidden id="info1"></p>
+	<p  hidden id="info2"> </p>
 	
 	<div class="form-group">
-	<p style="margin-left:-15px"><b> Step 3:  Enter the PIN sent to your email.</b> </p>
-		<label style="margin-left:-15px;font-weight:normal" for="pin"> 4 Digit PIN</label>
+	<p style="margin-left:0px"><b> Step 2:  Enter the PIN sent to your email.</b> </p>
+		<label style="margin-left:0px;font-weight:normal" for="pin"> 4 Digit PIN</label>
 		<input style="margin-left:27px;width:200px" id="pin" class="input" type="text"></input>
+		<button style="margin-left:5px;" id="validate" class="btn btn-primary"> Verify PIN </button>
 	</div>
-	<p style="margin-left:90px" hidden id="info"> </p>
-	<div class="form-group" >
+	<p style="margin-left:80px" hidden id="info"> </p>
+	<!-- <div class="form-group" >
 	<button style="margin-left:-15px;" type="submit" id="validate" class="btn btn-primary"> Verify PIN </button>
-	</div>
+	</div> -->
 	</div>
 	</div>
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1"></div>

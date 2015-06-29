@@ -52,7 +52,7 @@ var student = {
 							
 						},
 						parent1: {
-							type:"",
+							type:"Father",
 							living:"",
 							first_name:"",
 							middle_name:"",
@@ -67,13 +67,14 @@ var student = {
 						},
 						
 						parent2: {
-							type:"",
+							type:"Mother",
 							living:"",
 							first_name:"",
 							middle_name:"",
 							last_name:"",
 							email:"",
 							phone:"",
+							address:"",
 							address:"",
 							occupation:"",
 							employment_status:"",
@@ -120,6 +121,32 @@ var values = {};
 var tests_taken = 0
 var no_schools = 0
 var student1 = {}
+function createInput(ele,type,clsname,id,required){
+	var div1 = document.createElement('div')
+	div1.className = "col-xs-8"
+	var field = document.createElement("input");
+	field.type = type;
+	field.className = clsname;
+	field.id = id;
+	field.required=required;
+	field.onpaste = true;
+	document.getElementsById(id).appendChild(field);
+	document.getElementById(ele).appendChild(div);
+}
+function createLabel(ele,name,value,id,required){
+	var wrapper = $("#"+ele);
+	if (required)
+		$(wrapper).append( '<br/><div class=form-group> <label class=control-label col-xs-4 for='+name+' name='+name+'>'+value+'&nbsp;<span style="color:red;">*</span><br/></label></div>');
+	else
+		$(wrapper).append( '<div class=form-group> <label class=control-label col-xs-4 for='+name+' name='+name+'>'+value+'</label></div>');
+}
+function createHiddenfield(ele,id) {
+	var field = document.createElement("p");
+	field.id = id;
+	//field.className = "error";
+	field.hidden = true;
+	document.getElementById(ele).appendChild(field);
+}
 function showMsg(id,msg) {
 	$(id).show()
 	$(id).html(msg);
@@ -259,6 +286,26 @@ $(document).ready(function() {
 				allowNumbers(e);
 			}
 		});	
+	}else if(getCurentFileName() ==  "parent2.html") {
+		$("#welcome").show();
+		sessionexist();
+		
+		$('div input[id][type]').each(function(){
+			if($(this).attr('id') != "1middle_name") {
+				  $("#"+$(this).attr('id')).focusout(function(){
+				  validateField("#"+$(this).attr('id'), "#"+$(this).attr('type'))
+			
+			}); 
+			}
+		});
+		$('#1mob').val('+91');
+		$("#1mob").intlTelInput();						
+		$("#1mob").keydown(function (e) {
+			// Allow: backspace, delete, tab, escape, enter and .
+			if (e.keyCode != 187 && e.keyCode != 16) {
+				allowNumbers(e);
+			}
+		});	
 	}
 	else if(getCurentFileName() == "apply-pin.html") {
 		$("#welcome").show();
@@ -348,34 +395,34 @@ function createSchoolFields(id){
 	document.getElementById("2collapseOne").appendChild(field);
 	$('#'+id+"head").attr('title', 'School '+id + ':');
 	createLabel("2collapseOne", id+"schl_name", "School Name",id+"schll_name",true);
-	createHiddenfield("2collapseOne",id+"schl_name_error");
 	createInput("2collapseOne", "text", "input", id+"schl_name",true);
+	createHiddenfield("2collapseOne",id+"schl_name_error");
 	
 	createLabel("2collapseOne", id+"dog", "Date of Graduation",id+"dogg",true);
-	createHiddenfield("2collapseOne",id+"dog_error");
 	createInput("2collapseOne", "text", "input", id+"dog",true);
+	createHiddenfield("2collapseOne",id+"dog_error");
 	console.log(student.profile.address.country);
 	if(student.profile.address.country != "India" ) {
 
 		createLabel("2collapseOne", id+"first_name", "Counsellor First name",id+"first",true);
-		createHiddenfield("2collapseOne",id+"first_name_error");
 		createInput("2collapseOne", "text", "input", id+"first_name",true);
+		createHiddenfield("2collapseOne",id+"first_name_error");
 		
 		createLabel("2collapseOne", id+"middle_name", "Counsellor Middle name",id+"middle",false);
-		createHiddenfield("2collapseOne",id+"middle_name_error");
 		createInput("2collapseOne", "text", "input", id+"middle_name",false);
+		createHiddenfield("2collapseOne",id+"middle_name_error");
 		
 		createLabel("2collapseOne", id+"last_name", "Counsellor Last name",id+"last",true);
-		createHiddenfield("2collapseOne",id+"last_name_error");
 		createInput("2collapseOne", "text", "input", id+"last_name",true);
+		createHiddenfield("2collapseOne",id+"last_name_error");
 		
 		createLabel("2collapseOne", id+"email", "Counsellor Email Address",id+"emaill",true);
-		createHiddenfield("2collapseOne","email_error");
 		createInput("2collapseOne", "email", "input", id+"email",true);
+		createHiddenfield("2collapseOne","email_error");
 		
 		createLabel("2collapseOne", id+"mob", "Counsellor Phone",id+"phone",true);
-		createHiddenfield("2collapseOne",id+"mob_error");
 		createInput("2collapseOne", "tell", "input", id+"mob",true);
+		createHiddenfield("2collapseOne",id+"mob_error");
 		
 		$('#'+id+'mob').val('+1');
 		$('#'+id+'mob').intlTelInput();	
@@ -406,14 +453,14 @@ $('select').on('change', function (e) {
 		$("#state_error").hide();
 	if(id == "country")
 		$("#country_error").hide();
-	if(id == "no_of_sch") {
+	/* if(id == "no_of_sch") {
 		$('#2collapseOne').empty();
 		var i = 0;
 		while(i < valueSelected) {
 			i++;
 			createSchoolFields(i)
 		}
-	}
+	} */
 	if(id == "tests_taken") {
 		$('#3collapseOne').empty();
 		var i = 0;
@@ -1044,7 +1091,7 @@ $("#8").click(function(){
 		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
 			student = JSON.parse(student);
 			var pass = true;
-			student.family.parent1.type = $("#p1_type").val();
+			student.family.parent1.type = "Father";
 			student.family.parent1.living = $("#p1_living").val();
 			if(validateField("#p1_first_name","name"))
 				student.family.parent1.first_name = $("#p1_first_name").val();
@@ -1054,9 +1101,6 @@ $("#8").click(function(){
 			console.log(pass)
 			if($("#p1_middle_name").val() != "")
 				student.family.parent1.middle_name = $("#p1_middle_name").val();
-			else {
-				pass = false;
-			}
 			if(validateField("#p1_last_name","name"))
 				student.family.parent1.last_name = $("#p1_last_name").val();
 			else {
@@ -1110,7 +1154,7 @@ $("#9").click(function(){
 		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
 			student = JSON.parse(student);
 			var pass = true;
-			student.family.parent2.type = $("#p2_type").val();
+			student.family.parent2.type = "Mother";
 			student.family.parent2.living = $("#p2_living").val();
 			if(validateField("#p2_first_name","name"))
 				student.family.parent2.first_name = $("#p2_first_name").val();
@@ -1120,9 +1164,6 @@ $("#9").click(function(){
 			console.log(pass)
 			if($("#p2_middle_name").val() != "")
 				student.family.parent2.middle_name = $("#p2_middle_name").val();
-			else {
-				pass = false;
-			}
 			if(validateField("#p2_last_name","name"))
 				student.family.parent2.last_name = $("#p2_last_name").val();
 			else {
@@ -1172,81 +1213,95 @@ $("#9").click(function(){
 
 
 $("#10").click(function(){
-	var pass = true;
-	var nosc =  $('#no_of_sch').val();
-	student.education.school.no_of_schools = nosc;
-	var sn = []
-	var dog = []
-	var cfn = []
-	var cmn = []
-	var cln = []
-	var cea = []
-	var cp = []
+	$.post("/meta/sessionexist",{dummy:"dum"},function(data){
+		$.post( "/meta/getStudentObj",{email:data}, function( student ) {
+			var pass = true;
+			student = JSON.parse(student)
+			var nosc =  1;
+			student.education.school.no_of_schools = nosc;
+			var sn = []
+			var dog = []
+			var cfn = []
+			var cmn = []
+			var cln = []
+			var cea = []
+			var cp = []
 
-	for(var i =1; i <= nosc; i++) {
-		if($("#"+i+"schl_name").val() != "")
-			sn[i-1] = $("#"+i+"schl_name").val();
-		if($("#"+i+"dog").val() != "")
-			dog[i-1] = $("#"+i+"dog").val();
-		if($("#"+i+"first_name").val() != "")
-			cfn[i-1] = $("#"+i+"first_name").val();
-		if($("#"+i+"middle_name").val() != "")
-			cmn[i-1] = $("#"+i+"middle_name").val();
-		if($("#"+i+"last_name").val() != "")
-			cln[i-1] = $("#"+i+"last_name").val();
-		if($("#"+i+"email").val() != "")
-			cea[i-1] = $("#"+i+"email").val();
-		if(validateField("#"+i+"mob","text"))
-			cp[i-1] = $("#"+i+"mob").val();
-	}
-	if(sn.length > 0)
-		student.education.school.school_name = sn;
-	else {
-		pass = false;
-	}
+			for(var i =1; i <= nosc; i++) {
+				if($("#"+i+"schl_name").val() != "")
+					sn[i-1] = $("#"+i+"schl_name").val();
+				if($("#"+i+"dog").val() != "")
+					dog[i-1] = $("#"+i+"dog").val();
+				if($("#"+i+"first_name").val() != "")
+					cfn[i-1] = $("#"+i+"first_name").val();
+				if($("#"+i+"middle_name").val() != "")
+					cmn[i-1] = $("#"+i+"middle_name").val();
+				if($("#"+i+"last_name").val() != "")
+					cln[i-1] = $("#"+i+"last_name").val();
+				if($("#"+i+"email").val() != "")
+					cea[i-1] = $("#"+i+"email").val();
+				if(validateField("#"+i+"mob","text"))
+					cp[i-1] = $("#"+i+"mob").val();
+			}
+			if(sn.length > 0)
+				student.education.school.school_name = sn;
+			else {
+				pass = false;
+			}
+			
+			if(dog.length > 0)
+				student.education.school.date_of_graduation = dog;
+			else {
+				pass = false;
+			}
+			
+			if(cp.length > 0)
+				student.education.school.counsellor_phone= cp
+			else {
+				pass = false;
+			}
+
+			if(cfn.length > 0)
+				student.education.school.counsellor_first_name  = cfn
+			else {
+				pass = false;
+			}
+
+			if(cmn.length > 0)
+				student.education.school.counsellor_middle_name = cmn
+			else {
+				pass = false;
+			}
+
+			if(cln.length > 0)
+				student.education.school.counsellor_last_name = cln;
+			else {
+				pass = false;
+			}
+
+			if(cea.length > 0)
+				student.education.school.counsellor_email = cea;
+			else {
+				pass = false;
+			}
+			if ($("#edu_intr").val() != "") {
+				student.education.education_interruption.education_interruption = $("#edu_intr").val();
+			} else {
+				pass = false;
+			}
+			if ($("#ncc").val() != "") {
+				student.education.collage_university.no_of_collage_or_university_level_courses_taken = $("#ncc").val();
+			} else {
+				pass = false;
+			}
+			sendData(student);
+			console.log(student.education.school);
+			if(pass)
+				console.log(pass)
+				//window.location.href = "personalinfo.html"
+		});
+	});
 	
-	if(dog.length > 0)
-		student.education.school.date_of_graduation = dog;
-	else {
-		pass = false;
-	}
-	
-	if(cp.length > 0)
-		student.education.school.counsellor_phone= cp
-	else {
-		pass = false;
-	}
-
-	if(cfn.length > 0)
-		student.education.school.counsellor_first_name  = cfn
-	else {
-		pass = false;
-	}
-
-	if(cmn.length > 0)
-		student.education.school.counsellor_middle_name = cmn
-	else {
-		pass = false;
-	}
-
-	if(cln.length > 0)
-		student.education.school.counsellor_last_name = cln;
-	else {
-		pass = false;
-	}
-
-	if(cea.length > 0)
-		student.education.school.counsellor_email = cea;
-	else {
-		pass = false;
-	}
-	
-	sendData(student);
-	console.log(student.education.school);
-	$('#2collapseOnee').collapse('toggle');
-	$('#2collapseTwoo').collapse('toggle');
-	if(pass)
-		$('#sp10').show()
 });
 
 
@@ -1258,6 +1313,7 @@ $("#11").click(function(){
 	} else {
 		pass = false;
 	}
+	
 	$('#2collapseTwoo').collapse('toggle');
 	$('#2collapseThreee').collapse('toggle');
 	
@@ -1396,14 +1452,17 @@ function fillupDetails(student) {
 		$("#address2").val(student.profile.address.address2);
 		$("#city").val(student.profile.address.city);
 		$("#state").val(student.profile.address.state);
-		$("#country").val(student.profile.address.country);
+		if(student.profile.address.country)
+			$("#country").val(student.profile.address.country);
 		$("#zipcode").val(student.profile.address.zipcode);
 		$("#mob").val(student.profile.contact_details.phone_no);
 		$("#skype").val(student.profile.contact_details.skype_id);
 	} else if (getCurentFileName() == "geography.html") {
-		$("#cob").val(student.profile.geography.country_of_birth);
+		if(student.profile.geography.country_of_birth)
+			$("#cob").val(student.profile.geography.country_of_birth);
 		$("#ciob").val(student.profile.geography.city_of_birth);
-		$("#citizenship").val(student.profile.geography.citizenship);
+		if(student.profile.geography.citizenship)
+			$("#citizenship").val(student.profile.geography.citizenship);
 		$("#discHis").val(student.profile.disciplinary_history.disciplinary_history);
 		$("#crimHis").val(student.profile.criminal_history.criminal_history);
 	} else if(getCurentFileName() == "household.html") {
@@ -1416,7 +1475,6 @@ function fillupDetails(student) {
 		$("#p1_first_name").val(student.family.parent1.first_name);
 		$("#p1_middle_name").val(student.family.parent1.middle_name);
 		$("#p1_last_name").val(student.family.parent1.last_name);
-		$("#p1_type").val(student.family.parent1.type);
 		$("#p1_living").val(student.family.parent1.living);
 		$("#p1_ocpn").val(student.family.parent1.occupation);
 		$("#p1_noe").val(student.family.parent1.name_of_employer);
@@ -1428,7 +1486,6 @@ function fillupDetails(student) {
 		$("#p2_first_name").val(student.family.parent2.first_name);
 		$("#p2_middle_name").val(student.family.parent2.middle_name);
 		$("#p2_last_name").val(student.family.parent2.last_name);
-		$("#p2_type").val(student.family.parent2.type);
 		$("#p2_living").val(student.family.parent2.living);
 		$("#p2_ocpn").val(student.family.parent2.occupation);
 		$("#p2_noe").val(student.family.parent2.name_of_employer);
@@ -1436,6 +1493,8 @@ function fillupDetails(student) {
 		$("#p2_edu_level").val(student.family.parent2.education_level);
 		$("#p2_email").val(student.family.parent2.email);
 		$("#p2_mob").val(student.family.parent2.phone);
+	} else if(getCurentFileName() == "school.html") {
+		
 	}
 	console.log("filledupdetails")
 }
@@ -1450,82 +1509,86 @@ console.log(student)
 
 
 $('#sendPin').click(function(){
-	var resp = $("#g-recaptcha-response").val();
-	console.log(grecaptcha.getResponse());
+	//var resp = grecaptcha.getResponse()
 	//loadCaptcha();
 /* 	$.get("https://www.google.com/recaptcha/api/siteverify",{secret:"6LdzsggTAAAAAMgP4xV_KDRLSLvbEragkVA2NBzJ",response:resp,headers:{"Access-Control-Allow-Origin", "*"}},function(data){
 		console.log(data);
 	}); */
-	var em = $('#email').val();
-	console.log(em);
-	$("#email_error").css('color','red')
-	if(validateField("#email","email")) {
-		$.post("meta/sendpin",{email:em,res:resp}, function(data){
-			$("#email_error").hide();
-			$("#email").css('outline-color','grey');
-			
-			$('#info1').show()
-			$('#info2').show()
-				console.log(data);
-				$('#info1').css('color', 'green');
-				$('#info1').css("list-style-type", "bullet");
-				$('#info2').css('color', 'green');
-				$('#info2').css("list-style-type", "bullet");
+	if(true) {
+		var em = $('#email').val();
+		console.log(em);
+		$("#email_error").css('color','red')
+		if(validateField("#email","email")) {
+			$.post("meta/sendpin",{email:em,res:""}, function(data){
+				$("#email_error").hide();
+				$("#email").css('outline-color','#1589FF');
 				
-				$("#info1").html("A PIN has been generated and sent to your email address")
-				$("#info2").html("Please check your mail and enter the PIN below in Step 2 to verify");
-				$("#sendPin").text("Re-generate PIN");
-		});
-	} else {
-		$("#email").css('outline-color','red');
-		$("#email").focus()
-		console.log("failed");
+				$('#info1').show()
+				$('#info2').show()
+					console.log(data);
+					$('#info1').css('color', 'green');
+					$('#info1').css("list-style-type", "bullet");
+					$('#info2').css('color', 'green');
+					$('#info2').css("list-style-type", "bullet");
+					
+					$("#info1").html("A PIN has been generated and sent to your email address")
+					$("#info2").html("Please check your mail and enter the PIN below in Step 2 to verify");
+					$("#sendPin").text("Submit");
+			});
+		} else {
+			$("#email").css('outline-color','red');
+			$("#email").focus()
+			console.log("failed");
+		}
 	}
 });
 
 $('#validate').click(function(){
-	var pass = true;
-	var pi = $("#pin").val();
-	var em = $('#email').val();
-	console.log(pi + " |||  "+ em)
-	if(pi == "") {
-		$('#info').show();
-		$('#info').css('color', 'red');
-		$("#pin").css('outline-color','red');
-		$("#pin").focus();
-		$("#info").html("Please enter generated PIN.");
-		pass = false;
-	} 
-	if(em == "") {
-			$("#email").css('outline-color','red');
-			$("#email").focus();
-			$("#info").html("Please enter generated PIN.");
-			$("#email_error").show();
-			$("#email_error").css('color','red')
-			$("#email_error").html("Please enter email address");
-			pass = false;
-			
-		} 
-		if (pass) {
-				$.post("meta/validatepin",{pin:pi,email:em}, function(data){
-					$("#pin").css('outline-color','grey');
-					$("#email").css('outline-color','grey');
-					$('#info').show()
-					if(data != "failed") {
-						$('#info').css('color', 'green');
-						$("#info").html("Successfully verified");
-						console.log("test");
-						$.post("/meta/login",{email:data},function(dataa){
-							console.log(dataa);
-							window.location.href="personalinfo.html"
+	//var resp = grecaptcha.getResponse()
+	if(true) {
+			var pass = true;
+			var pi = $("#pin").val();
+			var em = $('#email').val();
+			console.log(pi + " |||  "+ em)
+			if(pi == "") {
+				$('#info').show();
+				$('#info').css('color', 'red');
+				$("#pin").css('outline-color','red');
+				$("#pin").focus();
+				$("#info").html("Please enter generated PIN.");
+				pass = false;
+			} 
+			if(em == "") {
+					$("#email").css('outline-color','red');
+					$("#email").focus();
+					$("#info").html("Please enter generated PIN.");
+					$("#email_error").show();
+					$("#email_error").css('color','red')
+					$("#email_error").html("Please enter email address");
+					pass = false;
+					
+				} 
+				if (pass) {
+						$.post("meta/validatepin",{pin:pi,email:em}, function(data){
+							$("#pin").css('outline-color','#1589FF');
+							$("#email").css('outline-color','#1589FF');
+							$('#info').show()
+							if(data != "failed") {
+								$('#info').css('color', 'green');
+								$("#info").html("Successfully verified");
+								console.log("test");
+								$.post("/meta/login",{email:data},function(dataa){
+									console.log(dataa);
+									window.location.href="personalinfo.html"
+								});
+								
+							} else {
+								$("#email_error").hide();
+								$('#info').css('color', 'red');
+								$("#info").html("Invalid Pin");
+							}
 						});
-						
-					} else {
-						$("#email_error").hide();
-						$('#info').css('color', 'red');
-						$("#info").html("Invalid Pin");
-					}
-				});
+			}
 	}
 });
 
