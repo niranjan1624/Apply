@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+<head>
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<link type="text/css" rel="stylesheet" href="intlTelInput.css">
+	<link type="text/css" href="bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
+	<script src="intlTelInput.js"></script>
+	<script src="bootstrap-formhelpers.min.js"></script>
+	<style>
+	td {
+		vertical-align: top;
+	}
+	</style>
+	<title>Apply</title>
+</head>
+<body style="font-size:13px">
+		<div id="headerwrap" class="container-fluid">
+	<div class="row" style="background-color:#2d4250; padding-top:5px; padding-bottom:5px">
+	<div class="col-md-2 text-right" style="padding-right:50px">
+	<img height="75px"; width="75px"; src="FJU1.jpg" style="border-radius:50%">
+	</div>
+	<div class="col-md-10">
+	<h2 style="color:rgba(255, 255, 255, .9); font-family:lucida calligraphy">Franklin Jefferson University</h2>
+	</div>
+	</div>	
+	</div>
+	<div align="center" style="font-size:30px"><div id="welcome" style="display:inline-block"></div><div style="display:inline-block;color:blue;"><a href="#" name="logout">&nbsp click here</a></div></div>
+	<h3 class="text-center"><b>Application Form </b></h3>
+<br/>
+	<div  class = "container">
+	<form id="studentForm"  name="studentForm" action="javascript:void(0);">
+	
+	<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-3"></div>
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<table  border="0">
+		<tr>
+			<td width="200px"><h4 style="margin-top:-1px"><b> Personal Information </b></h4></td>
+			<td width="100px"><label for="first_name" class="control-label" > First Name </label></td>
+			<td>
+				<div class="col-xs-8">
+					<input style="width:220px" type="text" class="input" id="first_name" placeholder="Incomplete">
+				</div>
+			</td>
+		</tr>	
+		</table>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-3"></div>
+	</div>
+	<p style="margin-left:90px;color:red;" hidden id="first_name_error"> </p>
+					
+	 <div  class="row">
+	<div class="col-lg-3 col-md-3"></div>
+	<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+							
+								<td width="100px"><label for="middle_name" class="control-label" >Middle Name</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="middle_name" 
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="middle_name_error"> </p>
+					<br/>
+<div class="row">
+	<div class="col-lg-3 col-md-3"></div>
+	<div class="col-lg-6 col-md-6">
+		<table  border="0">
+		<tr>
+			<td width="100px"><label for="last_name" class="control-label" >Last Name </label></td>
+			<td>
+				<div class="col-xs-8">
+					<input style="width:220px" type="text" class="input" id="last_name" placeholder="Incomplete">
+				</div>
+			</td>
+		</tr>	
+		</table>
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+	</div>
+
+					<p style="margin-left:150px;color:red;" hidden id="last_name_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+						<tr>
+						<td width="100px"><label for="gender" class="control-label">Gender </label></td>
+						<td>
+						<div style="margin-top:7px;margin-left:2.5px;margin-top:-1px" >
+								<div name="radioDiv" id="radioDiv">
+                                           
+                                <input style="margin-left:10px" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="gender" id="gender" title="Male" value="Male" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> Male</span>
+                                         
+                                <input style="margin-left:10px;" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="gender" id="gender" title="Female" value="Female" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> Female</span>
+                            </div>
+						</div>
+						</td>
+						</tr>
+						</table>
+						</div>
+						<div class="col-lg-3 col-md-3"></div>
+						</div>
+						<br/>
+					<div class="row">
+	<div class="col-lg-3 col-md-3"></div>
+	<div class="col-lg-8 col-md-8" style="margin-top:-1px">
+		<table  border="0">
+		<tr>
+			<td width="100px"><label for="dob" class="control-label">Date of Birth </label></td>
+			<td>
+				<div  style="margin-left:15px" >
+							<select style="height:28px;"  id="month" name="month" >
+							<option selected disabled>Month</option>
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<select style="height:28px;width:50px"  id="day" name="day">
+							<option selected disabled>Day</option>
+							<option value="01">1</option>
+							<option value="02">2</option>
+							<option value="03">3</option>
+							<option value="04">4</option>
+							<option value="05">5</option>
+							<option value="06">6</option>
+							<option value="07">7</option>
+							<option value="08">8</option>
+							<option value="09">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+							<option value="24">24</option>
+							<option value="25">25</option>
+							<option value="26">26</option>
+							<option value="27">27</option>
+							<option value="28">28</option>
+							<option value="29">29</option>
+							<option value="30">30</option>
+							<option value="31">31</option>
+						</select>
+						<select style="height:28px;width:63px"  id="year" name="year">
+							<option selected disabled>Year</option>
+							<option value="2000">2000</option>
+							<option value="1999">1999</option>
+							<option value="1998">1998</option>
+							<option value="1997">1997</option>
+							<option value="1996">1996</option>
+							<option value="1995">1995</option>
+							<option value="1994">1994</option>
+							<option value="1993">1993</option>
+							<option value="1992">1992</option>
+							<option value="1991">1991</option>
+							<option value="1990">1990</option>
+							<option value="1989">1989</option>
+							<option value="1988">1988</option>
+							<option value="1987">1987</option>
+							<option value="1986">1986</option>
+							<option value="1985">1985</option>
+							<option value="1984">1984</option>
+							<option value="1983">1983</option>
+							<option value="1982">1982</option>
+							<option value="1981">1981</option>
+							<option value="1980">1980</option>
+							<option value="1979">1979</option>
+							<option value="1978">1978</option>
+							<option value="1977">1977</option>
+							<option value="1976">1976</option>
+							<option value="1975">1975</option>
+							<option value="1974">1974</option>
+							<option value="1973">1973</option>
+							<option value="1972">1972</option>
+							<option value="1971">1971</option>
+							<option value="1970">1970</option>
+							<option value="1969">1969</option>
+							<option value="1968">1968</option>
+							<option value="1967">1967</option>
+							<option value="1966">1966</option>
+							<option value="1965">1965</option>
+							<option value="1964">1964</option>
+							<option value="1963">1963</option>
+							<option value="1962">1962</option>
+							<option value="1961">1961</option>
+							<option value="1960">1960</option>
+							<option value="1959">1959</option>
+							<option value="1958">1958</option>
+							<option value="1957">1957</option>
+							<option value="1956">1956</option>
+							<option value="1955">1955</option>
+							<option value="1954">1954</option>
+							<option value="1953">1953</option>
+							<option value="1952">1952</option>
+							<option value="1951">1951</option>
+							<option value="1950">1950</option>
+							<option value="1949">1949</option>
+							<option value="1948">1948</option>
+							<option value="1947">1947</option>
+							<option value="1946">1946</option>
+							<option value="1945">1945</option>
+							<option value="1944">1944</option>
+							<option value="1943">1943</option>
+							<option value="1942">1942</option>
+							<option value="1941">1941</option>
+							<option value="1940">1940</option>
+							<option value="<1940"> <1940 </option>
+						
+							
+						</select>
+						</div>
+			</td>
+		</tr>	
+		</table>
+	</div>
+	<div class="col-lg-1 col-md-1"></div>
+	</div>
+					<p style="margin-left:150px;color:red;" hidden id="dob_error"> </p>
+					<br/>
+					 <div  class="row">
+	<div class="col-lg-3 col-md-3"></div>
+	<div class="col-lg-6 col-md-6" style="margin-top:-0.4px;margin-bottom:-0.5px">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="cob" class="control-label" >Country of Birth</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="cob" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="cob_error"> </p>
+
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0" style="margin-top:1px">
+							<tr>
+								<td width="100px"><label for="ciob" class="control-label"  placeholder="Incomplete">City of Birth</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="ciob"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="ciob_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="citizenship" class="control-label">Citizenship</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="citizenship" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					
+					<br/> <div  class="row">
+					
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td><h4 style="margin-left:80px;margin-right:50px;margin-top:-1px"><b> Education </b></h4></td>
+								<td width="100px"><label for="1schl_name" class="control-label">School Name</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="1schl_name" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="1schl_name_error"> </p>
+
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="dog" class="control-label">Date of Graduation</label></td>
+								<td>
+									<div style="margin-left:15px">
+							<select style="height:28px;"  id="1month" name="1month" >
+							<option selected disabled>Month</option>
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<select style="height:28px;width:50px"  id="1day" name="1day">
+							<option selected disabled>Day</option>
+							<option value="01">1</option>
+							<option value="02">2</option>
+							<option value="03">3</option>
+							<option value="04">4</option>
+							<option value="05">5</option>
+							<option value="06">6</option>
+							<option value="07">7</option>
+							<option value="08">8</option>
+							<option value="09">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+							<option value="24">24</option>
+							<option value="25">25</option>
+							<option value="26">26</option>
+							<option value="27">27</option>
+							<option value="28">28</option>
+							<option value="29">29</option>
+							<option value="30">30</option>
+							<option value="31">31</option>
+						</select>
+						<select style="height:28px;width:63px"  id="1year" name="1year">
+							<option selected disabled>Year</option>
+							<option value="2015">2015</option>
+							<option value="2014">2014</option>
+							<option value="2013">2013</option>
+							<option value="2012">2012</option>
+							<option value="2011">2011</option>
+							<option value="2010">2010</option>
+							<option value="2009">2009</option>
+							<option value="2008">2008</option>
+							<option value="2007">2007</option>
+							<option value="2006">2006</option>
+							<option value="2005">2005</option>
+							<option value="2004">2004</option>
+							<option value="2003">2003</option>
+							<option value="2002">2002</option>
+							<option value="2001">2001</option>
+							<option value="2000">2000</option>
+							<option value="1999">1999</option>
+							<option value="1998">1998</option>
+							<option value="1997">1997</option>
+							<option value="1996">1996</option>
+							<option value="1995">1995</option>
+							<option value="1994">1994</option>
+							<option value="1993">1993</option>
+							<option value="1992">1992</option>
+							<option value="1991">1991</option>
+							<option value="1990">1990</option>
+							<option value="1989">1989</option>
+							<option value="1988">1988</option>
+							<option value="1987">1987</option>
+							<option value="1986">1986</option>
+							<option value="1985">1985</option>
+							<option value="1984">1984</option>
+							<option value="1983">1983</option>
+							<option value="1982">1982</option>
+							<option value="1981">1981</option>
+							<option value="1980">1980</option>
+							<option value="1979">1979</option>
+							<option value="1978">1978</option>
+							<option value="1977">1977</option>
+							<option value="1976">1976</option>
+							<option value="1975">1975</option>
+							<option value="1974">1974</option>
+							<option value="1973">1973</option>
+							<option value="1972">1972</option>
+							<option value="1971">1971</option>
+							<option value="1970">1970</option>
+							<option value="1969">1969</option>
+							<option value="1968">1968</option>
+							<option value="1967">1967</option>
+							<option value="1966">1966</option>
+							<option value="1965">1965</option>
+							<option value="1964">1964</option>
+							<option value="1963">1963</option>
+							<option value="1962">1962</option>
+							<option value="1961">1961</option>
+							<option value="1960">1960</option>
+							<option value="1959">1959</option>
+							<option value="1958">1958</option>
+							<option value="1957">1957</option>
+							<option value="1956">1956</option>
+							<option value="1955">1955</option>
+							<option value="1954">1954</option>
+							<option value="1953">1953</option>
+							<option value="1952">1952</option>
+							<option value="1951">1951</option>
+							<option value="1950">1950</option>
+							<option value="1949">1949</option>
+							<option value="1948">1948</option>
+							<option value="1947">1947</option>
+							<option value="1946">1946</option>
+							<option value="1945">1945</option>
+							<option value="1944">1944</option>
+							<option value="1943">1943</option>
+							<option value="1942">1942</option>
+							<option value="1941">1941</option>
+							<option value="1940">1940</option>
+							<option value="<1940"> <1940</option>
+							
+							
+						</select>
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="dog_error"> </p>
+				
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="1clsrank" class="control-label">Class Rank</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="1clsrank" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+
+
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="1gradsize" class="control-label">Grad Class Size</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="1gradsize" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="1gradsize_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="1cgpa" class="control-label">Cumulative GPA</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="1cgpa" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="1cgpa_error"> </p>
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="1gpas" class="control-label">GPA Scale</label></td>
+								<td>
+									<div style="margin-left:15px">
+							<select style="width:220px; height:28px" id="1gpas" name="1gpas">
+		+						<option value="04">4</option>
+		+						<option value="10">10</option>
++					</select>
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="1gpas_error"> </p>
+
+					
+					
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td><h4 style="margin-left:80px;margin-right:50px;margin-top:-0.5px"><b> TOEFL </b></h4></td>
+								<td width="100px"><label for="t3" class="control-label">Reading</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="t3" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="t4" class="control-label">Writing</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="t4" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="t1" class="control-label">Listening</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="t1" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="t1_error"> </p>
+					
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="t2" class="control-label">Speaking</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="t2" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="t2_error"> </p>
+					
+
+					<p style="margin-left:150px;color:red;" hidden id="t3_error"> </p>
+					
+
+					<p style="margin-left:150px;color:red;" hidden id="t4_error"> </p>
+					
+										
+					
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td><h4 style="margin-left:80px;margin-right:50px;margin-top:-1px"><b> SAT </b></h4></td>
+								<td width="100px"><label for="s1" class="control-label">Critical Reading</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="s1" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="s1_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="s2" class="control-label">Analytical Reasoning</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="s2" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="s2_error"> </p>
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="s3" class="control-label">Writing</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="s3" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+
+					
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td><h4 style="margin-left:80px;margin-right:50px;margin-top:-1px"><b> ACT </b></h4></td>
+								<td width="100px"><label for="a1" class="control-label">English</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="a1"  placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="a1_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="a2" class="control-label">Analytical Reasoning</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="a2" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="a2_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="a3" class="control-label">Reading</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="a3" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="a3_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="a4" class="control-label">Reasoning</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="a4" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="a4_error"> </p>
+					
+
+
+					<p style="margin-left:150px;color:red;" hidden id="s3_error"> </p>
+					<br/>
+					<div style="width:400px;margin-left:350px">
+						<div style="float: right; width: 250px"> 
+							 <input id="mainform" type="submit" value="Submit" class="btn btn-primary">
+						</div>
+					</div>
+	</form>
+
+
+	</div>
+	
+	<h3 class="text-center"><b>Supplementary Application Form </b> </h3>
+	<p class="text-center" style="font-size:150%">(Needed only after Admission)</p>
+<br/>
+	<div  class = "container">
+	<form id="studentForm2" class="form-horizontal" name="studentForm2" action="javascript:void(0);">
+	
+	<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td><h4 style="margin-left:80px;margin-right:50px;"><b> Address </b></h4></td>
+								<td width="100px"><label for="address1" class="control-label">Address Line 1</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="address1" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:150px;color:red;" hidden id="address1_error"> </p>
+						 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="address2" class="control-label">Address Line 2</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="address2" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="address2_error"> </p>
+						<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="city" class="control-label">City</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="city" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="city_error"> </p>
+						<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="state" class="control-label">State</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="state" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="state_error"> </p>
+						<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="country" class="control-label">Country</label></td>
+								<td>
+									<div class="col-xs-8">
+										<select style="width:220px;height:28px" type="text" id="country" class="bfh-countries" data-country="IN"
+								 ></select>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="country_error"> </p>
+
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="zipcode" class="control-label">Zip/Pin Code</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="zipcode" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="zipcode_error"> </p>
+
+						<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="ssn" class="control-label">SSN</label></td>
+								<td>
+									<div style="margin-left:15px">
+										<input style="width:50px" type="text" class="input" id="ssn1" placeholder="AAA">
+										<input style="width:40px" type="text" class="input" id="ssn2" placeholder="GG">
+										<input style="width:60px" type="text" class="input" id="ssn3" placeholder="SSSS">
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="ssn_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+						<tr>
+						<td width="100px"><label for="discHis" class="control-label">Disciplinary History </label></td>
+						<td>
+						<div style="margin-top:7px;margin-left:2.5px" >
+								<div name="disc" id="disc">
+                                           
+                                <input style="margin-left:10px" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="dis" id="dis" title="Yes" value="Yes" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> Yes</span>
+                                         
+                                <input style="margin-left:10px;" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="dis" id="dis" title="No" value="No" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> No</span>
+                            </div>
+						</div>
+						</td>
+						</tr>
+						</table>
+						</div>
+						<textarea  hidden style="margin-left:95px;width:560px;margin-top:5px" rows=4  id="discHis"></textarea> 
+						<div class="col-lg-3 col-md-3"></div>
+
+						</div>
+					
+					<p style="margin-left:90px;color:red;" hidden id="discHis_error"> </p>
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+						<tr>
+						<td width="100px"><label for="crimHis" class="control-label">Criminal History </label></td>
+						<td>
+						<div style="margin-top:7px;margin-left:2.5px" >
+								<div name="crimm" id="crimm">
+                                           
+                                <input style="margin-left:10px" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="crim" id="crim" title="Yes" value="Yes" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> Yes</span>
+                                         
+                                <input style="margin-left:10px;" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="crim" id="crim" title="No" value="No" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> No</span>
+                            </div>
+						</div>
+						</td>
+						</tr>
+						</table>
+						</div>
+						<textarea  hidden style="margin-left:95px;width:560px;margin-top:5px" rows=4  id="crimHis"></textarea> 
+						<div class="col-lg-3 col-md-3"></div>
+
+						</div>
+					<p style="margin-left:90px;color:red;" hidden id="crimHis_error"> </p>
+					
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td><h4 style="margin-left:80px;margin-right:50px"><b> Family </b></h4></td>
+								<td width="100px"><label for="whichpar" class="control-label">Parent(s) you Live with?</label></td>
+								<td>
+									<div class="col-xs-8">
+										<select style="width:220px;height:28px" type="text" id="whichpar">
+											<option value="Both">Both</option>
+											<option value="Mother">Mother</option>
+											<option value="Father">Father</option>
+											<option value="Neither">Neither</option>
+								</select>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="whichpar_error"> </p>
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+					
+						<table  border="0">
+							<tr>
+
+								<td width="100px"><label for="martial" class="control-label">Martial Status</label></td>
+								<td>
+									<div class="col-xs-8">
+										<select style="width:220px;height:28px" type="text" id="martial">
+									<option value="Unmarried">Unmarried</option>
+									<option value="Married">Married</option>
+									<option value="Divorced">Divorced</option>
+									<option value="Separated">Separated</option>
+								</select>
+									</div>
+								</td>
+							</tr>
+						</table>
+						
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="martial_error"> </p>
+					<div hidden id="mar">
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px" ><label for="dyhc" class="control-label">Do you have children?</label></td>
+								<td>
+									<div class="col-xs-8">
+										<select style="width:220px;height:28px" type="text" id="dyhc">
+									<option value="No">No</option>
+									<option value="Yes">Yes</option>
+								</select>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					</div>
+					<p style="margin-left:90px;color:red;" hidden id="dyhc_error"> </p>
+					
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td><h4 style="margin-left:80px;margin-right:50px"><b> Father </b></h4></td>
+								<td width="100px"><label for="p1_living" class="control-label">Living?</label></td>
+								<td>
+									<div class="col-xs-8">
+										<select style="width:220px;height:28px" type="text" id="p1_living">
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+								</select>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_living_error"> </p>
+					<div id="p1_divFields">
+
+					<div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_first_name" class="control-label">First Name</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="p1_first_name" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_first_name_error"> </p>
+
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_middle_name" class="control-label">Middle Name</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="p1_middle_name" 
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_middle_name_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_last_name" class="control-label">Last Name</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="p1_last_name" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_last_name_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_email" class="control-label">Email</label></td>
+								<td>
+									<div class="col-xs-8">
+							<input style="width:220px" type="email" class="input" id="p1_email" placeholder="Incomplete">
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_mob" class="control-label">Phone</label></td>
+								<td>
+								<div class="col-xs-8">
+								 <input style="width:220px" class="input" type="tell"  id="p1_mob" 
+								value="+91" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_mob_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_ocpn" class="control-label">Occupation</label></td>
+								<td>
+									<div class="col-xs-8">
+								 <input style="width:220px"  type="text" class="input" id="p1_ocpn" placeholder="Incomplete" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_ocpn_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_emp_status">Employment Status</label></td>
+								<td>
+									<div class="col-xs-8">
+								 <input style="width:220px"  type="text" class="input"  id="p1_emp_status" placeholder="Incomplete" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_emp_status_error"> </p>
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_noe" >Name of Employer</label></td>
+								<td>
+									<div class="col-xs-8">
+								 <input style="width:220px"  type="text" class="input" id="p1_noe" placeholder="Incomplete" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_noe_error"> </p>
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p1_edu_level" >Education Level</label></td>
+								<td>
+									<div class="col-xs-8">
+								 <input style="width:220px"  type="text" class="input"  id="p1_edu_level" placeholder="Incomplete" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_edu_level_error"> </p>
+					</div>
+					
+						<div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td><h4 style="margin-left:80px;margin-right:50px"><b> Mother </b></h4></td>
+								<td width="100px"><label for="p2_living" class="control-label">Living?</label></td>
+								<td>
+									<div class="col-xs-8">
+										<select style="width:220px;height:28px" type="text" id="p2_living" placeholder="Incomplete">
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+								</select>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p1_living_error"> </p>
+					<div id="p2_divFields">
+
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p2_first_name" class="control-label">First Name</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="p2_first_name" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p2_first_name_error"> </p>
+
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p2_middle_name" class="control-label">Middle Name</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="p2_middle_name" 
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p2_middle_name_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p2_last_name" class="control-label">Last Name</label></td>
+								<td>
+									<div class="col-xs-8">
+										<input style="width:220px" type="text" class="input" id="p2_last_name" placeholder="Incomplete"
+											>
+									</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p2_last_name_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p2_email" class="control-label">Email</label></td>
+								<td>
+									<div class="col-xs-8">
+							<input style="width:220px" type="email" class="input" id="p2_email" placeholder="Incomplete">
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p2_mob" >Phone</label></td>
+								<td>
+								<div class="col-xs-8">
+								 <input style="width:220px"  type="tell"  id="p2_mob" class="input" placeholder="Incomplete"
+								value="+91" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p2_mob_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p2_ocpn" >Occupation</label></td>
+								<td>
+									<div class="col-xs-8">
+								 <input style="width:220px"  type="text" class="input"  id="p2_ocpn" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p2_ocpn_error"> </p>
+					<br/> <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p2_emp_status" >Employment Status</label></td>
+								<td>
+									<div class="col-xs-8">
+								 <input style="width:220px"  type="text" class="input" id="p2_emp_status" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p2_emp_status_error"> </p>
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px"><label for="p2_noe" >Name of Employer</label></td>
+								<td>
+									<div class="col-xs-8">
+								 <input style="width:220px"  type="text" class="input" id="p2_noe" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p2_noe_error"> </p>
+					 <div  class="row">
+					<div class="col-lg-3 col-md-3"></div>
+					<div class="col-lg-6 col-md-6">
+						<table  border="0">
+							<tr>
+								<td width="100px" style="margin-top:-1px"><label for="p2_edu_level" >Education Level</label></td>
+								<td>
+									<div class="col-xs-8">
+								 <input style="width:220px" class="input" type="text"  id="p2_edu_level" placeholder="Incomplete" >
+						</div>
+								</td>
+							</tr>
+						</table>	
+	</div>
+	<div class="col-lg-3 col-md-3"></div>
+					</div>
+					<p style="margin-left:220px;color:red;" hidden id="p2_edu_level_error"> </p>
+					</div>
+					<div style="width:400px;margin-left:350px">
+						<div style="float: right; width: 250px"> 
+							 <input id="supform" type="submit" value="Submit" class="btn btn-primary">
+						</div>
+					</div>
+
+	</form>
+	</div>
+
+<script src="app.js" type="text/javascript"></script>
+
+
+	
+</body>
+</html>

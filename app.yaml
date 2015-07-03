@@ -4,20 +4,17 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
+
+inbound_services:
+- mail_bounce
+
 handlers:
-- url: /(.*\.(gif|png|jpg|ico|js|css|html))
+- url: /(.*\.(gif|png|jpg|ico|js|css|html|style))
   static_files: \1
-  upload: (.*\.(gif|png|jpg|ico|js|css|html))
-  
+  upload: (.*\.(gif|png|jpg|ico|js|css|html|style))
 
 
-
-handlers:
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
-
-- url: .*
+- url: /.*
   script: main.app
 
 libraries:
