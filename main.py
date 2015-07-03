@@ -96,13 +96,13 @@ class Student(ndb.Model):
     parent2_name_of_employer = ndb.StringProperty(indexed=True)
     parent2_education_level = ndb.StringProperty(indexed=True)
     no_of_schools = ndb.StringProperty(indexed=True)
-    school_name = ndb.StringProperty(repeated=True)
-    date_of_graduation = ndb.StringProperty(repeated=True)
-    counsellor_first_name  = ndb.StringProperty(repeated=True)
-    counsellor_middle_name = ndb.StringProperty(repeated=True)
-    counsellor_last_name = ndb.StringProperty(repeated=True)
-    counsellor_phone = ndb.StringProperty(repeated=True)
-    counsellor_email = ndb.StringProperty(repeated=True)
+    school_name = ndb.StringProperty(indexed=True)
+    date_of_graduation = ndb.StringProperty(indexed=True)
+    counsellor_first_name  = ndb.StringProperty(indexed=True)
+    counsellor_middle_name = ndb.StringProperty(indexed=True)
+    counsellor_last_name = ndb.StringProperty(indexed=True)
+    counsellor_phone = ndb.StringProperty(indexed=True)
+    counsellor_email = ndb.StringProperty(indexed=True)
     education_interruption = ndb.StringProperty(indexed=True)
     no_of_collage_or_university_level_courses_taken = ndb.StringProperty(indexed=True)
     class_ranking = ndb.StringProperty(indexed=True)
@@ -110,12 +110,25 @@ class Student(ndb.Model):
     cumulative_GPA = ndb.StringProperty(indexed=True)
     GPA_scale = ndb.StringProperty(indexed=True)
     tests_taken = ndb.StringProperty(indexed=True)
-    test_name = ndb.StringProperty(repeated=True)
-    highest_critical_reading_score = ndb.StringProperty(repeated=True)
-    highest_math_score = ndb.StringProperty(repeated=True)
-    highest_writing_score = ndb.StringProperty(repeated=True)
+    test_name = ndb.StringProperty(indexed=True)
+    highest_critical_reading_score = ndb.StringProperty(indexed=True)
+    highest_math_score = ndb.StringProperty(indexed=True)
+    highest_writing_score = ndb.StringProperty(indexed=True)
     pin = ndb.StringProperty(indexed=True)
     status=ndb.StringProperty(indexed=True)
+    toefl_listening = ndb.StringProperty(indexed=True)
+    toefl_speaking = ndb.StringProperty(indexed=True)
+    toefl_writing = ndb.StringProperty(indexed=True)
+    toefl_reading = ndb.StringProperty(indexed=True)
+    act_engilsh = ndb.StringProperty(indexed=True)
+    act_mathematics = ndb.StringProperty(indexed=True)
+    act_science_reasoning = ndb.StringProperty(indexed=True)
+    act_reading = ndb.StringProperty(indexed=True)
+    sat_ctitical_reading = ndb.StringProperty(indexed=True)
+    sat_Mathematics = ndb.StringProperty(indexed=True)
+    sat_writing = ndb.StringProperty(indexed=True)
+    
+    
 
 class saveStudent(webapp2.RequestHandler):
     def post(self):
@@ -188,8 +201,9 @@ class saveStudent(webapp2.RequestHandler):
                 row.counsellor_email = student['education']['school']['counsellor_email']
                 row.education_interruption = student['education']['education_interruption']['education_interruption']
                 row.no_of_collage_or_university_level_courses_taken = student['education']['collage_university']['no_of_collage_or_university_level_courses_taken']
+                
+                row.grad_class_size = student['education']['grades']['grad_class_size']
                 row.class_ranking = student['education']['grades']['class_ranking']
-                row.grad_class_size = student['education']['grades']['grad_class_size'] 
                 row.cumulative_GPA = student['education']['grades']['cumulative_GPA']
                 row.GPA_scale = student['education']['grades']['GPA_scale']
                 row.tests_taken = student['tests']['test']['tests_taken']
@@ -197,6 +211,17 @@ class saveStudent(webapp2.RequestHandler):
                 row.highest_critical_reading_score = student['tests']['test']['highest_critical_reading_score']
                 row.highest_math_score = student['tests']['test']['highest_math_score']
                 row.highest_writing_score = student['tests']['test']['highest_writing_score']
+                row.toefl_listening = student['tests']['test']['t_listening']
+                row.toefl_speaking = student['tests']['test']['t_speaking']
+                row.toefl_writing = student['tests']['test']['t_writing']
+                row.toefl_reading = student['tests']['test']['t_reading']
+                row.act_engilsh = student['tests']['test']['a_english']
+                row.act_mathematics = student['tests']['test']['a_mathematics']
+                row.act_science_reasoning = student['tests']['test']['a_science_reasoning']
+                row.act_reading = student['tests']['test']['a_reading']
+                row.sat_ctitical_reading = student['tests']['test']['s_reading']
+                row.sat_Mathematics = student['tests']['test']['s_mathematics']
+                row.sat_writing = student['tests']['test']['s_writing']
                 row.put()
                 self.response.write("success1")
         else:
@@ -352,6 +377,18 @@ class getStudent(webapp2.RequestHandler):
             test['highest_critical_reading_score'] = row.highest_critical_reading_score  
             test['highest_math_score'] = row.highest_math_score  
             test['highest_writing_score'] = row.highest_writing_score
+            test['t_listening'] = row.toefl_listening
+            test['t_speaking'] = row.toefl_speaking
+            test['t_reading'] = row.toefl_reading
+            test['t_writing'] = row.toefl_writing
+            test['a_english'] = row.act_engilsh
+            test['a_mathematics'] = row.act_mathematics
+            test['a_science_reasoning'] = row.act_science_reasoning
+            test['a_reading'] = row.act_reading
+            test['s_reading'] = row.sat_ctitical_reading
+            test['s_mathematics'] = row.sat_Mathematics
+            test['s_writing'] = row.sat_writing
+            
             testing['test'] = test
             student['tests'] = testing
                                 
@@ -373,6 +410,8 @@ class sendPin(webapp2.RequestHandler):
     def post(self):
         email = self.request.get("email")
         resp = self.request.get("res")
+        mob = self.request.get("mob")
+        skype = self.request.get("skyp")
         req = "success"
         #req = requests.post("https://www.google.com/recaptcha/api/siteverify",{"secret":"6LdzsggTAAAAAMgP4xV_KDRLSLvbEragkVA2NBzJ","response":resp})
         keycontent = self.request.get('logger_name',"studentKey")
@@ -382,17 +421,26 @@ class sendPin(webapp2.RequestHandler):
         pin = ""
         for i in range (0,4):
             pin = pin + str(random.randint(0,9))
+        #get all current pins and check exist if exist create new one
         if len(dataa) > 0:
             for row in dataa:
-                row.pin = pin
+                pin = row.pin
+                if mob != "":
+                    row.phone = mob
+                if skype != "":
+                    row.skype = skype
                 row.put()
         else:
             data = Student(parent = Student_key(keycontent))
             data.pin = pin
             data.email = email
+            if mob != "":
+                row.phone = mob
+            if skype != "":
+                row.skype = skype
             data.put()
-        message = mail.EmailMessage(sender="TaraLabs <niranjanlucky@gmail.com>",
-                                subject="PIN Generated")
+        message = mail.EmailMessage(sender="FJU <niranjanlucky@gmail.com>",
+                                subject="Enter the PIN "+pin+" in FJU Application form")
 
         message.to = "<"+email+">"
         message.body = """ 
@@ -453,7 +501,8 @@ class existSesn(BaseHandler):
         self.response.write(self.session.get('user'))
 config = {}
 config['webapp2_extras.sessions'] = {
-    'secret_key': 'akljsdlfjFGCSSDFIS8lds',
+    'secret_key': 'akljsdlfjFGCSSDFIS8lds1624',
+    'session_max_age': None
 }
 app = webapp2.WSGIApplication([
     (r'/(.+\.html)', MainHandler),

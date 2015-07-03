@@ -11,6 +11,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+
+	<link type="text/css" rel="stylesheet" href="intlTelInput.css">
+		<script src="intlTelInput.js"></script>
+		<script src="jquery.cookie.js"></script>
 <title>Pin Generate</title>
 </head>
 <body style="font-size:13px">
@@ -25,7 +29,8 @@
 	</div>
 	</div>	
 	</div>
-		<div class="container" name="instructions" style="width:25%;margin:0 auto; margin-top:40px;">
+	<div hidden  align="center" style="font-size:20px;margin-top:50px;margin-bottom:-25px"><div id="welcome" style="display:inline-block"></div><div  style="display:inline-block;color:blue;"><a id="em" href="#" name="fillCookies"></a></div></div>
+		<div  class="container" name="instructions" style="width:25%;margin:0 auto; margin-top:40px;">
 	<h3><b>  FJU Application </b></h3>
 <!-- 	<ul>
 		<li>Enter email address and Submit</li>		
@@ -35,7 +40,7 @@
 	</ul>
 	<br/> -->
 	</div>
-	<div class = "container ">
+	<div  class = "container ">
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1"></div>
 
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-10 well well-lg">
@@ -50,7 +55,6 @@
 	<p style="margin-left:0px"><b> Step 1: Give your email address for communication</b></p>
 		<label style="margin-left:0px;font-weight:normal" style="margin-left:-15px;" for="email"> Email Address</label>
 		<input style="margin-left:10px;width:200px" id="email" name="email" class="input" type="email"></input>
-		<button style="margin-left:5px;" id="sendPin" class="btn btn-primary"> Submit </button>
 	</div>
 	<p style="margin-left:90px" hidden id="email_error"> </p>
 <!-- 	<div class="form-group" >
@@ -58,24 +62,58 @@
 	<button style="margin-left:-15px;" type="submit" id="sendPin" class="btn btn-primary"> Generate PIN </button>
 	</div> -->
 	
-	<p  hidden id="info1"></p>
-	<p  hidden id="info2"> </p>
 	
+	<div class="form-group" >
+	<p style="margin-left:0px"><b> Step 2: Give your Phone number for communication</b></p>
+		<label style="margin-left:0px;font-weight:normal" style="margin-left:-15px;" for="mob"> Phone Number</label>
+		 <input style="margin-left:5px;width:200px"  type="tell"  id="mob">
+	</div>
+	<p style="margin-left:90px" hidden id="mob_error"> </p>
+
+	<div class="form-group" >
+	<p style="margin-left:0px"><b> Step 3: Skype ID</b></p>
+		<label style="margin-left:0px;font-weight:normal" style="margin-left:-15px;" for="skype"> Skype ID</label>
+		<input style="margin-left:10px;width:200px" id="skype" name="skype" class="input" type="text"></input>
+	</div>
+	<p style="margin-left:90px" hidden id="skype_error"> </p>
+
+
+	<div class="form-group" >
+	<p style="margin-left:0px"><b> </b></p>
+		<label style="margin-left:0px;font-weight:normal" style="margin-left:-15px;" for="skype"> Do you have PIN?</label>
+		<div name="pinr" id="pinr">
+	                                           
+	         <input  type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="rpin" id="rpin" title="Yes" value="Yes" checked="checked"><span style="margin-left:15px;" class="radiobtn_text bzs-t"> Yes</span>
+	                                         
+	         <input style="margin-left:10px;" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="rpin" id="rpin" title="No" value="No" ><span style="margin-left:15px;" class="radiobtn_text bzs-t" > No</span>
+	      </div>
+	</div>
+	<button hidden  id="sendPin" class="btn btn-primary"> Generate PIN </button>
+
+	<div style="margin-top:1px" id="info1"><br/><p  hidden ></p>
+	<p  hidden id="info2"> </p></div>
+	
+	</form>
+	
+	<div id="pinn">
+	<form class="form-horizontal" action="javascript:void(0);" >
 	<div class="form-group">
-	<p style="margin-left:0px"><b> Step 2:  Enter the PIN sent to your email.</b> </p>
+	<p style="margin-left:0px"><b> Step 4:  Enter the PIN sent to your email.</b> </p>
 		<label style="margin-left:0px;font-weight:normal" for="pin"> 4 Digit PIN</label>
-		<input style="margin-left:27px;width:200px" id="pin" class="input" type="text"></input>
-		<button style="margin-left:5px;" id="validate" class="btn btn-primary"> Verify PIN </button>
+		<input style="margin-left:27px;width:200px" id="pin" class="input" type="password" placeholder="Enter PIN here"></input>
+		<button style="margin-left:5px;" id="validate" class="btn btn-primary" > Verify PIN </button>
 	</div>
 	<p style="margin-left:80px" hidden id="info"> </p>
 	<!-- <div class="form-group" >
 	<button style="margin-left:-15px;" type="submit" id="validate" class="btn btn-primary"> Verify PIN </button>
 	</div> -->
+	</form>
+	</div>
 	</div>
 	</div>
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-1"></div>
 	</div>
-	</form>
+	
 </body>
 <script src="app.js" type="text/javascript"></script>
 
