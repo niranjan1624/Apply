@@ -57,10 +57,10 @@
                <p style="margin-left:90px;color:red;" hidden id="first_name_error"> </p>
                <tr>
                   <td></td>
-                  <td width="105px"><label for="middle_name" class="control-label" placeholder="Optional">Middle Name</label></td>
+                  <td width="105px"><label for="middle_name" class="control-label">Middle Name</label></td>
                   <td>
                      <div class="col-xs-8">
-                        <input style="width:220px" type="text" class="input" id="middle_name" 
+                        <input style="width:220px" type="text" class="input" id="middle_name"  placeholder="Optional"
                            >
                      </div>
                   </td>
@@ -211,6 +211,27 @@
                   </td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="dob_error"> </p>
+                 <tr>
+                     <td></td>
+                     <td width="105px"><label for="mob" >Phone</label></td>
+                     <td>
+                        <div class="col-xs-8">
+                           <input style="width:220px"  type="tell"  id="mob" class="input" placeholder="Incomplete"
+                              value="+91" >
+                        </div>
+                     </td>
+                  </tr>
+                  <p style="margin-left:220px;color:red;" hidden id="mob_error"> </p>
+                  <tr>
+                     <td></td>
+                     <td width="105px"><label for="skype" >Skype ID</label></td>
+                     <td>
+                        <div class="col-xs-8">
+                           <input style="width:220px"  type="text" class="input"  id="skype" placeholder="Optional" >
+                        </div>
+                     </td>
+                  </tr>
+                  <p style="margin-left:220px;color:red;" hidden id="skype_error"> </p>
                <tr>
                   <td></td>
                   <td width="105px"><label for="cob" class="control-label" >Country of Birth</label></td>
@@ -431,11 +452,11 @@
                   <td>
                      <div class="col-xs-8" >
                         <select style="width:220px; height:28px" id="1gpas" name="1gpas">
-                           +						
+                           					
                            <option value="04">4</option>
-                           +						
+                           					
                            <option value="10">10</option>
-                           +					
+                           			
                         </select>
                      </div>
                   </td>
@@ -569,6 +590,128 @@
                <p style="margin-left:150px;color:red;" hidden id="a4_error"> </p>
                <p style="margin-left:150px;color:red;" hidden id="s3_error"> </p>
                <tr>
+                  <td width="100px">
+                     <h4 ><b> Address </b></h4>
+                  </td>
+                  <td width="110px"><label for="address1" class="control-label">Address Line 1</label></td>
+                  <td>
+                     <div class="col-xs-8">
+                        <input style="width:220px" type="text" class="input" id="address1" placeholder="Incomplete"
+                           >
+                     </div>
+                  </td>
+               </tr>
+               <p style="margin-left:150px;color:red;" hidden id="address1_error"> </p>
+               <tr>
+                  <td></td>
+                  <td width="110px"><label for="address2" class="control-label">Address Line 2</label></td>
+                  <td>
+                     <div class="col-xs-8">
+                        <input style="width:220px" type="text" class="input" id="address2" placeholder="Incomplete"
+                           >
+                     </div>
+                  </td>
+               </tr>
+               <p style="margin-left:90px;color:red;" hidden id="address2_error"> </p>
+               <tr>
+                  <td></td>
+                  <td width="105px"><label for="city" class="control-label">City</label></td>
+                  <td>
+                     <div class="col-xs-8">
+                        <input style="width:220px" type="text" class="input" id="city" placeholder="Incomplete"
+                           >
+                     </div>
+                  </td>
+               </tr>
+               <p style="margin-left:90px;color:red;" hidden id="city_error"> </p>
+               <tr>
+                  <td></td>
+                  <td width="105px"><label for="state" class="control-label">State</label></td>
+                  <td>
+                     <div class="col-xs-8">
+                        <input style="width:220px" type="text" class="input" id="state" placeholder="Incomplete"
+                           >
+                     </div>
+                  </td>
+               </tr>
+               <p style="margin-left:90px;color:red;" hidden id="state_error"> </p>
+               <tr>
+                  <td></td>
+                  <td width="105px"><label for="country" class="control-label">Country</label></td>
+                  <td>
+                     <div class="col-xs-8">
+                        <select style="width:220px;height:28px" type="text" id="country" class="bfh-countries" data-country="IN"
+                           ></select>
+                     </div>
+                  </td>
+               </tr>
+               <p style="margin-left:90px;color:red;" hidden id="country_error"> </p>
+               <tr>
+                  <td></td>
+                  <td width="105px"><label for="zipcode" class="control-label">Zip/Pin Code</label></td>
+                  <td>
+                     <div class="col-xs-8">
+                        <input style="width:220px" type="text" class="input" id="zipcode" placeholder="Incomplete"
+                           >
+                     </div>
+                  </td>
+               </tr>
+               <p style="margin-left:90px;color:red;" hidden id="zipcode_error"> </p>
+               <tr>
+                  <td></td>
+                  <td width="105px"><label for="ssn" class="control-label">SSN</label></td>
+                  <td>
+                     <div class="col-xs-8"  style="margin-right:30px">
+                        <input style="width:50px" type="text" class="input" id="ssn1" placeholder="AAA">
+                        <input style="width:40px" type="text" class="input" id="ssn2" placeholder="GG">
+                        <input style="width:60px" type="text" class="input" id="ssn3" placeholder="SSSS">
+                     </div>
+                  </td>
+               </tr>
+               <p style="margin-left:90px;color:red;" hidden id="ssn_error"> </p>
+              <!--  <div style="margin-bottom:-5px;">
+                  <tr>
+                     <td></td>
+                     <td width="150px"><label for="discHis" class="control-label">Disciplinary History </label></td>
+                     <td>
+                        <div class="col-xs-8" style="margin-right:30px" >
+                           <div name="disc" id="disc">
+                              <input  type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="dis" id="dis" title="Yes" value="Yes" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> Yes</span>
+                              <input style="margin-left:10px;" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="dis" id="dis" title="No" value="No" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> No</span>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </div>
+               <tr>
+                  <td></td>
+                  <td colspan="3">
+                     <textarea class="form-control"  rows=4  width="300px" id="discHis" hidden></textarea> 
+                  </td>
+               </tr>
+               <p style="margin-left:90px;color:red;" hidden id="discHis_error"> </p>
+               <div style="margin-bottom:-5px;">
+                  <tr>
+                     <td></td>
+                     <td width="150px"><label for="crimHis" class="control-label">Criminal History </label></td>
+                     <td>
+                        <div class="col-xs-8" style="margin-right:30px" >
+                           <div name="crimm" id="crimm">
+                              <input type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="crim" id="crim" title="Yes" value="Yes" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> Yes</span>
+                              <input style="margin-left:10px;" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="crim" id="crim" title="No" value="No" ><span style="margin-left:25px;" class="radiobtn_text bzs-t"> No</span>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </div>
+               <tr>
+                  <td></td>
+                  <td colspan="3">
+                     <textarea class="form-control"   rows=4  width="300px" id="crimHis" hidden></textarea> 
+                  </td>
+               </tr>
+               <p style="margin-left:90px;color:red;" hidden id="crimHis_error"> </p> -->
+               <tr>
                   <td></td>
                   <td></td>
                   <td>
@@ -579,10 +722,11 @@
                      </div>
                   </td>
                </tr>
+
             </table>
          </form>
       </div>
-      <div   class = "container">
+      <!-- <div   class = "container">
          <h3 ><b>Supplementary Application Form </b> </h3>
          <p  style="font-size:150%">(Needed only after Admission)</p>
          <form id="studentForm2" class="form-horizontal" name="studentForm2" action="javascript:void(0);">
@@ -989,7 +1133,8 @@
                </tr>
             </table>
          </form>
-      </div>
+      </div> -->
       <script src="app.js" type="text/javascript"></script>
+      <script src="timescript.js" type="text/javascript"></script>
    </body>
 </html>

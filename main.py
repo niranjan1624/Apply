@@ -29,6 +29,8 @@ import logging
 import requests
 from webapp2_extras import sessions
 import webbrowser
+import datetime
+import csv
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -40,6 +42,47 @@ class MainHandler(webapp2.RequestHandler):
             page = 'Apply.html'
 	template = JINJA_ENVIRONMENT.get_template(page)
 	self.response.write(template.render())
+
+def Timeobserver_key(logger_name = "TimeobserverKey"):
+    return ndb.Key("TimeobsKey",logger_name)
+
+class Timeobserver(ndb.Model):
+    email = ndb.StringProperty(indexed=True)
+    first_name = ndb.StringProperty(indexed=True)
+    last_name = ndb.StringProperty(indexed=True)
+    middle_name=ndb.StringProperty(indexed=True)
+    gender = ndb.StringProperty(indexed=True)
+    dob = ndb.StringProperty(indexed=True)
+    ssn_no = ndb.StringProperty(indexed=True)
+    country = ndb.StringProperty(indexed=True)
+    state = ndb.StringProperty(indexed=True)
+    city = ndb.StringProperty(indexed=True)
+    address1 = ndb.StringProperty(indexed=True)
+    address2 = ndb.StringProperty(indexed=True)
+    zipcode = ndb.StringProperty(indexed=True)
+    phone = ndb.StringProperty(indexed=True)
+    skype = ndb.StringProperty(indexed=True)
+    country_of_birth = ndb.StringProperty(indexed=True)
+    city_of_birth = ndb.StringProperty(indexed=True)
+    citizenship = ndb.StringProperty(indexed=True)
+    school_name = ndb.StringProperty(indexed=True)
+    date_of_graduation = ndb.StringProperty(indexed=True)
+    class_ranking = ndb.StringProperty(indexed=True)
+    grad_class_size = ndb.StringProperty(indexed=True)
+    cumulative_GPA = ndb.StringProperty(indexed=True)
+    GPA_scale = ndb.StringProperty(indexed=True)
+    toefl_listening = ndb.StringProperty(indexed=True)
+    toefl_speaking = ndb.StringProperty(indexed=True)
+    toefl_writing = ndb.StringProperty(indexed=True)
+    toefl_reading = ndb.StringProperty(indexed=True)
+    act_engilsh = ndb.StringProperty(indexed=True)
+    act_mathematics = ndb.StringProperty(indexed=True)
+    act_science_reasoning = ndb.StringProperty(indexed=True)
+    act_reading = ndb.StringProperty(indexed=True)
+    sat_ctitical_reading = ndb.StringProperty(indexed=True)
+    sat_Mathematics = ndb.StringProperty(indexed=True)
+    sat_writing = ndb.StringProperty(indexed=True)
+    timeStamp = ndb.StringProperty(indexed=True)
 
 def Student_key(logger_name = "studentKey"):
     return ndb.Key("contentKey",logger_name)
@@ -499,6 +542,122 @@ class BounceLogger(BounceNotificationHandler):
 class existSesn(BaseHandler):
     def post(self):
         self.response.write(self.session.get('user'))
+        
+class saveTimeDetails(webapp2.RequestHandler):
+    def post(self):
+        keycontent = self.request.get('logger_name',"TimeobserverKey")
+        email = self.request.get("email")
+        qry = Timeobserver.query(ancestor = Timeobserver_key(keycontent))
+        qry = qry.filter(Timeobserver.email == email)
+        data = qry.fetch()
+        if len(data) > 0 :
+            for row in data:
+                row.email = self.request.get("email")
+                row.first_name = self.request.get("first_name")
+                row.last_name = self.request.get("last_name")
+                row.middle_name=self.request.get("middle_name")
+                row.gender = self.request.get("gender")
+                row.dob = self.request.get("month")+self.request.get("year")+self.request.get("day")
+                row.ssn_no = self.request.get("ssn1")+self.request.get("ssn2")+self.request.get("ssn3")
+                row.country = self.request.get("country")
+                row.state = self.request.get("state")
+                row.city = self.request.get("city")
+                row.address1 = self.request.get("address1")
+                row.address2 = self.request.get("address2")
+                row.zipcode = self.request.get("zipcode")
+                row.phone = self.request.get("mob")
+                row.skype = self.request.get("skype")
+                row.country_of_birth = self.request.get("cob")
+                row.city_of_birth = self.request.get("ciob")
+                row.citizenship = self.request.get("citizenship")
+                row.school_name = self.request.get("1schl_name")
+                row.date_of_graduation = self.request.get("1month")+self.request.get("1year")+self.request.get("1day")
+                row.class_ranking = self.request.get("1cls_rank")
+                row.grad_class_size = self.request.get("1gradsize")
+                row.cumulative_GPA = self.request.get("1cgpa")
+                row.GPA_scale = self.request.get("1gpas")
+                row.toefl_listening = self.request.get("t1")
+                row.toefl_speaking = self.request.get("t2")
+                row.toefl_writing = self.request.get("t3")
+                row.toefl_reading = self.request.get("t4")
+                row.act_engilsh = self.request.get("a1")
+                row.act_mathematics = self.request.get("a2")
+                row.act_science_reasoning = self.request.get("a4")
+                row.act_reading = self.request.get("a3")
+                row.sat_ctitical_reading = self.request.get("s1")
+                row.sat_Mathematics = self.request.get("s2")
+                row.sat_writing = self.request.get("s3")
+                row.timeStamp = datetime.datetime.strftime(datetime.datetime.now(), '%m-%d-%Y %H:%M:%S')
+                row.put()
+                self.response.write(row)
+        else:                
+            data = Timeobserver(parent = Timeobserver_key(keycontent))
+            data.email = self.request.get("email")
+            data.first_name = self.request.get("first_name")
+            data.last_name = self.request.get("last_name")
+            data.middle_name=self.request.get("middle_name")
+            data.gender = self.request.get("gender")
+            data.dob = self.request.get("month")+self.request.get("year")+self.request.get("day")
+            data.ssn_no = self.request.get("ssn1")+self.request.get("ssn2")+self.request.get("ssn3")
+            data.country = self.request.get("country")
+            data.state = self.request.get("state")
+            data.city = self.request.get("city")
+            data.address1 = self.request.get("address1")
+            data.address2 = self.request.get("address2")
+            data.zipcode = self.request.get("zipcode")
+            data.phone = self.request.get("mob")
+            data.skype = self.request.get("skype")
+            data.country_of_birth = self.request.get("cob")
+            data.city_of_birth = self.request.get("ciob")
+            data.citizenship = self.request.get("citizenship")
+            data.school_name = self.request.get("1schl_name")
+            data.date_of_graduation = self.request.get("1month")+self.request.get("1year")+self.request.get("1day")
+            data.class_ranking = self.request.get("1cls_rank")
+            data.grad_class_size = self.request.get("1gradsize")
+            data.cumulative_GPA = self.request.get("1cgpa")
+            data.GPA_scale = self.request.get("1gpas")
+            data.toefl_listening = self.request.get("t1")
+            data.toefl_speaking = self.request.get("t2")
+            data.toefl_writing = self.request.get("t3")
+            data.toefl_reading = self.request.get("t4")
+            data.act_engilsh = self.request.get("a1")
+            data.act_mathematics = self.request.get("a2")
+            data.act_science_reasoning = self.request.get("a4")
+            data.act_reading = self.request.get("a3")
+            data.sat_ctitical_reading = self.request.get("s1")
+            data.sat_Mathematics = self.request.get("s2")
+            data.sat_writing = self.request.get("s3")
+            data.timeStamp = datetime.datetime.strftime(datetime.datetime.now(), '%m-%d-%Y %H:%M:%S')
+            data.put()
+            self.response.write(data)
+class getTimeDetails(webapp2.RequestHandler):
+    def get(self):
+        keycontent = self.request.get('logger_name',"TimeobserverKey")
+        qry = Timeobserver.query(ancestor = Timeobserver_key(keycontent))
+        data = qry.fetch()
+        self.response.headers['Content-Type'] = 'application/csv'
+        self.response.headers['Content-Disposition'] = 'attachment; filename=TimeObserver.csv'
+        fieldnames = ["First name", "Middle Name", "Last Name","Gender","DOB","Phone",
+                      "Country of Birth","City of Birth","Citizenship","School Name","Date of Graduation",
+                      "Class Rank","Grad Size","Cumulative GPA","GPA Scale","TOEFL Listening",
+                      "TOEFL Speaking","TOEFL Reading","TOEFL Writing","SAT Critial Reading",
+                      "SAT Analytical Reasoning","SAT Writing","ACT English","ACT Analytical Reasoning",
+                      "ACT Reading","ACT Reasoning","Address Line 1","Address Line 2","City","State","Country",
+                      "Zip/Pin Code","SSN","Skype"]
+        writer = csv.writer(self.response.out)
+        writer.writerow(fieldnames)
+        writer.writerow("")
+        for row in data:
+            writer.writerow([row.first_name,row.middle_name,row.last_name,row.gender,
+                             row.dob,row.phone,row.country_of_birth,row.city_of_birth,
+                             row.citizenship,row.school_name,row.date_of_graduation,
+                             row.class_ranking,row.grad_class_size,row.cumulative_GPA,
+                             row.GPA_scale,row.toefl_listening,row.toefl_speaking,row.toefl_reading,
+                             row.toefl_writing,row.sat_ctitical_reading,row.sat_Mathematics,
+                             row.sat_writing,row.act_engilsh,row.act_mathematics,
+                             row.act_reading,row.act_science_reasoning,row.address1,
+                             row.address2,row.city,row.state,row.country,row.zipcode,row.ssn_no,row.skype])
+        #self.response.write(writer)
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'akljsdlfjFGCSSDFIS8lds1624',
@@ -514,6 +673,8 @@ app = webapp2.WSGIApplication([
     (r'/meta/sessionexist', existSesn),
     (r'/meta/login', Login),
     (r'/meta/logout', Logout),
+    (r'/meta/savetimedetails', saveTimeDetails),
+    (r'/meta/timeobserver', getTimeDetails),
      BounceLogger.mapping(),
     (r'/_ah/bounce', BounceLogger),
            ], debug=True, config=config)

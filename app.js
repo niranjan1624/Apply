@@ -158,9 +158,9 @@ $(document).ready(function() {
 		$("#crimHis").hide();
 			$("#discHis").hide();
 		sessionexist();
-		$('#p1_mob').val('+91');
-		$("#p1_mob").intlTelInput();						
-		$("#p1_mob").keydown(function (e) {
+		$('#mob').val('+91');
+		$("#mob").intlTelInput();						
+		$("#mob").keydown(function (e) {
 			// Allow: backspace, delete, tab, escape, enter and .
 			if (e.keyCode != 187 && e.keyCode != 16) {
 				allowNumbers(e);
@@ -332,7 +332,7 @@ $(document).ready(function() {
 		});	
 	}
 	else if(getCurentFileName() == "apply-pin.html") {
-		$("#sendPin").hide();
+		// $("#sendPin").hide();
 		$('#mob').val('+91');
 		$("#mob").intlTelInput();						
 		$("#mob").keydown(function (e) {
@@ -681,11 +681,13 @@ $('form#Reg-Form').submit(function() {
 	}
  });
 function validateField(id,type,name) {
+
 	if(id == "#first_name" ||id == "#p1_first_name"|| id == "#p2_first_name" || id == "#last_name" || id == "#p1_last_name" || id == "#p2_last_name" || id == "#p1_noe" || id == "#p2_noe")
 		type = "name";
 	var pass = false;
 	var value = $(id).val();
 	var idd = id;
+	console.log(id + "   " + value)
 	id = id+"_error";
 	if(value==""){
 		
@@ -1474,6 +1476,8 @@ function fillupDetails(student) {
 		if($radios.is(':checked') === false) {
 			$radios.filter('[value='+student.profile.personal_information.gender+']').prop('checked', true);
 		}
+		$("#mob").val(student.profile.contact_details.phone_no);
+		$("#skype").val(student.profile.contact_details.skype_id);
 		$("#address1").val(student.profile.address.address1);
 		$("#address2").val(student.profile.address.address2);
 		$("#city").val(student.profile.address.city);
@@ -1481,7 +1485,7 @@ function fillupDetails(student) {
 		if(student.profile.address.country)
 			$("#country").val(student.profile.address.country);
 		$("#zipcode").val(student.profile.address.zipcode);
-		
+		$("#1schl_name").val(student.education.school.school_name);
 		if(student.profile.geography.country_of_birth)
 			$("#cob").val(student.profile.geography.country_of_birth);
 		$("#ciob").val(student.profile.geography.city_of_birth);
@@ -1817,6 +1821,20 @@ function formSubmit() {
 				$("#dob_error").html("Invalid Date of Birth.");
 			}
 		}
+		console.log($('#mob').val())
+		console.log($('#skype').val())
+
+		if(validateField("#mob","mob"))
+		student.profile.contact_details.phone_no = $('#mob').val();
+	 else {
+		pass = false;
+	}
+
+	if($("#skype").val() != "")
+		student.profile.contact_details.skype_id = $('#skype').val();
+	 else {
+		pass = false;
+	}
 		student.profile.geography.country_of_birth = $('#cob').val();
 			if(validateField("#ciob","","City of Birth"))
 				student.profile.geography.city_of_birth = $('#ciob').val();
@@ -1982,7 +2000,7 @@ function formSubmit() {
 			$("#siscHis_error").hide();
 		}
 
-	
+	/*
 			student.family.household.which_parent_do_you_live_with = $("#whichpar").val();
 			student.family.household.martial_status = $("#martial").val();
 			student.family.household.do_you_have_children = $("#dyhc").val();
@@ -2080,9 +2098,8 @@ function formSubmit() {
 				student.family.parent2.education_level = $('#p2_edu_level').val();
 			else {
 				pass = false;
-			}
+			}*/
 		sendData(student);
-	sendData(student);
 		alert("submitted")
 		});   
 	});		

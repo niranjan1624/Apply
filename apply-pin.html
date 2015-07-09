@@ -48,13 +48,14 @@
 	 
 	
 	<form class="form-horizontal" action="javascript:void(0);" >
-	<div class="container" style="margin-left:40px;margin-top:10px">
+	<div class="container" style="margin-left:20px;margin-top:10px">
 	
 	
 	<div class="form-group" >
-	<p style="margin-left:0px"><b> Step 1: Give your email address for communication</b></p>
+	<p ><b> Step 1: Give your email address for communication</b></p>
 		<label style="margin-left:0px;font-weight:normal" style="margin-left:-15px;" for="email"> Email Address</label>
 		<input style="margin-left:10px;width:200px" id="email" name="email" class="input" type="email"></input>
+		<button  id="sendPin" class="btn btn-primary"> Generate PIN </button>
 	</div>
 	<p style="margin-left:90px" hidden id="email_error"> </p>
 <!-- 	<div class="form-group" >
@@ -63,7 +64,7 @@
 	</div> -->
 	
 	
-	<div class="form-group" >
+	<!-- <div class="form-group" >
 	<p style="margin-left:0px"><b> Step 2: Give your Phone number for communication</b></p>
 		<label style="margin-left:0px;font-weight:normal" style="margin-left:-15px;" for="mob"> Phone Number</label>
 		 <input style="margin-left:5px;width:200px"  type="tell"  id="mob">
@@ -87,26 +88,31 @@
 	                                         
 	         <input style="margin-left:10px;" type="radio" class="jqRBControl radiobtn bzs-i" autocomplete="off" name="rpin" id="rpin" title="No" value="No" ><span style="margin-left:15px;" class="radiobtn_text bzs-t" > No</span>
 	      </div>
-	</div>
-	<button hidden  id="sendPin" class="btn btn-primary"> Generate PIN </button>
-
-	<div style="margin-top:1px" id="info1"><br/><p  hidden ></p>
-	<p  hidden id="info2"> </p></div>
+	</div> -->
 	
+
+	<div style="margin-top:1px"><p  hidden id="info1"></p>
+	<p  hidden id="info2"> </p></div>
+
+	<!-- <div class="form-group">
+	<p style="margin-left:0px"><b> Step 2:  Enter the PIN sent to your email.</b> </p>
+		<label style="margin-left:0px;font-weight:normal" for="pin"> 4 Digit PIN</label>
+		<input style="margin-left:27px;width:200px" id="pin" class="input" type="password" placeholder="Enter PIN here"></input>
+		<button style="margin-left:5px;" id="validate" class="btn btn-primary" > Verify PIN </button>
+	</div> -->
+	
+	</div>
 	</form>
 	
 	<div id="pinn">
-	<form class="form-horizontal" action="javascript:void(0);" >
+	<form style="margin-left:30px" class="form-horizontal" action="javascript:void(0);" >
 	<div class="form-group">
-	<p style="margin-left:0px"><b> Step 4:  Enter the PIN sent to your email.</b> </p>
+	<p style="margin-left:0px"><b> Step 2:  Enter the PIN sent to your email.</b> </p>
 		<label style="margin-left:0px;font-weight:normal" for="pin"> 4 Digit PIN</label>
 		<input style="margin-left:27px;width:200px" id="pin" class="input" type="password" placeholder="Enter PIN here"></input>
 		<button style="margin-left:5px;" id="validate" class="btn btn-primary" > Verify PIN </button>
 	</div>
 	<p style="margin-left:80px" hidden id="info"> </p>
-	<!-- <div class="form-group" >
-	<button style="margin-left:-15px;" type="submit" id="validate" class="btn btn-primary"> Verify PIN </button>
-	</div> -->
 	</form>
 	</div>
 	</div>
