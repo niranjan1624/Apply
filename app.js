@@ -158,6 +158,11 @@ $(document).ready(function() {
 		$("#crimHis").hide();
 			$("#discHis").hide();
 		sessionexist();
+		$.post("/meta/sessionexist",{dummy:"dum"},function(email){
+			$.post("/meta/changestatusheatmap",{email:email},function(data){
+				console.log(data);
+			});
+		});
 		$('#mob').val('+91');
 		$("#mob").intlTelInput();						
 		$("#mob").keydown(function (e) {
@@ -1617,7 +1622,7 @@ $('#sendPin').click(function(){
 					$('#info2').css("list-style-type", "bullet");
 					
 					$("#info1").html("A PIN has been generated and sent to your email address")
-					$("#info2").html("Please check your mail and enter the PIN below in Step 4 to verify");
+					$("#info2").html("Please check your mail and enter the PIN below in Step 2 to verify");
 					$("#sendPin").text("Submit");
 					$("#pinn").show();
 			});
@@ -1756,7 +1761,10 @@ $('form#studentForm').submit(function() {
 });
 $('form#studentForm2').submit(function() {
 	console.log("student form2")
+ 
+     
 	formSubmit();
+
 });
 
 

@@ -83,7 +83,17 @@ class Timeobserver(ndb.Model):
     sat_Mathematics = ndb.StringProperty(indexed=True)
     sat_writing = ndb.StringProperty(indexed=True)
     timeStamp = ndb.StringProperty(indexed=True)
+    totalduration = ndb.StringProperty(indexed=True)
 
+def HeatMap_key(logger_name = "HeatmapKey"):
+    return ndb.Key("heatmapKey",logger_name)
+
+class HeatMap(ndb.Model):
+    xpos = ndb.StringProperty(indexed=True)
+    ypos = ndb.StringProperty(indexed=True)
+    email = ndb.StringProperty(indexed=True)
+    status = ndb.StringProperty(indexed=True) 
+    
 def Student_key(logger_name = "studentKey"):
     return ndb.Key("contentKey",logger_name)
 
@@ -543,6 +553,58 @@ class existSesn(BaseHandler):
     def post(self):
         self.response.write(self.session.get('user'))
         
+class saveHeatMap(webapp2.RequestHandler):
+    def post(self):
+         keycontent = self.request.get('logger_name',"HeatmapKey")
+         data = HeatMap(parent = HeatMap_key(keycontent))
+         data.xpos = self.request.get("x")
+         data.ypos = self.request.get("y")
+         data.email = self.request.get("email")
+         data.status = "active"
+         data.put()
+         self.response.write("success")
+class changeHeatmapStatus(webapp2.RequestHandler):
+    def post(self):
+        email = self.request.get("email")
+        keycontent = self.request.get('logger_name',"HeatmapKey")
+        qry = HeatMap.query(ancestor = HeatMap_key(keycontent))
+        qry = qry.filter(HeatMap.email == email)
+        qry = qry.filter(HeatMap.status == "active")
+        data = qry.fetch()
+        for row in data:
+            row.status = "old"
+            row.put()
+        self.response.write("change heat map status")
+         
+class getHeatMap(webapp2.RequestHandler):
+    def post(self):
+        email = self.request.get("email")
+        keycontent = self.request.get('logger_name',"HeatmapKey")
+        qry = HeatMap.query(ancestor = HeatMap_key(keycontent))
+        qry = qry.filter(HeatMap.email == email)
+        dataa = qry.fetch()
+        qry = qry.filter(HeatMap.status == "active")
+        dataa1 = qry.fetch()
+        i = 0
+        data = {}
+        x = []
+        y = []
+        if(len(dataa1) > 0):
+            for row in dataa1:
+                x.append(row.xpos)
+                y.append(row.ypos)
+                i = i+1
+        else:
+            for row in dataa:
+                x.append(row.xpos)
+                y.append(row.ypos)
+                i = i+1
+        data["x"] = x
+        data["y"] = y
+        data_json = json.dumps(data)
+        self.response.write(data_json)
+             
+         
 class saveTimeDetails(webapp2.RequestHandler):
     def post(self):
         keycontent = self.request.get('logger_name',"TimeobserverKey")
@@ -557,8 +619,8 @@ class saveTimeDetails(webapp2.RequestHandler):
                 row.last_name = self.request.get("last_name")
                 row.middle_name=self.request.get("middle_name")
                 row.gender = self.request.get("gender")
-                row.dob = self.request.get("month")+self.request.get("year")+self.request.get("day")
-                row.ssn_no = self.request.get("ssn1")+self.request.get("ssn2")+self.request.get("ssn3")
+                row.dob = self.request.get("DOB")
+                row.ssn_no = self.request.get("SSN")
                 row.country = self.request.get("country")
                 row.state = self.request.get("state")
                 row.city = self.request.get("city")
@@ -571,8 +633,8 @@ class saveTimeDetails(webapp2.RequestHandler):
                 row.city_of_birth = self.request.get("ciob")
                 row.citizenship = self.request.get("citizenship")
                 row.school_name = self.request.get("1schl_name")
-                row.date_of_graduation = self.request.get("1month")+self.request.get("1year")+self.request.get("1day")
-                row.class_ranking = self.request.get("1cls_rank")
+                row.date_of_graduation = self.request.get("DOG")
+                row.class_ranking = self.request.get("1clsrank")
                 row.grad_class_size = self.request.get("1gradsize")
                 row.cumulative_GPA = self.request.get("1cgpa")
                 row.GPA_scale = self.request.get("1gpas")
@@ -588,6 +650,7 @@ class saveTimeDetails(webapp2.RequestHandler):
                 row.sat_Mathematics = self.request.get("s2")
                 row.sat_writing = self.request.get("s3")
                 row.timeStamp = datetime.datetime.strftime(datetime.datetime.now(), '%m-%d-%Y %H:%M:%S')
+                row.totalduration = self.request.get("TotalDuration")
                 row.put()
                 self.response.write(row)
         else:                
@@ -597,8 +660,8 @@ class saveTimeDetails(webapp2.RequestHandler):
             data.last_name = self.request.get("last_name")
             data.middle_name=self.request.get("middle_name")
             data.gender = self.request.get("gender")
-            data.dob = self.request.get("month")+self.request.get("year")+self.request.get("day")
-            data.ssn_no = self.request.get("ssn1")+self.request.get("ssn2")+self.request.get("ssn3")
+            data.dob = self.request.get("DOB")
+            data.ssn_no = self.request.get("SSN")
             data.country = self.request.get("country")
             data.state = self.request.get("state")
             data.city = self.request.get("city")
@@ -611,8 +674,8 @@ class saveTimeDetails(webapp2.RequestHandler):
             data.city_of_birth = self.request.get("ciob")
             data.citizenship = self.request.get("citizenship")
             data.school_name = self.request.get("1schl_name")
-            data.date_of_graduation = self.request.get("1month")+self.request.get("1year")+self.request.get("1day")
-            data.class_ranking = self.request.get("1cls_rank")
+            data.date_of_graduation = self.request.get("DOG")
+            data.class_ranking = self.request.get("1clsrank")
             data.grad_class_size = self.request.get("1gradsize")
             data.cumulative_GPA = self.request.get("1cgpa")
             data.GPA_scale = self.request.get("1gpas")
@@ -628,16 +691,17 @@ class saveTimeDetails(webapp2.RequestHandler):
             data.sat_Mathematics = self.request.get("s2")
             data.sat_writing = self.request.get("s3")
             data.timeStamp = datetime.datetime.strftime(datetime.datetime.now(), '%m-%d-%Y %H:%M:%S')
+            data.totalduration = self.request.get("TotalDuration")
             data.put()
             self.response.write(data)
-class getTimeDetails(webapp2.RequestHandler):
+class exportTimeDetailsinCSV(webapp2.RequestHandler):
     def get(self):
         keycontent = self.request.get('logger_name',"TimeobserverKey")
         qry = Timeobserver.query(ancestor = Timeobserver_key(keycontent))
         data = qry.fetch()
         self.response.headers['Content-Type'] = 'application/csv'
         self.response.headers['Content-Disposition'] = 'attachment; filename=TimeObserver.csv'
-        fieldnames = ["First name", "Middle Name", "Last Name","Gender","DOB","Phone",
+        fieldnames = ["Email","First name", "Middle Name", "Last Name","Gender","DOB","Phone",
                       "Country of Birth","City of Birth","Citizenship","School Name","Date of Graduation",
                       "Class Rank","Grad Size","Cumulative GPA","GPA Scale","TOEFL Listening",
                       "TOEFL Speaking","TOEFL Reading","TOEFL Writing","SAT Critial Reading",
@@ -648,7 +712,7 @@ class getTimeDetails(webapp2.RequestHandler):
         writer.writerow(fieldnames)
         writer.writerow("")
         for row in data:
-            writer.writerow([row.first_name,row.middle_name,row.last_name,row.gender,
+            writer.writerow([row.email,row.first_name,row.middle_name,row.last_name,row.gender,
                              row.dob,row.phone,row.country_of_birth,row.city_of_birth,
                              row.citizenship,row.school_name,row.date_of_graduation,
                              row.class_ranking,row.grad_class_size,row.cumulative_GPA,
@@ -658,6 +722,99 @@ class getTimeDetails(webapp2.RequestHandler):
                              row.act_reading,row.act_science_reasoning,row.address1,
                              row.address2,row.city,row.state,row.country,row.zipcode,row.ssn_no,row.skype])
         #self.response.write(writer)
+class getTimeDetails(webapp2.RequestHandler):
+    def post(self):
+        email = self.request.get("email")
+        keycontent = self.request.get('logger_name',"TimeobserverKey")
+        qry = Timeobserver.query(ancestor = Timeobserver_key(keycontent))
+        qry = qry.filter(Timeobserver.email == email)
+        timeObj = {}
+        data = qry.fetch()
+        for row in data:
+            timeObj["first_name"] = row.first_name
+            timeObj["middle_name"] = row.middle_name
+            timeObj["last_name"] = row.last_name
+            timeObj["gender"] = row.gender
+            timeObj["dob"] = row.dob
+            timeObj["mob"] = row.phone
+            timeObj["cob"] = row.country_of_birth
+            timeObj["ciob"] = row.city_of_birth
+            timeObj["citizenship"] = row.citizenship
+            timeObj["1schl_name"] = row.school_name
+            timeObj["dog"] = row.date_of_graduation
+            timeObj["1clsrank"] = row.class_ranking
+            timeObj["1gradsize"] = row.grad_class_size
+            timeObj["1cgpa"] = row.cumulative_GPA
+            timeObj["1gpas"] = row.GPA_scale
+            timeObj["t1"] = row.toefl_listening
+            timeObj["t2"] = row.toefl_speaking
+            timeObj["t3"] = row.toefl_reading
+            timeObj["t4"] = row.toefl_writing
+            timeObj["s1"] = row.sat_ctitical_reading
+            timeObj["s2"] = row.sat_Mathematics
+            timeObj["s3"] = row.sat_writing
+            timeObj["a1"] = row.act_engilsh
+            timeObj["a2"] = row.act_mathematics
+            timeObj["a3"] = row.act_reading
+            timeObj["a4"] = row.act_science_reasoning
+            timeObj["address1"] = row.address1
+            timeObj["address2"] = row.address2
+            timeObj["city"] = row.city
+            timeObj["state"] = row.state
+            timeObj["country"] = row.country
+            timeObj["zipcode"] = row.zipcode
+            timeObj["ssn"] = row.ssn_no
+            timeObj["skype"] =  row.skype
+        timeObj = json.dumps(timeObj)
+        self.response.write(timeObj)
+class  getTimeObj(webapp2.RequestHandler):
+    def post(self):
+        keycontent = self.request.get('logger_name',"TimeobserverKey")
+        email = self.request.get("email")
+        qry = Timeobserver.query(ancestor = Timeobserver_key(keycontent))
+        qry = qry.filter(Timeobserver.email == email)
+        data = qry.fetch()
+        timeObj = {}
+        for row in data:
+            timeObj["ssn"] = row.ssn_no
+            timeObj["email"] = row.email
+            timeObj["first_name"] = row.first_name
+            timeObj["middle_name"] = row.middle_name
+            timeObj["last_name"] = row.last_name
+            timeObj["gender"] = row.gender
+            timeObj["DOB"] = row.dob
+            timeObj["mob"] = row.phone
+            timeObj["cob"] = row.country_of_birth
+            timeObj["ciob"] = row.city_of_birth
+            timeObj["citizenship"] = row.citizenship
+            timeObj["1schl_name"] = row.school_name
+            timeObj["DOG"] = row.date_of_graduation
+            timeObj["1clsrank"] = row.class_ranking
+            timeObj["1gradsize"] = row.grad_class_size
+            timeObj["1cgpa"] = row.cumulative_GPA
+            timeObj["1gpas"] = row.GPA_scale
+            timeObj["t1"] = row.toefl_listening
+            timeObj["t2"] = row.toefl_speaking
+            timeObj["t3"] = row.toefl_reading
+            timeObj["t4"] = row.toefl_writing
+            timeObj["s1"] = row.sat_ctitical_reading
+            timeObj["s2"] = row.sat_Mathematics
+            timeObj["s3"] = row.sat_writing
+            timeObj["a1"] = row.act_engilsh
+            timeObj["a2"] = row.act_mathematics
+            timeObj["a3"] = row.act_reading
+            timeObj["a4"] = row.act_science_reasoning
+            timeObj["address1"] = row.address1
+            timeObj["address2"] = row.address2
+            timeObj["city"] = row.city
+            timeObj["state"] = row.state
+            timeObj["country"] = row.country
+            timeObj["zipcode"] = row.zipcode
+            timeObj["skype"] =  row.skype
+            timeObj["TotalDuration"] = row.totalduration
+        timeObj_json = json.dumps(timeObj)
+        self.response.write(timeObj_json)
+        
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'akljsdlfjFGCSSDFIS8lds1624',
@@ -674,7 +831,13 @@ app = webapp2.WSGIApplication([
     (r'/meta/login', Login),
     (r'/meta/logout', Logout),
     (r'/meta/savetimedetails', saveTimeDetails),
-    (r'/meta/timeobserver', getTimeDetails),
+    (r'/meta/timeobserver', exportTimeDetailsinCSV),
+    (r'/meta/gettimedetails', getTimeDetails),
+    (r'/meta/gettimeobj', getTimeObj),
+    (r'/meta/saveheatmap', saveHeatMap),
+    (r'/meta/getheatmap', getHeatMap),
+    (r'/meta/changestatusheatmap', changeHeatmapStatus),
+    
      BounceLogger.mapping(),
     (r'/_ah/bounce', BounceLogger),
            ], debug=True, config=config)

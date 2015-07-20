@@ -12,7 +12,7 @@
       <link type="text/css" href="bootstrap-form-helpers.min.css" rel="stylesheet" media="screen">
       <script src="intlTelInput.js"></script>
       <script src="bootstrap-formhelpers.min.js"></script>
-       <script src="heatmap.js"></script>
+      
       <style>
          td {
          vertical-align: top;
@@ -26,6 +26,18 @@
       <title>Apply</title>
    </head>
    <body style="font-size:13px">
+   <div id = "askmail">
+   <br/>
+   <form class = "form-inline" id="cm" action = "javascript:void(0);" >
+                       <div class="form-group">
+                               <label for="email">Email Id:</label>
+                               <input type = "email" class="form-control" name = "email" id  = "emailadr" placeholder="mail@example.com" required>
+                       </div>
+                       <button id = "cMail" type="submit" class="btn btn-default">Get HeatMap</button>
+   </form>
+   </div>
+   <div id="heatmapContainerWrapper">
+   <div id="heatmapContainer">
       <div id="headerwrap" class="container-fluid">
          <div class="row" style="background-color:#2d4250; padding-top:5px; padding-bottom:5px">
             <div class="col-md-2 text-right" style="padding-right:50px">
@@ -39,7 +51,6 @@
       <div id="clicker">
       <div id="heatmapper" class="container" style="font-size:25px">
          <div id="welcome" style="display:inline-block"></div>
-         <div style="display:inline-block;color:blue;"><a href="#" name="logout">&nbsp click here</a></div>
          <h3 ><b>Application Form </b></h3>
       </div>
       <div  class = "container">
@@ -54,7 +65,9 @@
                      <div class="col-xs-8">
                         <input style="width:220px" type="text" class="input" id="first_name" placeholder="Incomplete">
                      </div>
+                     
                   </td>
+                  <td><p id="pfirst_name" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="first_name_error"> </p>
                <tr>
@@ -66,6 +79,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pmiddle_name" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="middle_name_error"> </p>
                <tr>
@@ -76,6 +90,7 @@
                         <input style="width:220px" type="text" class="input" id="last_name" placeholder="Incomplete">
                      </div>
                   </td>
+                  <td><p id="plast_name" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="last_name_error"> </p>
                <tr>
@@ -89,6 +104,7 @@
                         </div>
                      </div>
                   </td>
+                  <td><p id="pgender" style = "margin-left:-140px"></p></td>
                </tr>
                <tr>
                   <td></td>
@@ -211,6 +227,7 @@
                         </select>
                      </div>
                   </td>
+                  <td><p id="pdob" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="dob_error"> </p>
                  <tr>
@@ -222,6 +239,7 @@
                               value="+91" >
                         </div>
                      </td>
+                     <td><p id="pmob" style = "margin-left:-140px"></p></td>
                   </tr>
                   <p style="margin-left:220px;color:red;" hidden id="mob_error"> </p>
                   <tr>
@@ -232,6 +250,7 @@
                            <input style="width:220px"  type="text" class="input"  id="skype" placeholder="Optional" >
                         </div>
                      </td>
+                     <td><p id="pskype" style = "margin-left:-140px"></p></td>
                   </tr>
                   <p style="margin-left:220px;color:red;" hidden id="skype_error"> </p>
                <tr>
@@ -243,6 +262,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pcob" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="cob_error"> </p>
                <tr style="margin-top:-5px">
@@ -254,6 +274,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pciob" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="ciob_error"> </p>
                <tr>
@@ -265,6 +286,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pcitizenship" style = "margin-left:-140px"></p></td>
                </tr>
                <tr>
                   <td width="100px">
@@ -277,6 +299,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="p1schl_name" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:220px;color:red;" hidden id="1schl_name_error"> </p>
                <tr>
@@ -415,6 +438,7 @@
                         </select>
                      </div>
                   </td>
+                  <td><p id="pdog" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="dog_error"> </p>
                <tr>
@@ -425,6 +449,7 @@
                         <input style="width:220px" type="text" class="input" id="1clsrank" placeholder="Incomplete"
                      </div>
                   </td>
+                  <td><p id="p1clsrank" style = "margin-left:-140px"></p></td>
                </tr>
                <tr>
                   <td></td>
@@ -435,6 +460,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="p1gradsize" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="1gradsize_error"> </p>
                <tr>
@@ -446,6 +472,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="p1cgpa" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="1cgpa_error"> </p>
                <tr>
@@ -462,6 +489,7 @@
                         </select>
                      </div>
                   </td>
+                  <td><p id="p1gpas" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="1gpas_error"> </p>
                <tr>
@@ -475,6 +503,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pt3" style = "margin-left:-140px"></p></td>
                </tr>
                <tr>
                   <td></td>
@@ -485,6 +514,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pt4" style = "margin-left:-140px"></p></td>
                </tr>
                <tr>
                   <td></td>
@@ -495,6 +525,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pt1" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="t1_error"> </p>
                <tr>
@@ -506,6 +537,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pt2" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="t2_error"> </p>
                <p style="margin-left:150px;color:red;" hidden id="t3_error"> </p>
@@ -521,6 +553,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="ps1" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="s1_error"> </p>
                <tr>
@@ -532,6 +565,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="ps2" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="s2_error"> </p>
                <tr>
@@ -543,6 +577,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="ps3" style = "margin-left:-140px"></p></td>
                </tr>
                <tr>
                   <td width="100px">
@@ -555,6 +590,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pa1" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="a1_error"> </p>
                <tr>
@@ -566,6 +602,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pa2" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="a2_error"> </p>
                <tr>
@@ -577,6 +614,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pa3" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="a3_error"> </p>
                <tr>
@@ -588,6 +626,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pa4" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="a4_error"> </p>
                <p style="margin-left:150px;color:red;" hidden id="s3_error"> </p>
@@ -602,6 +641,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="paddress1" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:150px;color:red;" hidden id="address1_error"> </p>
                <tr>
@@ -613,6 +653,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="paddress2" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="address2_error"> </p>
                <tr>
@@ -624,6 +665,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pcity" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="city_error"> </p>
                <tr>
@@ -635,6 +677,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pstate" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="state_error"> </p>
                <tr>
@@ -646,6 +689,7 @@
                            ></select>
                      </div>
                   </td>
+                  <td><p id="pcountry" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="country_error"> </p>
                <tr>
@@ -657,6 +701,7 @@
                            >
                      </div>
                   </td>
+                  <td><p id="pzipcode" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="zipcode_error"> </p>
                <tr>
@@ -664,11 +709,12 @@
                   <td width="105px"><label for="ssn" class="control-label">SSN</label></td>
                   <td>
                      <div class="col-xs-8"  style="margin-right:30px">
-                        <input style="width:50px" type="text" class="input" id="ssn1" placeholder="AAA">
+                        <input style="width:50px" type="text" class="input" id="ssn" placeholder="AAA">
                         <input style="width:40px" type="text" class="input" id="ssn2" placeholder="GG">
                         <input style="width:60px" type="text" class="input" id="ssn3" placeholder="SSSS">
                      </div>
                   </td>
+                  <td><p id="pssn" style = "margin-left:-140px"></p></td>
                </tr>
                <p style="margin-left:90px;color:red;" hidden id="ssn_error"> </p>
               <!--  <div style="margin-bottom:-5px;">
@@ -1137,7 +1183,94 @@
          </form>
       </div> -->
       </div>
-      <script src="app.js" type="text/javascript"></script>
-      <script src="timescript.js" type="text/javascript"></script>
-   </body>
+      </div>
+      </div>
+<script src="heatmap.js"></script>
+ <script>
+  var x1 = [];
+    var y1 = [];
+     var heatmap = h337.create({
+          container: document.getElementById('heatmapContainer'),
+          maxOpacity: .6,
+          radius: 50,
+          blur: .90,
+          // backgroundColor with alpha so you can see through it
+          //backgroundColor: 'rgba(0, 0, 58, 0.96)'
+        });
+ $(document).ready(function(){
+
+   $("#heatmapContainerWrapper").hide()
+ 	console.log("ready")
+   $('form#cm').submit(function() {
+      $("#heatmapContainerWrapper").show();
+      $("#askmail").hide();
+      var email = $("#emailadr").val();
+      console.log(email);
+      
+      $.post("meta/gettimedetails",{email:email},function(data){
+         console.log(data);
+         data = JSON.parse(data);
+         console.log(data.first_name);
+         
+        // $("#pfirst_name").html(data.first_name);
+         $.each(data, function(key, value){
+               console.log(key, value);
+               $("#p"+key).html(value);
+         });
+      });
+      $.post("meta/getheatmap",{email:email},function(data){
+         data = JSON.parse(data);
+         var list  = data.x
+         var len = list.length
+         console.log(data);
+         for(var i=0; i < len; i++) {
+            console.log(data.x[i] + " | " + data.y[i]);
+            heatmap.addData({ x: data.x[i], y: data.y[i], value: 1 });
+        }
+      });
+   });
+/*   $.post("/meta/sessionexist",{dummy:"dum"},function(emaill){
+ 		
+   });*/
+        //get x,y positions
+ 	 
+ })
+   /*
+      window.onload = function() {
+        // create a heatmap instance
+       
+        var heatmapContainer = document.getElementById('heatmapContainerWrapper');
+
+        heatmapContainer.onmousemove = heatmapContainer.ontouchmove = function(e) {
+          // we need preventDefault for the touchmove
+          e.preventDefault();
+          var x = e.layerX;
+          var y = e.layerY;
+          if (e.touches) {
+            x = e.touches[0].pageX;
+            y = e.touches[0].pageY;
+          }
+          
+          heatmap.addData({ x: x, y: y, value: 1 });
+
+        };
+
+        heatmapContainer.onclick = function(e) {
+          var x = e.layerX;
+          var y = e.layerY;
+          x1.push(x);
+          y1.push(y);
+          console.log(x + "  |  " + y)
+         // heatmap.addData({ x: x, y: y, value: 1 });
+        };
+
+      };
+      $("#heatit").click(function(){
+      	console.log("clicked")
+        for(var i=0; i < x1.length; i++) {
+          heatmap.addData({ x: x1[i], y: y1[i], value: 1 });
+        }
+      });*/
+    </script>	
+</body>
 </html>
